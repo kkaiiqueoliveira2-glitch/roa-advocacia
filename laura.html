@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="description" content="Descubra seus direitos previdenciários com a Dra. Laura. Responda 3 perguntas e fale direto com quem pode te ajudar.">
 <title>Ribeiro, Oliveira e Anjos Advocacia · Direito Previdenciário</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -137,7 +137,7 @@
     font-weight: 700;
     line-height: 1.12;
     letter-spacing: -0.025em;
-    margin-bottom: 0;
+    margin-bottom: 32px;
     max-width: 780px;
     margin-left: auto;
     margin-right: auto;
@@ -291,14 +291,25 @@
     box-shadow: 0 0 8px rgba(34, 197, 94, 0.4);
   }
 
-  /* Steps */
+  /* Steps — animação slide suave */
   .step {
     display: none;
-    animation: fadeIn 0.4s ease forwards;
+    animation: slideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
 
   .step.active {
     display: block;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   .step-label {
@@ -649,21 +660,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
 
       <h1>Você tem <span class="highlight">direitos.</span><br>Responda abaixo e descubra quais.</h1>
 
-      <!-- Prova social compacta -->
-      <div class="stats">
-        <div class="stat">
-          <div class="stat-value">+200</div>
-          <div class="stat-label">Beneficiários atendidos</div>
-        </div>
-        <div class="stat">
-          <div class="stat-value">4.89 ⭐</div>
-          <div class="stat-label">Avaliação dos clientes</div>
-        </div>
-        <div class="stat">
-          <div class="stat-value">100%</div>
-          <div class="stat-label">Foco no seu caso</div>
-        </div>
-      </div>
+      
 
       <!-- Formulário — protagonista da página -->
       <div class="form-card">
@@ -830,6 +827,23 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
         </div>
 
       </div>
+
+      <!-- Prova social compacta -->
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-value">+200</div>
+          <div class="stat-label">Beneficiários atendidos</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">4.89 ⭐</div>
+          <div class="stat-label">Avaliação dos clientes</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">100%</div>
+          <div class="stat-label">Foco no seu caso</div>
+        </div>
+      </div>
+
     </div>
   </section>
 
