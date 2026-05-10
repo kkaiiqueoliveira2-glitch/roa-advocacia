@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="description" content="Proteja o futuro do seu filho com a Dra. Gessika. Responda 4 perguntas e fale direto com quem pode te ajudar.">
+<title>Ribeiro, Oliveira e Anjos Advocacia · Direito de Família</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #06083d; --bg-deep: #020041; --text: #ffffff; --text-muted: #94a3b8; --text-dim: #64748b;
+    --accent-1: #bfc1cb; --accent-2: #d4d6de; --success: #22c55e;
+    --card-bg: rgba(255,255,255,0.04); --card-border: rgba(255,255,255,0.08);
+    --gradient: linear-gradient(135deg, #d4d6de 0%, #8a8ca6 100%);
+    --shadow-glow: 0 20px 60px -20px rgba(140,142,170,0.4);
+    --shadow-card: 0 8px 32px rgba(0,0,0,0.3);
+    --radius-sm: 10px; --radius-md: 16px; --radius-lg: 24px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+  body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 60% at 20% 0%, rgba(138,140,166,0.18) 0%, transparent 50%), radial-gradient(ellipse 60% 50% at 80% 30%, rgba(180,182,200,0.12) 0%, transparent 50%); pointer-events: none; z-index: 0; }
+  body::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E"); opacity: 0.03; pointer-events: none; z-index: 1; mix-blend-mode: overlay; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 2; }
+  header { padding: 24px 0; position: relative; z-index: 10; text-align: center; }
+  .logo { display: inline-block; line-height: 0; }
+  .logo img { height: 90px; width: auto; filter: drop-shadow(0 0 24px rgba(180,182,200,0.15)); transition: filter 0.4s ease; }
+  .logo:hover img { filter: drop-shadow(0 0 32px rgba(180,182,200,0.3)); }
+  @media (max-width: 640px) { .logo img { height: 70px; } }
+  .hero { padding: 24px 0 80px; text-align: center; position: relative; }
+  h1 { font-size: clamp(28px,4.5vw,46px); font-weight: 700; line-height: 1.12; letter-spacing: -0.025em; margin-bottom: 32px; max-width: 780px; margin-left: auto; margin-right: auto; animation: fadeInUp 0.8s ease forwards; opacity: 0; }
+  h1 .highlight { color: #c5c7d0; display: inline-block; text-shadow: 0 0 20px rgba(197,199,208,0.3); }
+  .stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; max-width: 620px; margin: 32px auto 36px; animation: fadeInUp 0.8s ease 0.15s forwards; opacity: 0; }
+  .stat { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius-sm); padding: 16px 10px; text-align: center; backdrop-filter: blur(10px); }
+  .stat-value { font-size: clamp(20px,2.5vw,26px); font-weight: 700; line-height: 1; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 4px; }
+  .stat-label { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+  .form-card { max-width: 620px; margin: 0 auto; background: linear-gradient(180deg,rgba(255,255,255,0.05) 0%,rgba(255,255,255,0.02) 100%); border: 1px solid rgba(180,182,200,0.18); border-radius: var(--radius-lg); padding: 40px 36px; backdrop-filter: blur(20px); box-shadow: var(--shadow-card),0 0 80px -20px rgba(180,182,200,0.25); position: relative; overflow: hidden; animation: fadeInUp 0.8s ease 0.3s forwards; opacity: 0; }
+  .form-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); opacity: 0.7; }
+  .form-trust { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 12px; font-weight: 500; color: var(--text-dim); margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--card-border); }
+  .form-trust svg { color: var(--success); flex-shrink: 0; }
+  .progress { display: flex; justify-content: center; gap: 10px; margin-bottom: 32px; }
+  .progress.hidden { display: none; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.1); transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
+  .dot.active { background: var(--accent-2); box-shadow: 0 0 12px rgba(180,182,200,0.6); width: 28px; border-radius: 100px; }
+  .dot.completed { background: var(--success); box-shadow: 0 0 8px rgba(34,197,94,0.4); }
+  .step { display: none; animation: slideIn 0.5s cubic-bezier(0.4,0,0.2,1) forwards; }
+  .step.active { display: block; }
+  @keyframes slideIn { from { opacity:0;transform:translateX(30px);} to { opacity:1;transform:translateX(0);} }
+  .step-label { font-size: 12px; font-weight: 600; color: var(--accent-2); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+  .step-question { font-size: clamp(20px,2.5vw,24px); font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.3; }
+  .step-help { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option { display: flex; align-items: center; gap: 14px; padding: 16px 18px; background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); border-radius: var(--radius-sm); cursor: pointer; transition: all 0.25s ease; color: var(--text); font-size: 15px; font-weight: 500; text-align: left; width: 100%; font-family: inherit; }
+  .option:hover { border-color: rgba(180,182,200,0.4); background: rgba(180,182,200,0.05); transform: translateX(2px); }
+  .option.selected { border-color: var(--accent-2); background: rgba(180,182,200,0.12); box-shadow: 0 0 0 3px rgba(180,182,200,0.1); }
+  .option-radio { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.2); border-radius: 50%; flex-shrink: 0; position: relative; transition: all 0.25s ease; }
+  .option.selected .option-radio { border-color: var(--accent-2); }
+  .option.selected .option-radio::after { content: ''; position: absolute; inset: 3px; background: var(--gradient); border-radius: 50%; animation: scaleIn 0.2s ease; }
+  .input-group { margin-bottom: 16px; }
+  .input-label { display: block; font-size: 13px; font-weight: 500; color: var(--text-muted); margin-bottom: 8px; }
+  .input { width: 100%; padding: 14px 16px; background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); border-radius: var(--radius-sm); color: var(--text); font-size: 15px; font-family: inherit; transition: all 0.25s ease; }
+  .input:focus { outline: none; border-color: var(--accent-2); background: rgba(255,255,255,0.05); box-shadow: 0 0 0 3px rgba(180,182,200,0.12); }
+  .input::placeholder { color: var(--text-dim); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 16px 24px; background: var(--gradient); color: var(--text); border: none; border-radius: var(--radius-sm); font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.25s ease; font-family: inherit; box-shadow: var(--shadow-glow); position: relative; overflow: hidden; }
+  .btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent); transition: left 0.6s ease; }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 25px 70px -20px rgba(138,140,166,0.7); }
+  .btn:hover::before { left: 100%; }
+  .btn-whatsapp { background: linear-gradient(135deg,#25d366,#128c7e); box-shadow: 0 20px 60px -20px rgba(37,211,102,0.5); }
+  .btn-whatsapp:hover { box-shadow: 0 25px 70px -20px rgba(37,211,102,0.7); }
+  .final-screen { display: none; text-align: center; padding: 12px 0; animation: fadeIn 0.5s ease forwards; }
+  .final-screen.active { display: block; }
+  .final-icon { width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; background: var(--card-bg); border: 1px solid var(--card-border); }
+  .final-icon.success { background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.3); }
+  .final-icon.disqualify { background: rgba(180,182,200,0.08); border-color: rgba(180,182,200,0.25); }
+  .final-icon svg { width: 32px; height: 32px; }
+  .final-title { font-size: clamp(22px,3vw,28px); font-weight: 700; margin-bottom: 12px; line-height: 1.2; }
+  .final-text { font-size: 15px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6; }
+  .final-text strong { color: var(--text); font-weight: 600; }
+  footer { padding: 32px 0; text-align: center; border-top: 1px solid var(--card-border); margin-top: 40px; }
+  footer p { font-size: 13px; color: var(--text-dim); line-height: 1.7; }
+  footer .separator { margin: 0 8px; opacity: 0.5; }
+  @keyframes fadeInUp { from { opacity:0;transform:translateY(20px);} to { opacity:1;transform:translateY(0);} }
+  @keyframes fadeIn { from { opacity:0;} to { opacity:1;} }
+  @keyframes scaleIn { from { transform:scale(0);} to { transform:scale(1);} }
+  @media (max-width: 640px) {
+    .container { padding: 0 18px; } .hero { padding: 16px 0 48px; }
+    .stats { gap: 8px; margin: 24px auto 28px; } .stat { padding: 12px 6px; }
+    .stat-value { font-size: 18px; } .stat-label { font-size: 10px; }
+    .form-card { padding: 28px 20px; border-radius: var(--radius-md); }
+  }
+</style>
+
+<!-- META PIXEL COM HASHING, FBC, FBP E EVENT_ID -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1579876419743844');
+fbq('track', 'PageView');
+
+function genEventId() { return 'eid_' + Date.now() + '_' + Math.random().toString(36).slice(2, 9); }
+async function hashSHA256(str) {
+  if (!str) return '';
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str.trim().toLowerCase()));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+function normalizePhone(raw) {
+  let d = raw.replace(/\D/g,'');
+  if (d.length === 10 || d.length === 11) d = '55' + d;
+  return d;
+}
+function getFbp() { const m = document.cookie.match(/(?:^|;)\s*_fbp=([^;]+)/); return m ? m[1] : ''; }
+function captureFbc() {
+  const p = new URLSearchParams(window.location.search);
+  const fbclid = p.get('fbclid');
+  if (fbclid) {
+    const fbc = `fb.1.${Math.floor(Date.now()/1000)}.${fbclid}`;
+    document.cookie = `_fbc=${fbc}; max-age=${30*24*3600}; path=/; SameSite=Lax`;
+    return fbc;
+  }
+  const e = document.cookie.match(/(?:^|;)\s*_fbc=([^;]+)/);
+  return e ? e[1] : '';
+}
+const _fbc = captureFbc();
+async function trackLead(userData) {
+  const eventId = genEventId();
+  const parts = (userData.nome||'').trim().split(/\s+/);
+  const [em,ph,fn,ln] = await Promise.all([
+    hashSHA256(userData.email||''),
+    hashSHA256(normalizePhone(userData.whatsapp)),
+    hashSHA256(parts[0]||''),
+    hashSHA256(parts.slice(1).join(' ')||''),
+  ]);
+  const ud = {};
+  if (em) ud.em = em; if (ph) ud.ph = ph; if (fn) ud.fn = fn; if (ln) ud.ln = ln;
+  const fbp = getFbp(); if (fbp) ud.fbp = fbp; if (_fbc) ud.fbc = _fbc;
+  fbq('track', 'Lead', ud, { eventID: eventId });
+  window._lastLeadEventId = eventId;
+  return eventId;
+}
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"/></noscript>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <div class="logo">
+        <img src="https://roa-advocacia.vercel.app/logo.png" alt="Ribeiro, Oliveira e Anjos Advocacia" onerror="this.style.display='none'">
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" id="formulario">
+    <div class="container">
+      <h1>Você tem <span class="highlight">direitos.</span><br>Responda abaixo e descubra quais.</h1>
+
+      <div class="form-card">
+        <div class="form-trust">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+          <span>Respostas protegidas pelo sigilo da OAB</span>
+        </div>
+
+        <div class="progress" id="progress">
+          <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+
+        <!-- STEP 1 -->
+        <div class="step active" data-step="1">
+          <div class="step-label">Pergunta 1 de 4</div>
+          <h2 class="step-question">Qual sua situação hoje?</h2>
+          <p class="step-help">Escolha a opção que mais combina com o que você está vivendo.</p>
+          <div class="options">
+            <button class="option" data-value="pedir-guarda"><span class="option-radio"></span><span>Quero pedir guarda do meu filho(a)</span></button>
+            <button class="option" data-value="guarda-compartilhada"><span class="option-radio"></span><span>Quero regularizar guarda compartilhada</span></button>
+            <button class="option" data-value="descumprimento"><span class="option-radio"></span><span>O outro genitor não cumpre acordos</span></button>
+            <button class="option" data-value="conflito-visitas"><span class="option-radio"></span><span>Estou em conflito sobre visitas/convivência</span></button>
+            <button class="option" data-value="outro"><span class="option-radio"></span><span>Outro</span></button>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step" data-step="2">
+          <div class="step-label">Pergunta 2 de 4</div>
+          <h2 class="step-question">Já existe processo judicial ou acordo formalizado?</h2>
+          <p class="step-help">Isso nos ajuda a entender em que ponto o seu caso está.</p>
+          <div class="options">
+            <button class="option" data-value="processo-andamento"><span class="option-radio"></span><span>Sim, processo em andamento</span></button>
+            <button class="option" data-value="acordo-feito"><span class="option-radio"></span><span>Sim, acordo feito</span></button>
+            <button class="option" data-value="nada-formalizado"><span class="option-radio"></span><span>Não existe nada formalizado</span></button>
+            <button class="option" data-value="nao-sei"><span class="option-radio"></span><span>Não sei informar</span></button>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="step" data-step="3">
+          <div class="step-label">Pergunta 3 de 4</div>
+          <h2 class="step-question">Qual a maior dificuldade que você enfrenta hoje?</h2>
+          <p class="step-help">Queremos entender o que mais te preocupa neste momento.</p>
+          <div class="options">
+            <button class="option" data-value="falta-acordo"><span class="option-radio"></span><span>Falta de acordo entre os pais</span></button>
+            <button class="option" data-value="medo-convivencia"><span class="option-radio"></span><span>Medo de perder convivência com meu filho(a)</span></button>
+            <button class="option" data-value="descumprimento-visitas"><span class="option-radio"></span><span>Descumprimento de visitas</span></button>
+            <button class="option" data-value="alienacao-parental"><span class="option-radio"></span><span>Alienação parental / impedimento de contato</span></button>
+            <button class="option" data-value="seguranca-juridica"><span class="option-radio"></span><span>Quero segurança jurídica</span></button>
+          </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="step" data-step="4">
+          <div class="step-label">Pergunta 4 de 4</div>
+          <h2 class="step-question">Você busca ajuda jurídica para resolver isso agora?</h2>
+          <p class="step-help">Sem compromisso — é só pra entendermos sua urgência.</p>
+          <div class="options">
+            <button class="option" data-value="urgente"><span class="option-radio"></span><span>Sim, com urgência</span></button>
+            <button class="option" data-value="semanas"><span class="option-radio"></span><span>Sim, nas próximas semanas</span></button>
+            <button class="option" data-value="pesquisando" data-disqualify="true"><span class="option-radio"></span><span>Apenas buscando informações no momento</span></button>
+          </div>
+        </div>
+
+        <!-- STEP 5: dados -->
+        <div class="step" data-step="5">
+          <div class="step-label">Última etapa</div>
+          <h2 class="step-question">Por onde a Dra. Gessika pode te chamar?</h2>
+          <p class="step-help">Vamos te enviar um retorno pessoal pelo WhatsApp em até 1h em horário comercial.</p>
+          <div class="input-group"><label class="input-label" for="nome">Seu nome</label><input type="text" id="nome" class="input" placeholder="Ex: Maria Silva" autocomplete="given-name"></div>
+          <div class="input-group"><label class="input-label" for="whatsapp">WhatsApp com DDD</label><input type="tel" id="whatsapp" class="input" placeholder="(11) 91234-5678" autocomplete="tel" inputmode="tel"></div>
+          <button class="btn" id="submitBtn">Falar com a Dra. Gessika agora <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+        </div>
+
+        <!-- SUCESSO -->
+        <div class="final-screen" id="successScreen">
+          <div class="final-icon success"><svg viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></div>
+          <h2 class="final-title">Perfeito, <span id="leadName">você</span>! 🎯</h2>
+          <p class="final-text">Seu caso tem <strong>boas chances</strong> de ser analisado pela Dra. Gessika.<br>Clique no botão abaixo pra continuar a conversa direto no WhatsApp:</p>
+          <a href="#" class="btn btn-whatsapp" id="successWhats" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Continuar pelo WhatsApp
+          </a>
+        </div>
+
+        <!-- DESCARTE -->
+        <div class="final-screen" id="disqualifyScreen">
+          <div class="final-icon disqualify"><svg viewBox="0 0 24 24" fill="none" stroke="#bfc1cb" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg></div>
+          <h2 class="final-title">Obrigado pela sinceridade.</h2>
+          <p class="final-text">Pelo que você nos contou, <strong>seu caso pode ser mais delicado</strong> ou exigir uma análise mais aprofundada.<br><br>Mesmo assim, se quiser conversar com a equipe, é só clicar abaixo:</p>
+          <a href="#" class="btn btn-whatsapp" id="disqualifyWhats" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Falar com a equipe mesmo assim
+          </a>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><div class="stat-value">+200</div><div class="stat-label">Famílias atendidas</div></div>
+        <div class="stat"><div class="stat-value">4.89 ⭐</div><div class="stat-label">Avaliação dos clientes</div></div>
+        <div class="stat"><div class="stat-value">100%</div><div class="stat-label">Foco no seu caso</div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Ribeiro, Oliveira e Anjos Advocacia <span class="separator">·</span> OAB/SP <span class="separator">·</span> Advocacia estratégica e humanizada</p>
+    </div>
+  </footer>
+
+<script>
+  const WHATSAPP_NUMBER = '5511999102805';
+  const TOTAL_STEPS = 5;
+  let currentStep = 1;
+  const formData = {};
+  const progress = document.getElementById('progress');
+  const dots = progress.querySelectorAll('.dot');
+  const steps = document.querySelectorAll('.step');
+
+  document.querySelectorAll('.option').forEach(option => {
+    option.addEventListener('click', function() {
+      const stepEl = this.closest('.step');
+      const stepNum = parseInt(stepEl.dataset.step);
+      stepEl.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+      this.classList.add('selected');
+      formData['step' + stepNum] = this.dataset.value;
+      setTimeout(() => { this.dataset.disqualify === 'true' ? showDisqualify() : nextStep(); }, 300);
+    });
+  });
+
+  function nextStep() {
+    if (currentStep >= TOTAL_STEPS) return;
+    dots[currentStep-1].classList.remove('active');
+    dots[currentStep-1].classList.add('completed');
+    steps[currentStep-1].classList.remove('active');
+    currentStep++;
+    steps[currentStep-1].classList.add('active');
+    dots[currentStep-1].classList.add('active');
+    if (window.innerWidth < 640) document.querySelector('.form-card').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  function showDisqualify() {
+    progress.classList.add('hidden');
+    steps.forEach(s => s.classList.remove('active'));
+    document.getElementById('disqualifyScreen').classList.add('active');
+    const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de conversar com a equipe da Dra. Gessika sobre meu caso de guarda.');
+    document.getElementById('disqualifyWhats').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+  }
+
+  async function showSuccess() {
+    progress.classList.add('hidden');
+    steps.forEach(s => s.classList.remove('active'));
+    document.getElementById('successScreen').classList.add('active');
+    const firstName = (formData.nome||'').split(' ')[0] || 'você';
+    document.getElementById('leadName').textContent = firstName;
+    const msg = encodeURIComponent(
+      `Olá Dra. Gessika! Meu nome é ${formData.nome}. ` +
+      `Acabei de fazer a avaliação no site e gostaria de conversar sobre meu caso de guarda. ` +
+      `Situação: ${getReadableAnswer(formData.step1)} | Processo: ${getReadableAnswer(formData.step2)} | ` +
+      `Dificuldade: ${getReadableAnswer(formData.step3)} | Urgência: ${getReadableAnswer(formData.step4)}.`
+    );
+    document.getElementById('successWhats').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+    await trackLead({ nome: formData.nome, whatsapp: formData.whatsapp });
+  }
+
+  function getReadableAnswer(v) {
+    return {'pedir-guarda':'Quer pedir guarda','guarda-compartilhada':'Regularizar guarda compartilhada','descumprimento':'Genitor não cumpre acordos','conflito-visitas':'Conflito sobre visitas','outro':'Outro','processo-andamento':'Processo em andamento','acordo-feito':'Acordo já feito','nada-formalizado':'Nada formalizado','nao-sei':'Não sabe','falta-acordo':'Falta de acordo','medo-convivencia':'Medo de perder convivência','descumprimento-visitas':'Descumprimento de visitas','alienacao-parental':'Alienação parental','seguranca-juridica':'Quer segurança jurídica','urgente':'Com urgência','semanas':'Nas próximas semanas'}[v] || v;
+  }
+
+  document.getElementById('whatsapp').addEventListener('input', function(e) {
+    let v = e.target.value.replace(/\D/g,'').slice(0,11);
+    if (v.length > 10) v = v.replace(/(\d{2})(\d{5})(\d{0,4})/,'($1) $2-$3');
+    else if (v.length > 6) v = v.replace(/(\d{2})(\d{4})(\d{0,4})/,'($1) $2-$3');
+    else if (v.length > 2) v = v.replace(/(\d{2})(\d{0,5})/,'($1) $2');
+    else if (v.length > 0) v = v.replace(/(\d{0,2})/,'($1');
+    e.target.value = v;
+  });
+
+  document.getElementById('submitBtn').addEventListener('click', function() {
+    const nome = document.getElementById('nome').value.trim();
+    const whatsapp = document.getElementById('whatsapp').value.trim();
+    if (nome.length < 2) { document.getElementById('nome').focus(); document.getElementById('nome').style.borderColor='#ef4444'; setTimeout(()=>document.getElementById('nome').style.borderColor='',2000); return; }
+    const digits = whatsapp.replace(/\D/g,'');
+    if (digits.length < 10 || digits.length > 11) { document.getElementById('whatsapp').focus(); document.getElementById('whatsapp').style.borderColor='#ef4444'; setTimeout(()=>document.getElementById('whatsapp').style.borderColor='',2000); return; }
+    formData.nome = nome;
+    formData.whatsapp = digits;
+    dots[currentStep-1].classList.remove('active');
+    dots[currentStep-1].classList.add('completed');
+    showSuccess();
+  });
+</script>
+
+</body>
+</html>
