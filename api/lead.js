@@ -1,15 +1,17 @@
-import crypto from "crypto";
+// /api/lead.js — Meta Conversions API (CAPI) via Vercel Edge Function
 
 export const config = {
   runtime: "edge",
 };
 
-function hash(value) {
+async function hash(value) {
   if (!value) return undefined;
-  return crypto
-    .createHash("sha256")
-    .update(value.trim().toLowerCase())
-    .digest("hex");
+  const normalized = value.trim().toLowerCase();
+  const encoder = new TextEncoder();
+  const data = encoder.encode(normalized);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
 function normalizePhone(phone) {
@@ -60,34 +62,36 @@ export default async function handler(req) {
 
   const ua = clientUserAgent || req.headers.get("user-agent");
 
-  const eventPayload = {
-    event_name: eventName || "Lead",
-    event_time: Math.floor(Date.now() / 1000),
-    event_source_url: eventSourceUrl,
-    action_source: "website",
-    user_data: {
-      em: hash(body.email || ""),
-      ph: hash(normalizePhone(phone)),
-      fn: hash(firstName),
-      ln: hash(lastName),
-      ct: hash(city),
-      country: hash("br"),
-      external_id: hash(externalId),
-      fbp: fbp || null,
-      fbc: fbc || null,
-      client_ip_address: ip || null,
-      client_user_agent: ua || null,
-    },
+  const userData = {
+    em: await hash(body.email || ""),
+    ph: await hash(normalizePhone(phone)),
+    fn: await hash(firstName),
+    ln: await hash(lastName),
+    ct: await hash(city),
+    country: await hash("br"),
+    external_id: await hash(externalId),
+    fbp: fbp || null,
+    fbc: fbc || null,
+    client_ip_address: ip || null,
+    client_user_agent: ua || null,
   };
 
-  Object.keys(eventPayload.user_data).forEach((key) => {
-    if (eventPayload.user_data[key] === null || eventPayload.user_data[key] === undefined) {
-      delete eventPayload.user_data[key];
+  Object.keys(userData).forEach((key) => {
+    if (userData[key] === null || userData[key] === undefined) {
+      delete userData[key];
     }
   });
 
   const payload = {
-    data: [eventPayload],
+    data: [
+      {
+        event_name: eventName || "Lead",
+        event_time: Math.floor(Date.now() / 1000),
+        event_source_url: eventSourceUrl,
+        action_source: "website",
+        user_data: userData,
+      },
+    ],
     ...(testEventCode ? { test_event_code: testEventCode } : {}),
   };
 
