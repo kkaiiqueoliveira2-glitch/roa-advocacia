@@ -137,11 +137,10 @@
 </style>
 
 <!-- ============================================================
-     META PIXEL — MELHORADO COM:
-     1. hashSHA256 para dados pessoais (em, ph, fn, ln)
-     2. Captura de fbclid → _fbc
-     3. Leitura de _fbp cookie
-     4. event_id único para deduplicação com CAPI
+     META PIXEL + CAPI (Conversions API via Vercel Edge Function)
+     - Pixel no browser (browser-side)
+     - CAPI no servidor (server-side) via /api/lead
+     - Deduplicação via event_id único
      ============================================================ -->
 <script>
 // ── 1. PIXEL BASE ──────────────────────────────────────────────
@@ -158,38 +157,28 @@ fbq('track', 'PageView');
 
 // ── 2. UTILITÁRIOS ─────────────────────────────────────────────
 
-/** Gera um event_id único para deduplicação com a CAPI */
 function genEventId() {
   return 'eid_' + Date.now() + '_' + Math.random().toString(36).slice(2, 9);
 }
 
-/** SHA-256 via SubtleCrypto — retorna hex string */
 async function hashSHA256(str) {
   if (!str) return '';
   const normalized = str.trim().toLowerCase();
-  const buf = await crypto.subtle.digest(
-    'SHA-256',
-    new TextEncoder().encode(normalized)
-  );
-  return Array.from(new Uint8Array(buf))
-    .map(b => b.toString(16).padStart(2, '0'))
-    .join('');
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(normalized));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
-/** Normaliza telefone: só dígitos, adiciona 55 se não tiver DDI */
 function normalizePhone(raw) {
   let digits = raw.replace(/\D/g, '');
   if (digits.length === 10 || digits.length === 11) digits = '55' + digits;
   return digits;
 }
 
-/** Lê o cookie _fbp (gerado automaticamente pelo pixel) */
 function getFbp() {
   const match = document.cookie.match(/(?:^|;)\s*_fbp=([^;]+)/);
   return match ? match[1] : '';
 }
 
-/** Captura fbclid da URL e salva como _fbc no cookie (30 dias) */
 function captureFbc() {
   const params = new URLSearchParams(window.location.search);
   const fbclid = params.get('fbclid');
@@ -205,21 +194,41 @@ function captureFbc() {
 
 const _fbc = captureFbc();
 
-/**
- * Dispara fbq('track', 'Lead') com dados hasheados
- * @param {Object} userData - { nome, whatsapp }
- */
+// ── 3. CAPI — envia evento para o servidor (Vercel Edge Function) ─
+async function sendToCAPI({ eventName, firstName, lastName, phone, externalId }) {
+  try {
+    await fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        eventName,
+        firstName:  firstName  || '',
+        lastName:   lastName   || '',
+        phone:      phone      || '',
+        externalId: externalId || ('lead_' + Date.now()),
+        fbp:  getFbp(),
+        fbc:  _fbc || '',
+        eventSourceUrl:  window.location.href,
+        clientUserAgent: navigator.userAgent,
+      }),
+    });
+  } catch (err) {
+    // Nunca deixa um erro de tracking quebrar o fluxo do usuário
+    console.warn('[CAPI] envio falhou (non-blocking):', err);
+  }
+}
+
+// ── 4. trackLead — dispara pixel + CAPI em paralelo ───────────
 async function trackLead(userData) {
   const eventId = genEventId();
 
-  // Separar nome em primeiro e último
-  const parts = (userData.nome || '').trim().split(/\s+/);
+  const parts     = (userData.nome || '').trim().split(/\s+/);
   const firstName = parts[0] || '';
-  const lastName = parts.slice(1).join(' ') || '';
+  const lastName  = parts.slice(1).join(' ') || '';
 
-  // Hash paralelo
+  // Hash para o pixel (browser-side)
   const [em, ph, fn, ln] = await Promise.all([
-    hashSHA256(userData.email || ''),        // email (vazio se não coletado)
+    hashSHA256(userData.email || ''),
     hashSHA256(normalizePhone(userData.whatsapp)),
     hashSHA256(firstName),
     hashSHA256(lastName),
@@ -230,23 +239,44 @@ async function trackLead(userData) {
   if (ph) userData_hashed.ph = ph;
   if (fn) userData_hashed.fn = fn;
   if (ln) userData_hashed.ln = ln;
-
   const fbp = getFbp();
-  if (fbp) userData_hashed.fbp = fbp;
+  if (fbp)  userData_hashed.fbp = fbp;
   if (_fbc) userData_hashed.fbc = _fbc;
 
+  // Pixel no browser
   fbq('track', 'Lead', userData_hashed, { eventID: eventId });
 
-  // Expõe o eventId para uso na CAPI (se integrada via backend/Vercel Edge)
-  window._lastLeadEventId = eventId;
+  // CAPI no servidor (em paralelo, sem bloquear o fluxo)
+  sendToCAPI({
+    eventName:  'Lead',
+    firstName,
+    lastName,
+    phone:      userData.whatsapp,
+    externalId: eventId,
+  });
 
+  window._lastLeadEventId = eventId;
   return eventId;
+}
+
+// ── 5. trackInitiateCheckout — dispara quando chega na etapa 5 ─
+function trackInitiateCheckout() {
+  const eventId = genEventId();
+
+  // Pixel no browser
+  fbq('track', 'InitiateCheckout', {}, { eventID: eventId });
+
+  // CAPI no servidor
+  sendToCAPI({
+    eventName:  'InitiateCheckout',
+    externalId: eventId,
+  });
 }
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
 /></noscript>
-<!-- End Meta Pixel Code -->
+<!-- End Meta Pixel + CAPI -->
 </head>
 <body>
 
@@ -428,6 +458,12 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     currentStep++;
     steps[currentStep - 1].classList.add('active');
     dots[currentStep - 1].classList.add('active');
+
+    // ✅ InitiateCheckout: dispara quando chega na etapa 5 (formulário de dados)
+    if (currentStep === 5) {
+      trackInitiateCheckout();
+    }
+
     if (window.innerWidth < 640) document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
@@ -456,7 +492,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     );
     document.getElementById('successWhats').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
 
-    // ✅ Dispara Lead com dados hasheados e event_id para deduplicação
+    // ✅ Lead: dispara pixel (browser) + CAPI (servidor) em paralelo
     await trackLead({ nome: formData.nome, whatsapp: formData.whatsapp });
   }
 
