@@ -92,7 +92,7 @@
   }
 </style>
 
-<!-- META PIXEL COM HASHING, FBC, FBP E EVENT_ID -->
+<!-- META PIXEL + CAPI (Conversions API via Vercel Edge Function) -->
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -129,21 +129,43 @@ function captureFbc() {
   return e ? e[1] : '';
 }
 const _fbc = captureFbc();
+
+async function sendToCAPI({ eventName, firstName, lastName, phone, externalId }) {
+  try {
+    await fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        eventName, firstName: firstName||'', lastName: lastName||'',
+        phone: phone||'', externalId: externalId||('lead_'+Date.now()),
+        fbp: getFbp(), fbc: _fbc||'',
+        eventSourceUrl: window.location.href, clientUserAgent: navigator.userAgent,
+      }),
+    });
+  } catch(err) { console.warn('[CAPI] falhou (non-blocking):', err); }
+}
+
 async function trackLead(userData) {
   const eventId = genEventId();
   const parts = (userData.nome||'').trim().split(/\s+/);
+  const firstName = parts[0]||'', lastName = parts.slice(1).join(' ')||'';
   const [em,ph,fn,ln] = await Promise.all([
-    hashSHA256(userData.email||''),
-    hashSHA256(normalizePhone(userData.whatsapp)),
-    hashSHA256(parts[0]||''),
-    hashSHA256(parts.slice(1).join(' ')||''),
+    hashSHA256(userData.email||''), hashSHA256(normalizePhone(userData.whatsapp)),
+    hashSHA256(firstName), hashSHA256(lastName),
   ]);
   const ud = {};
-  if (em) ud.em = em; if (ph) ud.ph = ph; if (fn) ud.fn = fn; if (ln) ud.ln = ln;
-  const fbp = getFbp(); if (fbp) ud.fbp = fbp; if (_fbc) ud.fbc = _fbc;
+  if (em) ud.em=em; if (ph) ud.ph=ph; if (fn) ud.fn=fn; if (ln) ud.ln=ln;
+  const fbp = getFbp(); if (fbp) ud.fbp=fbp; if (_fbc) ud.fbc=_fbc;
   fbq('track', 'Lead', ud, { eventID: eventId });
+  sendToCAPI({ eventName:'Lead', firstName, lastName, phone: userData.whatsapp, externalId: eventId });
   window._lastLeadEventId = eventId;
   return eventId;
+}
+
+function trackInitiateCheckout() {
+  const eventId = genEventId();
+  fbq('track', 'InitiateCheckout', {}, { eventID: eventId });
+  sendToCAPI({ eventName:'InitiateCheckout', externalId: eventId });
 }
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"/></noscript>
@@ -167,7 +189,6 @@ async function trackLead(userData) {
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
           <span>Respostas protegidas pelo sigilo da OAB</span>
         </div>
-
         <div class="progress" id="progress">
           <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
         </div>
@@ -287,6 +308,7 @@ async function trackLead(userData) {
     currentStep++;
     steps[currentStep-1].classList.add('active');
     dots[currentStep-1].classList.add('active');
+    if (currentStep === 4) trackInitiateCheckout();
     if (window.innerWidth < 640) document.querySelector('.form-card').scrollIntoView({behavior:'smooth',block:'start'});
   }
 
@@ -339,6 +361,5 @@ async function trackLead(userData) {
     showSuccess();
   });
 </script>
-
 </body>
 </html>
