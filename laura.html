@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -675,7 +675,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
         </div>
 
         <!-- STEP 1: situação -->
-        <div class="step active" data-step="1">
+        <div class="step active" id="step1" data-step="1">
           <div class="step-label">Pergunta 1 de 4</div>
           <h2 class="step-question">Qual situação melhor descreve seu caso hoje?</h2>
           <p class="step-help">Escolha a opção que mais combina com o que você está vivendo.</p>
@@ -704,7 +704,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
         </div>
 
         <!-- STEP 2: pedido INSS -->
-        <div class="step" data-step="2">
+        <div class="step" id="step2" data-step="2">
           <div class="step-label">Pergunta 2 de 4</div>
           <h2 class="step-question">Você já fez pedido no INSS?</h2>
           <p class="step-help">Isso nos ajuda a entender em que fase o seu caso está.</p>
@@ -721,15 +721,40 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
               <span class="option-radio"></span>
               <span>Sim, recebia e cortaram</span>
             </button>
-            <button class="option" data-value="ainda-nao" data-disqualify="true">
+            <button class="option" data-value="ainda-nao" data-branch-to="step2b">
               <span class="option-radio"></span>
               <span>Ainda não fiz</span>
             </button>
           </div>
         </div>
 
+                <!-- STEP 2B: por que ainda não fez pedido -->
+        <div class="step" id="step2b" data-step="2b">
+          <div class="step-label">Pergunta 2 de 4</div>
+          <h2 class="step-question">Por que você ainda não fez o pedido?</h2>
+          <p class="step-help">Isso nos ajuda a entender como a Dra. Laura pode te ajudar melhor.</p>
+          <div class="options">
+            <button class="option" data-value="nao-sei-direito">
+              <span class="option-radio"></span>
+              <span>Não sei se tenho direito</span>
+            </button>
+            <button class="option" data-value="nao-sei-como">
+              <span class="option-radio"></span>
+              <span>Não sei como fazer o pedido</span>
+            </button>
+            <button class="option" data-value="juntando-docs">
+              <span class="option-radio"></span>
+              <span>Estou juntando os documentos</span>
+            </button>
+            <button class="option" data-value="nao-precisei" data-disqualify="true">
+              <span class="option-radio"></span>
+              <span>Ainda não precisei</span>
+            </button>
+          </div>
+        </div>
+
         <!-- STEP 3: documentos -->
-        <div class="step" data-step="3">
+        <div class="step" id="step3" data-step="3">
           <div class="step-label">Pergunta 3 de 4</div>
           <h2 class="step-question">Você possui laudos, exames ou documentos médicos?</h2>
           <p class="step-help">Não se preocupe se não tiver tudo — só queremos entender o cenário.</p>
@@ -754,7 +779,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
         </div>
 
         <!-- STEP 4: urgência -->
-        <div class="step" data-step="4">
+        <div class="step" id="step4" data-step="4">
           <div class="step-label">Pergunta 4 de 4</div>
           <h2 class="step-question">Você quer resolver isso agora?</h2>
           <p class="step-help">Sem compromisso — precisamos entender sua urgência.</p>
@@ -775,7 +800,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
         </div>
 
         <!-- STEP 5: dados -->
-        <div class="step" data-step="5">
+        <div class="step" id="step5" data-step="5">
           <div class="step-label">Última etapa</div>
           <h2 class="step-question">Por onde a Dra. Laura pode te chamar?</h2>
           <p class="step-help">Vamos te enviar um retorno pessoal pelo WhatsApp em até 1h em horário comercial.</p>
@@ -828,15 +853,9 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
           </div>
           <h2 class="final-title">Obrigado pela sinceridade.</h2>
           <p class="final-text">
-            Pelo que você nos contou, <strong>seu caso pode ser mais delicado</strong> ou exigir uma análise mais aprofundada antes de seguirmos.<br><br>
-            Mesmo assim, se quiser conversar com a equipe da Dra. Laura para entender melhor as opções, é só clicar abaixo:
+            Pelo que você nos contou, <strong>seu caso não se encaixa</strong> no perfil de atendimento da Dra. Laura no momento.<br><br>
+            Agradecemos pela honestidade e desejamos boa sorte na sua jornada.
           </p>
-          <a href="#" class="btn btn-whatsapp" id="disqualifyWhats" target="_blank" rel="noopener">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-            </svg>
-            Falar com a equipe mesmo assim
-          </a>
         </div>
 
       </div>
@@ -886,33 +905,75 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
      LÓGICA DO FORMULÁRIO
      =========================================== */
 
-  let currentStep = 1;
-  const TOTAL_STEPS = 5;
   const formData = {};
 
   const progress = document.getElementById('progress');
   const dots = progress.querySelectorAll('.dot');
-  const steps = document.querySelectorAll('.step');
 
-  // Click nas opções
+  const NEXT_STEP = {
+    'step1':  'step2',
+    'step2':  'step3',
+    'step2b': 'step3',
+    'step3':  'step4',
+    'step4':  'step5',
+    'step5':  null
+  };
+
+  const STEP_DOT = {
+    'step1':  0,
+    'step2':  1,
+    'step2b': 1,
+    'step3':  2,
+    'step4':  3,
+    'step5':  4
+  };
+
+  let currentStepId = 'step1';
+
+  function showStep(stepId) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById(stepId).classList.add('active');
+    const currentDotIdx = STEP_DOT[stepId];
+    for (let i = 0; i < dots.length; i++) {
+      dots[i].classList.remove('active');
+      dots[i].classList.remove('completed');
+      if (i < currentDotIdx) dots[i].classList.add('completed');
+    }
+    dots[currentDotIdx].classList.add('active');
+  }
+
+  function nextStep() {
+    const nextId = NEXT_STEP[currentStepId];
+    if (!nextId) return;
+    currentStepId = nextId;
+    showStep(currentStepId);
+    if (window.innerWidth < 640) {
+      document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function goToBranch(stepId) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    currentStepId = stepId;
+    document.getElementById(stepId).classList.add('active');
+    if (window.innerWidth < 640) {
+      document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
   document.querySelectorAll('.option').forEach(option => {
     option.addEventListener('click', function() {
       const stepEl = this.closest('.step');
-      const stepNum = parseInt(stepEl.dataset.step);
-
-      // Marcar selecionada
       stepEl.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
       this.classList.add('selected');
-
-      // Salvar resposta
-      formData['step' + stepNum] = this.dataset.value;
-
-      // Verificar desqualificação
+      formData[stepEl.id] = this.dataset.value;
       const disqualify = this.dataset.disqualify === 'true';
-
+      const branchTo = this.dataset.branchTo;
       setTimeout(() => {
         if (disqualify) {
           showDisqualify();
+        } else if (branchTo) {
+          goToBranch(branchTo);
         } else {
           nextStep();
         }
@@ -920,86 +981,56 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     });
   });
 
-  function nextStep() {
-    if (currentStep >= TOTAL_STEPS) return;
-
-    // Marcar dot atual como completo
-    dots[currentStep - 1].classList.remove('active');
-    dots[currentStep - 1].classList.add('completed');
-
-    // Esconder step atual
-    steps[currentStep - 1].classList.remove('active');
-
-    currentStep++;
-
-    // Mostrar próximo step
-    steps[currentStep - 1].classList.add('active');
-    dots[currentStep - 1].classList.add('active');
-
-    // Scroll suave pro topo do card em mobile
-    if (window.innerWidth < 640) {
-      document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-
   function showDisqualify() {
     progress.classList.add('hidden');
-    steps.forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
     document.getElementById('disqualifyScreen').classList.add('active');
-
-    // Link WhatsApp para descarte (mensagem genérica)
-    const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de conversar com a equipe da Dra. Laura sobre meu caso previdenciário.');
-    document.getElementById('disqualifyWhats').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
-
     if (typeof fbq !== 'undefined') fbq('track', 'Contact');
   }
 
   function showSuccess() {
     progress.classList.add('hidden');
-    steps.forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
     document.getElementById('successScreen').classList.add('active');
-
-    // Personalizar com primeiro nome
     const firstName = (formData.nome || '').split(' ')[0] || 'você';
     document.getElementById('leadName').textContent = firstName;
-
-    // Montar link WhatsApp personalizado
+    const inssStatus = formData['step2'] === 'ainda-nao'
+      ? ('Ainda não fez pedido — Motivo: ' + getReadableAnswer(formData['step2b']))
+      : getReadableAnswer(formData['step2']);
     const msg = encodeURIComponent(
-      `Olá Dra. Laura! Meu nome é ${formData.nome}. ` +
-      `Acabei de fazer a avaliação no site e gostaria de conversar sobre meu caso previdenciário. ` +
-      `Situação: ${getReadableAnswer(formData.step1)} | ` +
-      `Pedido INSS: ${getReadableAnswer(formData.step2)} | ` +
-      `Documentos: ${getReadableAnswer(formData.step3)} | ` +
-      `Urgência: ${getReadableAnswer(formData.step4)}.`
+      'Olá Dra. Laura! Meu nome é ' + formData.nome + '. ' +
+      'Acabei de fazer a avaliação no site e gostaria de conversar sobre meu caso previdenciário. ' +
+      'Situação: ' + getReadableAnswer(formData['step1']) + ' | ' +
+      'Pedido INSS: ' + inssStatus + ' | ' +
+      'Documentos: ' + getReadableAnswer(formData['step3']) + ' | ' +
+      'Urgência: ' + getReadableAnswer(formData['step4']) + '.'
     );
-    document.getElementById('successWhats').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
-
+    document.getElementById('successWhats').href = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + msg;
     if (typeof fbq !== 'undefined') fbq('track', 'Lead');
-
-    // 🎯 GOOGLE ADS — descomente para rastrear conversão
-    // if (typeof gtag !== 'undefined') gtag('event', 'conversion', { send_to: 'AW-XXXX/YYYY' });
   }
 
-  // Tradução amigável das respostas para a mensagem do WhatsApp
   function getReadableAnswer(value) {
     const map = {
-      'afastado-saude': 'Afastado por saúde, precisa de benefício',
+      'afastado-saude':   'Afastado por saúde, precisa de benefício',
       'beneficio-negado': 'Benefício negado pelo INSS',
-      'beneficio-cortado': 'Benefício cortado/cessado',
-      'bpc-loas': 'Quer pedir BPC/LOAS',
-      'outro': 'Outro caso previdenciário',
-      'negado': 'Pedido negado',
-      'em-analise': 'Pedido em análise',
-      'cortaram': 'Recebia e cortaram',
-      'ainda-nao': 'Ainda não fez pedido',
-      'completos': 'Documentos completos',
-      'alguns': 'Tem alguns documentos',
-      'nao-tenho': 'Ainda não tem documentos',
-      'nao-sei': 'Não sabe quais precisa'
+      'beneficio-cortado':'Benefício cortado/cessado',
+      'bpc-loas':         'Quer pedir BPC/LOAS',
+      'outro':            'Outro caso previdenciário',
+      'negado':           'Pedido negado',
+      'em-analise':       'Pedido em análise',
+      'cortaram':         'Recebia e cortaram',
+      'ainda-nao':        'Ainda não fez pedido',
+      'nao-sei-direito':  'Não sabe se tem direito',
+      'nao-sei-como':     'Não sabe como fazer o pedido',
+      'juntando-docs':    'Está juntando os documentos',
+      'nao-precisei':     'Ainda não precisou',
+      'completos':        'Documentos completos',
+      'alguns':           'Tem alguns documentos',
+      'nao-tenho':        'Ainda não tem documentos',
+      'nao-sei':          'Não sabe quais precisa'
     };
     return map[value] || value;
   }
-
   // Máscara de telefone simples
   const whatsappInput = document.getElementById('whatsapp');
   whatsappInput.addEventListener('input', function(e) {
@@ -1041,8 +1072,9 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     formData.whatsapp = digits;
 
     // Marcar último dot como completo
-    dots[currentStep - 1].classList.remove('active');
-    dots[currentStep - 1].classList.add('completed');
+    const lastDotIdx = STEP_DOT[currentStepId];
+    dots[lastDotIdx].classList.remove('active');
+    dots[lastDotIdx].classList.add('completed');
 
     showSuccess();
   });
