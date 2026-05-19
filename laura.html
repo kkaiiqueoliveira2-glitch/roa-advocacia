@@ -628,6 +628,7 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '1579876419743844');
 fbq('track', 'PageView');
+fbq('trackCustom', 'LPView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
@@ -947,6 +948,8 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     if (!nextId) return;
     currentStepId = nextId;
     showStep(currentStepId);
+    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormStep', {step: currentStepId});
+    if (currentStepId === 'step5' && typeof fbq !== 'undefined') fbq('trackCustom', 'FormContact');
     if (window.innerWidth < 640) {
       document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -956,6 +959,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
     currentStepId = stepId;
     document.getElementById(stepId).classList.add('active');
+    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormStep', {step: stepId});
     if (window.innerWidth < 640) {
       document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -967,6 +971,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
       stepEl.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
       this.classList.add('selected');
       formData[stepEl.id] = this.dataset.value;
+      if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormAnswer', {step: stepEl.id, value: this.dataset.value});
       const disqualify = this.dataset.disqualify === 'true';
       const branchTo = this.dataset.branchTo;
       setTimeout(() => {
@@ -986,6 +991,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
     document.getElementById('disqualifyScreen').classList.add('active');
     if (typeof fbq !== 'undefined') fbq('track', 'Contact');
+    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormDisqualify');
   }
 
   function showSuccess() {
@@ -1076,6 +1082,10 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     dots[lastDotIdx].classList.remove('active');
     dots[lastDotIdx].classList.add('completed');
 
+    if (typeof fbq !== 'undefined') {
+      fbq('init', '1579876419743844', {fn: nome.split(' ')[0].toLowerCase(), ln: (nome.split(' ').slice(1).join(' ') || '').toLowerCase(), ph: '55' + digits});
+      fbq('trackCustom', 'FormSuccess');
+    }
     showSuccess();
   });
 </script>

@@ -628,6 +628,7 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '1579876419743844');
 fbq('track', 'PageView');
+fbq('trackCustom', 'LPView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
@@ -904,6 +905,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
 
       // Salvar resposta
       formData['step' + stepNum] = this.dataset.value;
+      if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormAnswer', {step: stepNum, value: this.dataset.value});
 
       // Verificar desqualificação
       const disqualify = this.dataset.disqualify === 'true';
@@ -934,6 +936,9 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     steps[currentStep - 1].classList.add('active');
     dots[currentStep - 1].classList.add('active');
 
+    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormStep', {step: currentStep});
+    if (currentStep === TOTAL_STEPS && typeof fbq !== 'undefined') fbq('trackCustom', 'FormContact');
+
     // Scroll suave pro topo do card em mobile
     if (window.innerWidth < 640) {
       document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -946,6 +951,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     document.getElementById('disqualifyScreen').classList.add('active');
 
     if (typeof fbq !== 'undefined') fbq('track', 'Contact');
+    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormDisqualify');
   }
 
   function showSuccess() {
@@ -1039,6 +1045,10 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     dots[currentStep - 1].classList.remove('active');
     dots[currentStep - 1].classList.add('completed');
 
+    if (typeof fbq !== 'undefined') {
+      fbq('init', '1579876419743844', {fn: nome.split(' ')[0].toLowerCase(), ln: (nome.split(' ').slice(1).join(' ') || '').toLowerCase(), ph: '55' + digits});
+      fbq('trackCustom', 'FormSuccess');
+    }
     showSuccess();
   });
 </script>
