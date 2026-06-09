@@ -676,111 +676,150 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
         </div>
 
         <!-- STEP 1: situação -->
-        <div class="step active" data-step="1">
+        <div class="step active" id="step1" data-step="1">
           <div class="step-label">Pergunta 1 de 4</div>
-          <h2 class="step-question">Qual situação você está vivendo agora?</h2>
-          <p class="step-help">Escolha a opção que mais combina com seu caso.</p>
+          <h2 class="step-question">Qual é a sua situação?</h2>
+          <p class="step-help">Escolha a opção que mais combina com o que você está vivendo.</p>
           <div class="options">
-            <button class="option" data-value="demissao">
+            <button class="option" data-value="vinculo" data-branch-to="step2a">
               <span class="option-radio"></span>
-              <span>Fui demitido(a) e tenho dúvida sobre meus direitos</span>
+              <span>Trabalhei sem carteira assinada</span>
             </button>
-            <button class="option" data-value="assedio">
+            <button class="option" data-value="gestante" data-branch-to="step2b">
               <span class="option-radio"></span>
-              <span>Sofri assédio moral ou sexual no trabalho</span>
-            </button>
-            <button class="option" data-value="horas-extras">
-              <span class="option-radio"></span>
-              <span>Trabalho/trabalhei com horas extras não pagas</span>
-            </button>
-            <button class="option" data-value="sem-registro">
-              <span class="option-radio"></span>
-              <span>Trabalho/trabalhei sem registro em carteira</span>
+              <span>Fui demitida durante a gravidez</span>
             </button>
             <button class="option" data-value="outro" data-disqualify="true">
               <span class="option-radio"></span>
-              <span>Outro problema trabalhista</span>
+              <span>Outra situação trabalhista</span>
             </button>
           </div>
         </div>
 
-        <!-- STEP 2: tempo -->
-        <div class="step" data-step="2">
-          <div class="step-label">Pergunta 2 de 4</div>
-          <h2 class="step-question">Há quanto tempo essa situação aconteceu ou vem acontecendo?</h2>
-          <p class="step-help">Isso é importante para sabermos se ainda está dentro do prazo legal.</p>
+        <!-- STEP 2A: Fluxo Vínculo — tempo sem carteira -->
+        <div class="step" id="step2a" data-step="2">
+          <div class="step-label">Pergunta 2 de 4 · Vínculo</div>
+          <h2 class="step-question">Por quanto tempo você trabalhou sem carteira assinada?</h2>
+          <p class="step-help">Isso ajuda a dimensionar o tamanho do seu caso.</p>
           <div class="options">
-            <button class="option" data-value="atual">
+            <button class="option" data-value="menos1">
               <span class="option-radio"></span>
-              <span>Está acontecendo agora / ainda estou trabalhando lá</span>
+              <span>Menos de 1 ano</span>
             </button>
-            <button class="option" data-value="recente">
+            <button class="option" data-value="1a3">
               <span class="option-radio"></span>
-              <span>Saí da empresa há menos de 1 ano</span>
+              <span>Entre 1 e 3 anos</span>
             </button>
-            <button class="option" data-value="medio">
+            <button class="option" data-value="mais3">
               <span class="option-radio"></span>
-              <span>Saí entre 1 e 2 anos atrás</span>
+              <span>Mais de 3 anos</span>
             </button>
-            <button class="option" data-value="antigo" data-disqualify="true">
+          </div>
+        </div>
+
+        <!-- STEP 3A: Fluxo Vínculo — subordinação -->
+        <div class="step" id="step3a" data-step="3">
+          <div class="step-label">Pergunta 3 de 4 · Vínculo</div>
+          <h2 class="step-question">Você cumpria horário fixo e recebia ordens da empresa?</h2>
+          <p class="step-help">Isso define os elementos do vínculo empregatício.</p>
+          <div class="options">
+            <button class="option" data-value="sim-formal">
+              <span class="option-radio"></span>
+              <span>Sim, tinha horário e recebia ordens</span>
+            </button>
+            <button class="option" data-value="sim-informal">
+              <span class="option-radio"></span>
+              <span>Sim, mas era informal / combinado</span>
+            </button>
+            <button class="option" data-value="nao-autonomo" data-disqualify="true">
+              <span class="option-radio"></span>
+              <span>Não, trabalhava de forma totalmente autônoma</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 4A: Fluxo Vínculo — prazo -->
+        <div class="step" id="step4a" data-step="4">
+          <div class="step-label">Pergunta 4 de 4 · Vínculo</div>
+          <h2 class="step-question">Quando foi seu último dia de trabalho nessa empresa?</h2>
+          <p class="step-help">O prazo para agir é de 2 anos após o fim do contrato.</p>
+          <div class="options">
+            <button class="option" data-value="ainda-trabalhando">
+              <span class="option-radio"></span>
+              <span>Ainda estou trabalhando</span>
+            </button>
+            <button class="option" data-value="menos2anos">
+              <span class="option-radio"></span>
+              <span>Saí há menos de 2 anos</span>
+            </button>
+            <button class="option" data-value="mais2anos" data-disqualify="true">
               <span class="option-radio"></span>
               <span>Saí há mais de 2 anos</span>
             </button>
           </div>
         </div>
 
-        <!-- STEP 3: provas -->
-        <div class="step" data-step="3">
-          <div class="step-label">Pergunta 3 de 4</div>
-          <h2 class="step-question">Você tem algum tipo de prova ou documento sobre o caso?</h2>
-          <p class="step-help">Não se preocupe se não tiver tudo — só queremos entender o cenário.</p>
+        <!-- STEP 2B: Fluxo Gestante — quando demitida -->
+        <div class="step" id="step2b" data-step="2">
+          <div class="step-label">Pergunta 2 de 4 · Gestante</div>
+          <h2 class="step-question">Quando você foi demitida?</h2>
+          <p class="step-help">A estabilidade gestante tem prazos legais importantes.</p>
           <div class="options">
-            <button class="option" data-value="muitas-provas">
+            <button class="option" data-value="gravida-agora">
               <span class="option-radio"></span>
-              <span>Sim, tenho mensagens, e-mails, contratos ou testemunhas</span>
+              <span>Estou grávida e fui demitida agora</span>
             </button>
-            <button class="option" data-value="algumas-provas">
+            <button class="option" data-value="menos5m-parto">
               <span class="option-radio"></span>
-              <span>Tenho algumas coisas, mas não sei se é o suficiente</span>
+              <span>Fui demitida há menos de 5 meses após o parto</span>
             </button>
-            <button class="option" data-value="poucas-provas">
+            <button class="option" data-value="mais5m-parto" data-disqualify="true">
               <span class="option-radio"></span>
-              <span>Quase nada, mas posso conseguir</span>
-            </button>
-            <button class="option" data-value="sem-provas" data-disqualify="true">
-              <span class="option-radio"></span>
-              <span>Não tenho nenhuma prova</span>
+              <span>Fui demitida há mais de 5 meses após o parto</span>
             </button>
           </div>
         </div>
 
-        <!-- STEP 4: urgência -->
-        <div class="step" data-step="4">
-          <div class="step-label">Pergunta 4 de 4</div>
-          <h2 class="step-question">Quando você quer começar a resolver isso?</h2>
-          <p class="step-help">Sem compromisso — é só pra entendermos sua urgência.</p>
+        <!-- STEP 3B: Fluxo Gestante — documento -->
+        <div class="step" id="step3b" data-step="3">
+          <div class="step-label">Pergunta 3 de 4 · Gestante</div>
+          <h2 class="step-question">Você tem algum documento que comprove a gravidez?</h2>
+          <p class="step-help">Não se preocupe se ainda não tiver — existem caminhos mesmo assim.</p>
           <div class="options">
-            <button class="option" data-value="agora">
+            <button class="option" data-value="tem-doc">
               <span class="option-radio"></span>
-              <span>O quanto antes — quero falar hoje mesmo</span>
+              <span>Sim, tenho exame ou declaração médica</span>
             </button>
-            <button class="option" data-value="semana">
+            <button class="option" data-value="gravida-sem-doc">
               <span class="option-radio"></span>
-              <span>Nos próximos dias</span>
+              <span>Ainda não, mas estou grávida</span>
             </button>
-            <button class="option" data-value="mes">
+            <button class="option" data-value="sem-doc" data-disqualify="true">
               <span class="option-radio"></span>
-              <span>Ainda este mês</span>
+              <span>Não tenho nenhum documento</span>
             </button>
-            <button class="option" data-value="pesquisando" data-disqualify="true">
+          </div>
+        </div>
+
+        <!-- STEP 4B: Fluxo Gestante — empresa sabia -->
+        <div class="step" id="step4b" data-step="4">
+          <div class="step-label">Pergunta 4 de 4 · Gestante</div>
+          <h2 class="step-question">A empresa sabia que você estava grávida?</h2>
+          <p class="step-help">A proteção se aplica mesmo que a empresa não soubesse.</p>
+          <div class="options">
+            <button class="option" data-value="empresa-sabia">
               <span class="option-radio"></span>
-              <span>Só estou pesquisando, sem pressa</span>
+              <span>Sim, sabia</span>
+            </button>
+            <button class="option" data-value="empresa-nao-sabia">
+              <span class="option-radio"></span>
+              <span>Não sabia, mas eu estava grávida</span>
             </button>
           </div>
         </div>
 
         <!-- STEP 5: dados -->
-        <div class="step" data-step="5">
+        <div class="step" id="step5" data-step="5">
           <div class="step-label">Última etapa</div>
           <h2 class="step-question">Por onde a Dra. Aline pode te chamar?</h2>
           <p class="step-help">Vamos te enviar um retorno pessoal pelo WhatsApp em até 1h em horário comercial.</p>
@@ -871,158 +910,155 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
   </footer>
 
 <script>
-  /* ===========================================
-     CONFIGURAÇÃO — EDITE AQUI
-     =========================================== */
-
-  // Número WhatsApp do escritório (formato internacional, sem +, espaços ou traços)
   const WHATSAPP_NUMBER = '5511951201195';
 
-  // Total de perguntas (não conta a tela de dados nem as finais)
-  const TOTAL_QUESTIONS = 4;
-
-  /* ===========================================
-     LÓGICA DO FORMULÁRIO
-     =========================================== */
-
-  let currentStep = 1;
-  const TOTAL_STEPS = 5;
   const formData = {};
-
   const progress = document.getElementById('progress');
   const dots = progress.querySelectorAll('.dot');
-  const steps = document.querySelectorAll('.step');
 
-  // Click nas opções
+  const NEXT_STEP = {
+    'step2a': 'step3a',
+    'step3a': 'step4a',
+    'step4a': 'step5',
+    'step2b': 'step3b',
+    'step3b': 'step4b',
+    'step4b': 'step5',
+    'step5':  null
+  };
+
+  const STEP_DOT = {
+    'step1':  0,
+    'step2a': 1, 'step2b': 1,
+    'step3a': 2, 'step3b': 2,
+    'step4a': 3, 'step4b': 3,
+    'step5':  4
+  };
+
+  let currentStepId = 'step1';
+
+  function showStep(stepId) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById(stepId).classList.add('active');
+    const idx = STEP_DOT[stepId];
+    for (let i = 0; i < dots.length; i++) {
+      dots[i].classList.remove('active', 'completed');
+      if (i < idx) dots[i].classList.add('completed');
+    }
+    dots[idx].classList.add('active');
+  }
+
+  function nextStep() {
+    const nextId = NEXT_STEP[currentStepId];
+    if (!nextId) return;
+    currentStepId = nextId;
+    showStep(currentStepId);
+    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormStep', {step: currentStepId});
+    if (currentStepId === 'step5' && typeof fbq !== 'undefined') fbq('trackCustom', 'FormContact');
+    if (window.innerWidth < 640) document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function goToBranch(stepId) {
+    currentStepId = stepId;
+    showStep(stepId);
+    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormStep', {step: stepId});
+    if (window.innerWidth < 640) document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   document.querySelectorAll('.option').forEach(option => {
     option.addEventListener('click', function() {
       const stepEl = this.closest('.step');
-      const stepNum = parseInt(stepEl.dataset.step);
-
-      // Marcar selecionada
       stepEl.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
       this.classList.add('selected');
-
-      // Salvar resposta
-      formData['step' + stepNum] = this.dataset.value;
-      if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormAnswer', {step: stepNum, value: this.dataset.value});
-
-      // Verificar desqualificação
+      formData[stepEl.id] = this.dataset.value;
+      if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormAnswer', {step: stepEl.id, value: this.dataset.value});
       const disqualify = this.dataset.disqualify === 'true';
-
+      const branchTo = this.dataset.branchTo;
       setTimeout(() => {
-        if (disqualify) {
-          showDisqualify();
-        } else {
-          nextStep();
-        }
+        if (disqualify) showDisqualify();
+        else if (branchTo) goToBranch(branchTo);
+        else nextStep();
       }, 300);
     });
   });
 
-  function nextStep() {
-    if (currentStep >= TOTAL_STEPS) return;
-
-    // Marcar dot atual como completo
-    dots[currentStep - 1].classList.remove('active');
-    dots[currentStep - 1].classList.add('completed');
-
-    // Esconder step atual
-    steps[currentStep - 1].classList.remove('active');
-
-    currentStep++;
-
-    // Mostrar próximo step
-    steps[currentStep - 1].classList.add('active');
-    dots[currentStep - 1].classList.add('active');
-
-    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormStep', {step: currentStep});
-    if (currentStep === TOTAL_STEPS && typeof fbq !== 'undefined') fbq('trackCustom', 'FormContact');
-
-    // Scroll suave pro topo do card em mobile
-    if (window.innerWidth < 640) {
-      document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-
   function showDisqualify() {
     progress.classList.add('hidden');
-    steps.forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
     document.getElementById('disqualifyScreen').classList.add('active');
-
     if (typeof fbq !== 'undefined') fbq('track', 'Contact');
     if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormDisqualify');
   }
 
   function showSuccess() {
     progress.classList.add('hidden');
-    steps.forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
     document.getElementById('successScreen').classList.add('active');
-
-    // Personalizar com primeiro nome
     const firstName = (formData.nome || '').split(' ')[0] || 'você';
     document.getElementById('leadName').textContent = firstName;
 
-    // Montar link WhatsApp personalizado
-    const msg = encodeURIComponent(
-      `Olá Dra. Aline! Meu nome é ${formData.nome}. ` +
-      `Acabei de fazer a avaliação no site e gostaria de conversar sobre meu caso trabalhista. ` +
-      `Situação: ${getReadableAnswer(formData.step1)} | ` +
-      `Tempo: ${getReadableAnswer(formData.step2)} | ` +
-      `Urgência: ${getReadableAnswer(formData.step4)}.`
-    );
+    const isVinculo = !!formData['step2a'];
+    let msg;
+    if (isVinculo) {
+      msg = encodeURIComponent(
+        `Olá Dra. Aline! Meu nome é ${formData.nome}. ` +
+        `Vim pelo site — caso de vínculo empregatício. ` +
+        `Tempo sem carteira: ${getReadableAnswer(formData['step2a'])} | ` +
+        `Subordinação: ${getReadableAnswer(formData['step3a'])} | ` +
+        `Último dia: ${getReadableAnswer(formData['step4a'])}.`
+      );
+    } else {
+      msg = encodeURIComponent(
+        `Olá Dra. Aline! Meu nome é ${formData.nome}. ` +
+        `Vim pelo site — estabilidade gestante. ` +
+        `Demissão: ${getReadableAnswer(formData['step2b'])} | ` +
+        `Documento: ${getReadableAnswer(formData['step3b'])} | ` +
+        `Empresa sabia: ${getReadableAnswer(formData['step4b'])}.`
+      );
+    }
     document.getElementById('successWhats').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
-
     if (typeof fbq !== 'undefined') fbq('track', 'Lead');
-
-    // 🎯 GOOGLE ADS — descomente para rastrear conversão
-    // if (typeof gtag !== 'undefined') gtag('event', 'conversion', { send_to: 'AW-XXXX/YYYY' });
   }
 
-  // Tradução amigável das respostas para a mensagem do WhatsApp
   function getReadableAnswer(value) {
     const map = {
-      'demissao': 'Demissão com dúvidas',
-      'assedio': 'Assédio no trabalho',
-      'horas-extras': 'Horas extras não pagas',
-      'sem-registro': 'Trabalho sem registro',
-      'outro': 'Outro problema trabalhista',
-      'atual': 'Acontecendo agora',
-      'recente': 'Há menos de 1 ano',
-      'medio': 'Entre 1 e 2 anos',
-      'muitas-provas': 'Tem provas sólidas',
-      'algumas-provas': 'Tem algumas provas',
-      'poucas-provas': 'Pode conseguir provas',
-      'sem-provas': 'Sem provas no momento',
-      'agora': 'Quer resolver hoje',
-      'semana': 'Nos próximos dias',
-      'mes': 'Ainda este mês'
+      'vinculo': 'Trabalhou sem carteira',
+      'gestante': 'Demitida durante a gravidez',
+      'outro': 'Outra situação',
+      'menos1': 'Menos de 1 ano',
+      '1a3': 'Entre 1 e 3 anos',
+      'mais3': 'Mais de 3 anos',
+      'sim-formal': 'Sim, com horário e ordens',
+      'sim-informal': 'Sim, de forma informal',
+      'nao-autonomo': 'Trabalho autônomo',
+      'ainda-trabalhando': 'Ainda trabalhando lá',
+      'menos2anos': 'Saiu há menos de 2 anos',
+      'mais2anos': 'Saiu há mais de 2 anos',
+      'gravida-agora': 'Grávida e demitida agora',
+      'menos5m-parto': 'Demitida há menos de 5 meses do parto',
+      'mais5m-parto': 'Demitida há mais de 5 meses do parto',
+      'tem-doc': 'Tem exame ou declaração médica',
+      'gravida-sem-doc': 'Grávida, sem documento ainda',
+      'sem-doc': 'Sem documento',
+      'empresa-sabia': 'Empresa sabia da gravidez',
+      'empresa-nao-sabia': 'Empresa não sabia'
     };
     return map[value] || value;
   }
 
-  // Máscara de telefone simples
   const whatsappInput = document.getElementById('whatsapp');
   whatsappInput.addEventListener('input', function(e) {
     let v = e.target.value.replace(/\D/g, '').slice(0, 11);
-    if (v.length > 10) {
-      v = v.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
-    } else if (v.length > 6) {
-      v = v.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
-    } else if (v.length > 2) {
-      v = v.replace(/(\d{2})(\d{0,5})/, '($1) $2');
-    } else if (v.length > 0) {
-      v = v.replace(/(\d{0,2})/, '($1');
-    }
+    if (v.length > 10) v = v.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+    else if (v.length > 6) v = v.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+    else if (v.length > 2) v = v.replace(/(\d{2})(\d{0,5})/, '($1) $2');
+    else if (v.length > 0) v = v.replace(/(\d{0,2})/, '($1');
     e.target.value = v;
   });
 
-  // Submit
   document.getElementById('submitBtn').addEventListener('click', function() {
     const nome = document.getElementById('nome').value.trim();
     const whatsapp = document.getElementById('whatsapp').value.trim();
 
-    // Validação
     if (nome.length < 2) {
       document.getElementById('nome').focus();
       document.getElementById('nome').style.borderColor = '#ef4444';
@@ -1041,9 +1077,9 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     formData.nome = nome;
     formData.whatsapp = digits;
 
-    // Marcar último dot como completo
-    dots[currentStep - 1].classList.remove('active');
-    dots[currentStep - 1].classList.add('completed');
+    const lastDotIdx = STEP_DOT[currentStepId];
+    dots[lastDotIdx].classList.remove('active');
+    dots[lastDotIdx].classList.add('completed');
 
     if (typeof fbq !== 'undefined') {
       fbq('init', '1579876419743844', {fn: nome.split(' ')[0].toLowerCase(), ln: (nome.split(' ').slice(1).join(' ') || '').toLowerCase(), ph: '55' + digits});

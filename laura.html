@@ -678,124 +678,150 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
         <!-- STEP 1: situação -->
         <div class="step active" id="step1" data-step="1">
           <div class="step-label">Pergunta 1 de 4</div>
-          <h2 class="step-question">Qual situação melhor descreve seu caso hoje?</h2>
+          <h2 class="step-question">Qual é a sua situação?</h2>
           <p class="step-help">Escolha a opção que mais combina com o que você está vivendo.</p>
           <div class="options">
-            <button class="option" data-value="afastado-saude">
+            <button class="option" data-value="maternidade" data-branch-to="step2a">
               <span class="option-radio"></span>
-              <span>Estou afastado(a) por problema de saúde e preciso de benefício</span>
+              <span>Quero solicitar ou tive negado o salário maternidade</span>
             </button>
-            <button class="option" data-value="beneficio-negado">
+            <button class="option" data-value="incapacidade" data-branch-to="step2b">
               <span class="option-radio"></span>
-              <span>Meu benefício foi negado pelo INSS</span>
-            </button>
-            <button class="option" data-value="beneficio-cortado">
-              <span class="option-radio"></span>
-              <span>Meu benefício foi cortado/cessado</span>
-            </button>
-            <button class="option" data-value="bpc-loas">
-              <span class="option-radio"></span>
-              <span>Quero pedir BPC/LOAS</span>
+              <span>Estou doente ou incapacitado(a) e o INSS negou meu benefício</span>
             </button>
             <button class="option" data-value="outro" data-disqualify="true">
               <span class="option-radio"></span>
-              <span>Outro caso previdenciário</span>
+              <span>Outra situação com o INSS</span>
             </button>
           </div>
         </div>
 
-        <!-- STEP 2: pedido INSS -->
-        <div class="step" id="step2" data-step="2">
-          <div class="step-label">Pergunta 2 de 4</div>
-          <h2 class="step-question">Você já fez pedido no INSS?</h2>
-          <p class="step-help">Isso nos ajuda a entender em que fase o seu caso está.</p>
+        <!-- STEP 2A: Fluxo Maternidade — contribuição INSS -->
+        <div class="step" id="step2a" data-step="2">
+          <div class="step-label">Pergunta 2 de 4 · Maternidade</div>
+          <h2 class="step-question">Você fez pelo menos uma contribuição ao INSS?</h2>
+          <p class="step-help">MEI, autônoma ou CLT — qualquer contribuição conta.</p>
           <div class="options">
-            <button class="option" data-value="negado">
+            <button class="option" data-value="contribuiu">
               <span class="option-radio"></span>
-              <span>Sim, e foi negado</span>
+              <span>Sim, contribuí ao menos uma vez</span>
+            </button>
+            <button class="option" data-value="mei-autonoma">
+              <span class="option-radio"></span>
+              <span>Sou MEI ou autônoma e pago INSS</span>
+            </button>
+            <button class="option" data-value="nunca-contribuiu" data-disqualify="true">
+              <span class="option-radio"></span>
+              <span>Nunca contribuí para o INSS</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 3A: Fluxo Maternidade — situação atual -->
+        <div class="step" id="step3a" data-step="3">
+          <div class="step-label">Pergunta 3 de 4 · Maternidade</div>
+          <h2 class="step-question">Qual é a sua situação atual?</h2>
+          <p class="step-help">Isso define se ainda está dentro do prazo para solicitar o benefício.</p>
+          <div class="options">
+            <button class="option" data-value="gravida">
+              <span class="option-radio"></span>
+              <span>Estou grávida</span>
+            </button>
+            <button class="option" data-value="filho-menos6m">
+              <span class="option-radio"></span>
+              <span>Tive filho há menos de 6 meses</span>
+            </button>
+            <button class="option" data-value="adocao">
+              <span class="option-radio"></span>
+              <span>Adotei uma criança recentemente</span>
+            </button>
+            <button class="option" data-value="filho-mais6m" data-disqualify="true">
+              <span class="option-radio"></span>
+              <span>Tive filho há mais de 6 meses e não solicitei</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 4A: Fluxo Maternidade — INSS negou -->
+        <div class="step" id="step4a" data-step="4">
+          <div class="step-label">Pergunta 4 de 4 · Maternidade</div>
+          <h2 class="step-question">O INSS já negou seu pedido?</h2>
+          <p class="step-help">Independente da fase, a Dra. Laura pode te ajudar.</p>
+          <div class="options">
+            <button class="option" data-value="inss-negou">
+              <span class="option-radio"></span>
+              <span>Sim, foi negado</span>
+            </button>
+            <button class="option" data-value="nao-solicitei">
+              <span class="option-radio"></span>
+              <span>Ainda não solicitei</span>
             </button>
             <button class="option" data-value="em-analise">
               <span class="option-radio"></span>
-              <span>Sim, está em análise</span>
-            </button>
-            <button class="option" data-value="cortaram">
-              <span class="option-radio"></span>
-              <span>Sim, recebia e cortaram</span>
-            </button>
-            <button class="option" data-value="ainda-nao" data-branch-to="step2b">
-              <span class="option-radio"></span>
-              <span>Ainda não fiz</span>
+              <span>Está em análise</span>
             </button>
           </div>
         </div>
 
-                <!-- STEP 2B: por que ainda não fez pedido -->
-        <div class="step" id="step2b" data-step="2b">
-          <div class="step-label">Pergunta 2 de 4</div>
-          <h2 class="step-question">Por que você ainda não fez o pedido?</h2>
-          <p class="step-help">Isso nos ajuda a entender como a Dra. Laura pode te ajudar melhor.</p>
+        <!-- STEP 2B: Fluxo Incapacidade — condição de saúde -->
+        <div class="step" id="step2b" data-step="2">
+          <div class="step-label">Pergunta 2 de 4 · Incapacidade</div>
+          <h2 class="step-question">Qual é a sua condição de saúde?</h2>
+          <p class="step-help">Algumas doenças têm direito a benefício sem carência.</p>
           <div class="options">
-            <button class="option" data-value="nao-sei-direito">
+            <button class="option" data-value="doenca-grave">
               <span class="option-radio"></span>
-              <span>Não sei se tenho direito</span>
+              <span>Câncer, HIV, tuberculose, cardiopatia ou hepatite grave</span>
             </button>
-            <button class="option" data-value="nao-sei-como">
+            <button class="option" data-value="outra-doenca">
               <span class="option-radio"></span>
-              <span>Não sei como fazer o pedido</span>
+              <span>Outra doença que me impede de trabalhar</span>
             </button>
-            <button class="option" data-value="juntando-docs">
+            <button class="option" data-value="saudavel" data-disqualify="true">
               <span class="option-radio"></span>
-              <span>Estou juntando os documentos</span>
-            </button>
-            <button class="option" data-value="nao-precisei" data-disqualify="true">
-              <span class="option-radio"></span>
-              <span>Ainda não precisei</span>
+              <span>Estou bem de saúde, é outro motivo</span>
             </button>
           </div>
         </div>
 
-        <!-- STEP 3: documentos -->
-        <div class="step" id="step3" data-step="3">
-          <div class="step-label">Pergunta 3 de 4</div>
-          <h2 class="step-question">Você possui laudos, exames ou documentos médicos?</h2>
-          <p class="step-help">Não se preocupe se não tiver tudo — só queremos entender o cenário.</p>
+        <!-- STEP 3B: Fluxo Incapacidade — contribuições -->
+        <div class="step" id="step3b" data-step="3">
+          <div class="step-label">Pergunta 3 de 4 · Incapacidade</div>
+          <h2 class="step-question">Você já contribuiu para o INSS alguma vez?</h2>
+          <p class="step-help">Doenças graves da lista especial dispensam o período de carência.</p>
           <div class="options">
-            <button class="option" data-value="completos">
+            <button class="option" data-value="tem-contribuicoes">
               <span class="option-radio"></span>
-              <span>Sim, completos</span>
+              <span>Sim, tenho contribuições</span>
             </button>
-            <button class="option" data-value="alguns">
+            <button class="option" data-value="doenca-sem-carencia">
               <span class="option-radio"></span>
-              <span>Tenho alguns</span>
+              <span>Tenho doença da lista especial (sem carência)</span>
             </button>
-            <button class="option" data-value="nao-tenho" data-disqualify="true">
+            <button class="option" data-value="nunca-sem-lista" data-disqualify="true">
               <span class="option-radio"></span>
-              <span>Ainda não tenho</span>
-            </button>
-            <button class="option" data-value="nao-sei">
-              <span class="option-radio"></span>
-              <span>Não sei quais preciso</span>
+              <span>Nunca contribuí e não tenho doença da lista</span>
             </button>
           </div>
         </div>
 
-        <!-- STEP 4: urgência -->
-        <div class="step" id="step4" data-step="4">
-          <div class="step-label">Pergunta 4 de 4</div>
-          <h2 class="step-question">Você quer resolver isso agora?</h2>
-          <p class="step-help">Sem compromisso — precisamos entender sua urgência.</p>
+        <!-- STEP 4B: Fluxo Incapacidade — INSS se manifestou -->
+        <div class="step" id="step4b" data-step="4">
+          <div class="step-label">Pergunta 4 de 4 · Incapacidade</div>
+          <h2 class="step-question">O INSS já se manifestou sobre seu caso?</h2>
+          <p class="step-help">Negativa ou corte — ambos têm prazo para recurso.</p>
           <div class="options">
-            <button class="option" data-value="urgente">
+            <button class="option" data-value="negou-beneficio">
               <span class="option-radio"></span>
-              <span>Sim, quero resolver o quanto antes</span>
+              <span>Negou meu benefício</span>
             </button>
-            <button class="option" data-value="semanas">
+            <button class="option" data-value="cortou-beneficio">
               <span class="option-radio"></span>
-              <span>Sim, nas próximas semanas</span>
+              <span>Cortou meu benefício que já recebia</span>
             </button>
-            <button class="option" data-value="pesquisando" data-disqualify="true">
+            <button class="option" data-value="ainda-nao-solicitei">
               <span class="option-radio"></span>
-              <span>Ainda estou só pesquisando, sem pressa</span>
+              <span>Ainda não solicitei</span>
             </button>
           </div>
         </div>
@@ -892,40 +918,27 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
   </footer>
 
 <script>
-  /* ===========================================
-     CONFIGURAÇÃO — EDITE AQUI
-     =========================================== */
-
-  // Número WhatsApp do escritório (formato internacional, sem +, espaços ou traços)
   const WHATSAPP_NUMBER = '5511950879130';
 
-  // Total de perguntas (não conta a tela de dados nem as finais)
-  const TOTAL_QUESTIONS = 4;
-
-  /* ===========================================
-     LÓGICA DO FORMULÁRIO
-     =========================================== */
-
   const formData = {};
-
   const progress = document.getElementById('progress');
   const dots = progress.querySelectorAll('.dot');
 
   const NEXT_STEP = {
-    'step1':  'step2',
-    'step2':  'step3',
-    'step2b': 'step3',
-    'step3':  'step4',
-    'step4':  'step5',
+    'step2a': 'step3a',
+    'step3a': 'step4a',
+    'step4a': 'step5',
+    'step2b': 'step3b',
+    'step3b': 'step4b',
+    'step4b': 'step5',
     'step5':  null
   };
 
   const STEP_DOT = {
     'step1':  0,
-    'step2':  1,
-    'step2b': 1,
-    'step3':  2,
-    'step4':  3,
+    'step2a': 1, 'step2b': 1,
+    'step3a': 2, 'step3b': 2,
+    'step4a': 3, 'step4b': 3,
     'step5':  4
   };
 
@@ -934,13 +947,12 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
   function showStep(stepId) {
     document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
     document.getElementById(stepId).classList.add('active');
-    const currentDotIdx = STEP_DOT[stepId];
+    const idx = STEP_DOT[stepId];
     for (let i = 0; i < dots.length; i++) {
-      dots[i].classList.remove('active');
-      dots[i].classList.remove('completed');
-      if (i < currentDotIdx) dots[i].classList.add('completed');
+      dots[i].classList.remove('active', 'completed');
+      if (i < idx) dots[i].classList.add('completed');
     }
-    dots[currentDotIdx].classList.add('active');
+    dots[idx].classList.add('active');
   }
 
   function nextStep() {
@@ -950,19 +962,14 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     showStep(currentStepId);
     if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormStep', {step: currentStepId});
     if (currentStepId === 'step5' && typeof fbq !== 'undefined') fbq('trackCustom', 'FormContact');
-    if (window.innerWidth < 640) {
-      document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    if (window.innerWidth < 640) document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   function goToBranch(stepId) {
-    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
     currentStepId = stepId;
-    document.getElementById(stepId).classList.add('active');
+    showStep(stepId);
     if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormStep', {step: stepId});
-    if (window.innerWidth < 640) {
-      document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    if (window.innerWidth < 640) document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   document.querySelectorAll('.option').forEach(option => {
@@ -975,13 +982,9 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
       const disqualify = this.dataset.disqualify === 'true';
       const branchTo = this.dataset.branchTo;
       setTimeout(() => {
-        if (disqualify) {
-          showDisqualify();
-        } else if (branchTo) {
-          goToBranch(branchTo);
-        } else {
-          nextStep();
-        }
+        if (disqualify) showDisqualify();
+        else if (branchTo) goToBranch(branchTo);
+        else nextStep();
       }, 300);
     });
   });
@@ -1000,65 +1003,72 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     document.getElementById('successScreen').classList.add('active');
     const firstName = (formData.nome || '').split(' ')[0] || 'você';
     document.getElementById('leadName').textContent = firstName;
-    const inssStatus = formData['step2'] === 'ainda-nao'
-      ? ('Ainda não fez pedido — Motivo: ' + getReadableAnswer(formData['step2b']))
-      : getReadableAnswer(formData['step2']);
-    const msg = encodeURIComponent(
-      'Olá Dra. Laura! Meu nome é ' + formData.nome + '. ' +
-      'Acabei de fazer a avaliação no site e gostaria de conversar sobre meu caso previdenciário. ' +
-      'Situação: ' + getReadableAnswer(formData['step1']) + ' | ' +
-      'Pedido INSS: ' + inssStatus + ' | ' +
-      'Documentos: ' + getReadableAnswer(formData['step3']) + ' | ' +
-      'Urgência: ' + getReadableAnswer(formData['step4']) + '.'
-    );
-    document.getElementById('successWhats').href = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + msg;
+
+    const isMaternidade = !!formData['step2a'];
+    let msg;
+    if (isMaternidade) {
+      msg = encodeURIComponent(
+        `Olá Dra. Laura! Meu nome é ${formData.nome}. ` +
+        `Vim pelo site — salário maternidade. ` +
+        `Contribuição INSS: ${getReadableAnswer(formData['step2a'])} | ` +
+        `Situação: ${getReadableAnswer(formData['step3a'])} | ` +
+        `Status pedido: ${getReadableAnswer(formData['step4a'])}.`
+      );
+    } else {
+      msg = encodeURIComponent(
+        `Olá Dra. Laura! Meu nome é ${formData.nome}. ` +
+        `Vim pelo site — benefício por incapacidade. ` +
+        `Condição de saúde: ${getReadableAnswer(formData['step2b'])} | ` +
+        `Contribuições: ${getReadableAnswer(formData['step3b'])} | ` +
+        `INSS: ${getReadableAnswer(formData['step4b'])}.`
+      );
+    }
+    document.getElementById('successWhats').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
     if (typeof fbq !== 'undefined') fbq('track', 'Lead');
   }
 
   function getReadableAnswer(value) {
     const map = {
-      'afastado-saude':   'Afastado por saúde, precisa de benefício',
-      'beneficio-negado': 'Benefício negado pelo INSS',
-      'beneficio-cortado':'Benefício cortado/cessado',
-      'bpc-loas':         'Quer pedir BPC/LOAS',
-      'outro':            'Outro caso previdenciário',
-      'negado':           'Pedido negado',
-      'em-analise':       'Pedido em análise',
-      'cortaram':         'Recebia e cortaram',
-      'ainda-nao':        'Ainda não fez pedido',
-      'nao-sei-direito':  'Não sabe se tem direito',
-      'nao-sei-como':     'Não sabe como fazer o pedido',
-      'juntando-docs':    'Está juntando os documentos',
-      'nao-precisei':     'Ainda não precisou',
-      'completos':        'Documentos completos',
-      'alguns':           'Tem alguns documentos',
-      'nao-tenho':        'Ainda não tem documentos',
-      'nao-sei':          'Não sabe quais precisa'
+      'maternidade': 'Salário maternidade',
+      'incapacidade': 'Benefício por incapacidade',
+      'outro': 'Outra situação',
+      'contribuiu': 'Sim, contribuiu ao menos uma vez',
+      'mei-autonoma': 'MEI / autônoma com INSS',
+      'nunca-contribuiu': 'Nunca contribuiu',
+      'gravida': 'Está grávida',
+      'filho-menos6m': 'Filho há menos de 6 meses',
+      'adocao': 'Adotou criança recentemente',
+      'filho-mais6m': 'Filho há mais de 6 meses sem solicitar',
+      'inss-negou': 'INSS negou o pedido',
+      'nao-solicitei': 'Ainda não solicitou',
+      'em-analise': 'Pedido em análise',
+      'doenca-grave': 'Doença grave (lista especial)',
+      'outra-doenca': 'Outra doença incapacitante',
+      'saudavel': 'Sem doença incapacitante',
+      'tem-contribuicoes': 'Tem contribuições',
+      'doenca-sem-carencia': 'Doença da lista — sem carência',
+      'nunca-sem-lista': 'Nunca contribuiu e sem doença da lista',
+      'negou-beneficio': 'INSS negou o benefício',
+      'cortou-beneficio': 'INSS cortou o benefício',
+      'ainda-nao-solicitei': 'Ainda não solicitou'
     };
     return map[value] || value;
   }
-  // Máscara de telefone simples
+
   const whatsappInput = document.getElementById('whatsapp');
   whatsappInput.addEventListener('input', function(e) {
     let v = e.target.value.replace(/\D/g, '').slice(0, 11);
-    if (v.length > 10) {
-      v = v.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
-    } else if (v.length > 6) {
-      v = v.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
-    } else if (v.length > 2) {
-      v = v.replace(/(\d{2})(\d{0,5})/, '($1) $2');
-    } else if (v.length > 0) {
-      v = v.replace(/(\d{0,2})/, '($1');
-    }
+    if (v.length > 10) v = v.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+    else if (v.length > 6) v = v.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+    else if (v.length > 2) v = v.replace(/(\d{2})(\d{0,5})/, '($1) $2');
+    else if (v.length > 0) v = v.replace(/(\d{0,2})/, '($1');
     e.target.value = v;
   });
 
-  // Submit
   document.getElementById('submitBtn').addEventListener('click', function() {
     const nome = document.getElementById('nome').value.trim();
     const whatsapp = document.getElementById('whatsapp').value.trim();
 
-    // Validação
     if (nome.length < 2) {
       document.getElementById('nome').focus();
       document.getElementById('nome').style.borderColor = '#ef4444';
@@ -1077,7 +1087,6 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     formData.nome = nome;
     formData.whatsapp = digits;
 
-    // Marcar último dot como completo
     const lastDotIdx = STEP_DOT[currentStepId];
     dots[lastDotIdx].classList.remove('active');
     dots[lastDotIdx].classList.add('completed');

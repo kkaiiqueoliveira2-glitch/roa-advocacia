@@ -676,111 +676,154 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
         </div>
 
         <!-- STEP 1: situação -->
-        <div class="step active" data-step="1">
+        <div class="step active" id="step1" data-step="1">
           <div class="step-label">Pergunta 1 de 4</div>
-          <h2 class="step-question">Qual sua situação hoje?</h2>
+          <h2 class="step-question">Qual é a sua situação?</h2>
           <p class="step-help">Escolha a opção que mais combina com o que você está vivendo.</p>
           <div class="options">
-            <button class="option" data-value="pedir-guarda">
+            <button class="option" data-value="pensao" data-branch-to="step2a">
               <span class="option-radio"></span>
-              <span>Quero pedir guarda do meu filho(a)</span>
+              <span>Quero revisar ou cobrar pensão alimentícia</span>
             </button>
-            <button class="option" data-value="guarda-compartilhada">
+            <button class="option" data-value="divorcio" data-branch-to="step2b">
               <span class="option-radio"></span>
-              <span>Quero regularizar guarda compartilhada</span>
+              <span>Quero me separar ou já estou em processo de divórcio</span>
             </button>
-            <button class="option" data-value="descumprimento">
+            <button class="option" data-value="outro" data-disqualify="true">
               <span class="option-radio"></span>
-              <span>O outro genitor não cumpre acordos</span>
-            </button>
-            <button class="option" data-value="conflito-visitas">
-              <span class="option-radio"></span>
-              <span>Estou em conflito sobre visitas/convivência</span>
-            </button>
-            <button class="option" data-value="outro">
-              <span class="option-radio"></span>
-              <span>Outra situação (divórcio, pensão, tutela...)</span>
+              <span>Outra situação de família</span>
             </button>
           </div>
         </div>
 
-        <!-- STEP 2: processo -->
-        <div class="step" data-step="2">
-          <div class="step-label">Pergunta 2 de 4</div>
-          <h2 class="step-question">Já existe processo judicial ou acordo formalizado?</h2>
-          <p class="step-help">Isso nos ajuda a entender em que ponto o seu caso está.</p>
+        <!-- STEP 2A: Fluxo Pensão — formalização -->
+        <div class="step" id="step2a" data-step="2">
+          <div class="step-label">Pergunta 2 de 4 · Pensão</div>
+          <h2 class="step-question">A pensão foi definida por acordo ou decisão judicial?</h2>
+          <p class="step-help">Isso determina a base para pedir a revisão.</p>
           <div class="options">
-            <button class="option" data-value="processo-andamento">
+            <button class="option" data-value="decisao-judicial">
               <span class="option-radio"></span>
-              <span>Sim, processo em andamento</span>
+              <span>Por decisão judicial</span>
             </button>
-            <button class="option" data-value="acordo-feito">
+            <button class="option" data-value="acordo-homologado">
               <span class="option-radio"></span>
-              <span>Sim, acordo feito</span>
+              <span>Por acordo homologado</span>
             </button>
-            <button class="option" data-value="nada-formalizado">
+            <button class="option" data-value="nunca-formalizada" data-disqualify="true">
               <span class="option-radio"></span>
-              <span>Não existe nada formalizado</span>
-            </button>
-            <button class="option" data-value="nao-sei">
-              <span class="option-radio"></span>
-              <span>Não sei informar</span>
+              <span>Nunca foi formalizada</span>
             </button>
           </div>
         </div>
 
-        <!-- STEP 3: dor -->
-        <div class="step" data-step="3">
-          <div class="step-label">Pergunta 3 de 4</div>
-          <h2 class="step-question">Qual a maior dificuldade que você enfrenta hoje?</h2>
-          <p class="step-help">Queremos entender o que mais te preocupa neste momento.</p>
+        <!-- STEP 3A: Fluxo Pensão — o que mudou -->
+        <div class="step" id="step3a" data-step="3">
+          <div class="step-label">Pergunta 3 de 4 · Pensão</div>
+          <h2 class="step-question">O que mudou desde que a pensão foi definida?</h2>
+          <p class="step-help">Mudanças na situação financeira ou das necessidades do filho justificam a revisão.</p>
           <div class="options">
-            <button class="option" data-value="falta-acordo">
+            <button class="option" data-value="renda-mudou">
               <span class="option-radio"></span>
-              <span>Falta de acordo entre os pais</span>
+              <span>Minha renda mudou (aumentou ou diminuiu)</span>
             </button>
-            <button class="option" data-value="medo-convivencia">
+            <button class="option" data-value="necessidades-filho">
               <span class="option-radio"></span>
-              <span>Medo de perder convivência com meu filho(a)</span>
+              <span>As necessidades do filho mudaram</span>
             </button>
-            <button class="option" data-value="descumprimento-visitas">
+            <button class="option" data-value="nao-esta-pagando">
               <span class="option-radio"></span>
-              <span>Descumprimento de visitas</span>
+              <span>O outro lado não está pagando</span>
             </button>
-            <button class="option" data-value="alienacao-parental">
+            <button class="option" data-value="sem-motivo" data-disqualify="true">
               <span class="option-radio"></span>
-              <span>Alienação parental / impedimento de contato</span>
-            </button>
-            <button class="option" data-value="seguranca-juridica">
-              <span class="option-radio"></span>
-              <span>Quero segurança jurídica</span>
+              <span>Nada mudou, quero aumentar sem motivo</span>
             </button>
           </div>
         </div>
 
-        <!-- STEP 4: urgência -->
-        <div class="step" data-step="4">
-          <div class="step-label">Pergunta 4 de 4</div>
-          <h2 class="step-question">Você busca ajuda jurídica para resolver isso agora?</h2>
-          <p class="step-help">Sem compromisso — é só pra entendermos sua urgência.</p>
+        <!-- STEP 4A: Fluxo Pensão — vigência -->
+        <div class="step" id="step4a" data-step="4">
+          <div class="step-label">Pergunta 4 de 4 · Pensão</div>
+          <h2 class="step-question">Há quanto tempo essa pensão está vigente sem revisão?</h2>
+          <p class="step-help">Quanto mais tempo sem revisão, maior a chance de adequação necessária.</p>
           <div class="options">
-            <button class="option" data-value="urgente">
+            <button class="option" data-value="menos1">
               <span class="option-radio"></span>
-              <span>Sim, com urgência</span>
+              <span>Menos de 1 ano</span>
             </button>
-            <button class="option" data-value="semanas">
+            <button class="option" data-value="1a3">
               <span class="option-radio"></span>
-              <span>Sim, nas próximas semanas</span>
+              <span>Entre 1 e 3 anos</span>
             </button>
-            <button class="option" data-value="pesquisando" data-disqualify="true">
+            <button class="option" data-value="mais3">
               <span class="option-radio"></span>
-              <span>Apenas buscando informações no momento</span>
+              <span>Mais de 3 anos</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 2B: Fluxo Divórcio — momento atual -->
+        <div class="step" id="step2b" data-step="2">
+          <div class="step-label">Pergunta 2 de 4 · Divórcio</div>
+          <h2 class="step-question">Qual é o seu momento atual?</h2>
+          <p class="step-help">Nos ajuda a entender em que etapa do processo você está.</p>
+          <div class="options">
+            <button class="option" data-value="quero-separar">
+              <span class="option-radio"></span>
+              <span>Quero me separar mas ainda não iniciei nada</span>
+            </button>
+            <button class="option" data-value="separado-formalizar">
+              <span class="option-radio"></span>
+              <span>Já estou separado(a) mas preciso formalizar</span>
+            </button>
+            <button class="option" data-value="em-processo">
+              <span class="option-radio"></span>
+              <span>Estou em processo de divórcio e preciso de apoio</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 3B: Fluxo Divórcio — filhos menores -->
+        <div class="step" id="step3b" data-step="3">
+          <div class="step-label">Pergunta 3 de 4 · Divórcio</div>
+          <h2 class="step-question">Tem filhos menores de idade envolvidos?</h2>
+          <p class="step-help">Isso determina o rito processual mais adequado.</p>
+          <div class="options">
+            <button class="option" data-value="sim-filhos">
+              <span class="option-radio"></span>
+              <span>Sim</span>
+            </button>
+            <button class="option" data-value="nao-filhos">
+              <span class="option-radio"></span>
+              <span>Não</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 4B: Fluxo Divórcio — situação cônjuge -->
+        <div class="step" id="step4b" data-step="4">
+          <div class="step-label">Pergunta 4 de 4 · Divórcio</div>
+          <h2 class="step-question">Como você descreveria a situação com seu cônjuge?</h2>
+          <p class="step-help">Isso ajuda a entender qual abordagem jurídica é mais adequada.</p>
+          <div class="options">
+            <button class="option" data-value="consensual">
+              <span class="option-radio"></span>
+              <span>Consensual — ambos concordam com a separação</span>
+            </button>
+            <button class="option" data-value="conflito-resolver">
+              <span class="option-radio"></span>
+              <span>Há conflito mas quero resolver logo</span>
+            </button>
+            <button class="option" data-value="dificil-urgente">
+              <span class="option-radio"></span>
+              <span>Está difícil, preciso de orientação urgente</span>
             </button>
           </div>
         </div>
 
         <!-- STEP 5: dados -->
-        <div class="step" data-step="5">
+        <div class="step" id="step5" data-step="5">
           <div class="step-label">Última etapa</div>
           <h2 class="step-question">Por onde a Dra. Gessika pode te chamar?</h2>
           <p class="step-help">Vamos te enviar um retorno pessoal pelo WhatsApp em até 1h em horário comercial.</p>
@@ -871,160 +914,156 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
   </footer>
 
 <script>
-  /* ===========================================
-     CONFIGURAÇÃO — EDITE AQUI
-     =========================================== */
-
-  // Número WhatsApp do escritório (formato internacional, sem +, espaços ou traços)
   const WHATSAPP_NUMBER = '5511999102805';
 
-  // Total de perguntas (não conta a tela de dados nem as finais)
-  const TOTAL_QUESTIONS = 4;
-
-  /* ===========================================
-     LÓGICA DO FORMULÁRIO
-     =========================================== */
-
-  let currentStep = 1;
-  const TOTAL_STEPS = 5;
   const formData = {};
-
   const progress = document.getElementById('progress');
   const dots = progress.querySelectorAll('.dot');
-  const steps = document.querySelectorAll('.step');
 
-  // Click nas opções
+  const NEXT_STEP = {
+    'step2a': 'step3a',
+    'step3a': 'step4a',
+    'step4a': 'step5',
+    'step2b': 'step3b',
+    'step3b': 'step4b',
+    'step4b': 'step5',
+    'step5':  null
+  };
+
+  const STEP_DOT = {
+    'step1':  0,
+    'step2a': 1, 'step2b': 1,
+    'step3a': 2, 'step3b': 2,
+    'step4a': 3, 'step4b': 3,
+    'step5':  4
+  };
+
+  let currentStepId = 'step1';
+
+  function showStep(stepId) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById(stepId).classList.add('active');
+    const idx = STEP_DOT[stepId];
+    for (let i = 0; i < dots.length; i++) {
+      dots[i].classList.remove('active', 'completed');
+      if (i < idx) dots[i].classList.add('completed');
+    }
+    dots[idx].classList.add('active');
+  }
+
+  function nextStep() {
+    const nextId = NEXT_STEP[currentStepId];
+    if (!nextId) return;
+    currentStepId = nextId;
+    showStep(currentStepId);
+    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormStep', {step: currentStepId});
+    if (currentStepId === 'step5' && typeof fbq !== 'undefined') fbq('trackCustom', 'FormContact');
+    if (window.innerWidth < 640) document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function goToBranch(stepId) {
+    currentStepId = stepId;
+    showStep(stepId);
+    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormStep', {step: stepId});
+    if (window.innerWidth < 640) document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   document.querySelectorAll('.option').forEach(option => {
     option.addEventListener('click', function() {
       const stepEl = this.closest('.step');
-      const stepNum = parseInt(stepEl.dataset.step);
-
-      // Marcar selecionada
       stepEl.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
       this.classList.add('selected');
-
-      // Salvar resposta
-      formData['step' + stepNum] = this.dataset.value;
-      if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormAnswer', {step: stepNum, value: this.dataset.value});
-
-      // Verificar desqualificação
+      formData[stepEl.id] = this.dataset.value;
+      if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormAnswer', {step: stepEl.id, value: this.dataset.value});
       const disqualify = this.dataset.disqualify === 'true';
-
+      const branchTo = this.dataset.branchTo;
       setTimeout(() => {
-        if (disqualify) {
-          showDisqualify();
-        } else {
-          nextStep();
-        }
+        if (disqualify) showDisqualify();
+        else if (branchTo) goToBranch(branchTo);
+        else nextStep();
       }, 300);
     });
   });
 
-  function nextStep() {
-    if (currentStep >= TOTAL_STEPS) return;
-
-    // Marcar dot atual como completo
-    dots[currentStep - 1].classList.remove('active');
-    dots[currentStep - 1].classList.add('completed');
-
-    // Esconder step atual
-    steps[currentStep - 1].classList.remove('active');
-
-    currentStep++;
-
-    // Mostrar próximo step
-    steps[currentStep - 1].classList.add('active');
-    dots[currentStep - 1].classList.add('active');
-
-    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormStep', {step: currentStep});
-    if (currentStep === TOTAL_STEPS && typeof fbq !== 'undefined') fbq('trackCustom', 'FormContact');
-
-    // Scroll suave pro topo do card em mobile
-    if (window.innerWidth < 640) {
-      document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-
   function showDisqualify() {
     progress.classList.add('hidden');
-    steps.forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
     document.getElementById('disqualifyScreen').classList.add('active');
-
     if (typeof fbq !== 'undefined') fbq('track', 'Contact');
     if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormDisqualify');
   }
 
   function showSuccess() {
     progress.classList.add('hidden');
-    steps.forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
     document.getElementById('successScreen').classList.add('active');
-
-    // Personalizar com primeiro nome
     const firstName = (formData.nome || '').split(' ')[0] || 'você';
     document.getElementById('leadName').textContent = firstName;
 
-    // Montar link WhatsApp personalizado
-    const msg = encodeURIComponent(
-      `Olá Dra. Gessika! Meu nome é ${formData.nome}. ` +
-      `Acabei de fazer a avaliação no site e gostaria de conversar sobre meu caso de guarda. ` +
-      `Situação: ${getReadableAnswer(formData.step1)} | ` +
-      `Processo: ${getReadableAnswer(formData.step2)} | ` +
-      `Dificuldade: ${getReadableAnswer(formData.step3)} | ` +
-      `Urgência: ${getReadableAnswer(formData.step4)}.`
-    );
+    const isPensao = !!formData['step2a'];
+    let msg;
+    if (isPensao) {
+      msg = encodeURIComponent(
+        `Olá Dra. Gessika! Meu nome é ${formData.nome}. ` +
+        `Vim pelo site — revisional de alimentos. ` +
+        `Formalização: ${getReadableAnswer(formData['step2a'])} | ` +
+        `O que mudou: ${getReadableAnswer(formData['step3a'])} | ` +
+        `Vigência: ${getReadableAnswer(formData['step4a'])}.`
+      );
+    } else {
+      msg = encodeURIComponent(
+        `Olá Dra. Gessika! Meu nome é ${formData.nome}. ` +
+        `Vim pelo site — divórcio. ` +
+        `Momento: ${getReadableAnswer(formData['step2b'])} | ` +
+        `Filhos menores: ${getReadableAnswer(formData['step3b'])} | ` +
+        `Situação: ${getReadableAnswer(formData['step4b'])}.`
+      );
+    }
     document.getElementById('successWhats').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
-
     if (typeof fbq !== 'undefined') fbq('track', 'Lead');
-
-    // 🎯 GOOGLE ADS — descomente para rastrear conversão
-    // if (typeof gtag !== 'undefined') gtag('event', 'conversion', { send_to: 'AW-XXXX/YYYY' });
   }
 
-  // Tradução amigável das respostas para a mensagem do WhatsApp
   function getReadableAnswer(value) {
     const map = {
-      'pedir-guarda': 'Quer pedir guarda',
-      'guarda-compartilhada': 'Regularizar guarda compartilhada',
-      'descumprimento': 'Genitor não cumpre acordos',
-      'conflito-visitas': 'Conflito sobre visitas/convivência',
-      'outro': 'Outro',
-      'processo-andamento': 'Processo em andamento',
-      'acordo-feito': 'Acordo já feito',
-      'nada-formalizado': 'Nada formalizado',
-      'nao-sei': 'Não sabe informar',
-      'falta-acordo': 'Falta de acordo entre os pais',
-      'medo-convivencia': 'Medo de perder convivência',
-      'descumprimento-visitas': 'Descumprimento de visitas',
-      'alienacao-parental': 'Alienação parental',
-      'seguranca-juridica': 'Quer segurança jurídica',
-      'urgente': 'Com urgência',
-      'semanas': 'Nas próximas semanas'
+      'pensao': 'Revisão/cobrança de pensão',
+      'divorcio': 'Separação/divórcio',
+      'outro': 'Outra situação',
+      'decisao-judicial': 'Decisão judicial',
+      'acordo-homologado': 'Acordo homologado',
+      'nunca-formalizada': 'Nunca foi formalizada',
+      'renda-mudou': 'Renda mudou',
+      'necessidades-filho': 'Necessidades do filho mudaram',
+      'nao-esta-pagando': 'Outro lado não está pagando',
+      'sem-motivo': 'Sem motivo justificado',
+      'menos1': 'Menos de 1 ano',
+      '1a3': 'Entre 1 e 3 anos',
+      'mais3': 'Mais de 3 anos',
+      'quero-separar': 'Quer se separar',
+      'separado-formalizar': 'Separado, precisa formalizar',
+      'em-processo': 'Processo em andamento',
+      'sim-filhos': 'Sim, tem filhos menores',
+      'nao-filhos': 'Não tem filhos menores',
+      'consensual': 'Consensual',
+      'conflito-resolver': 'Há conflito, quer resolver',
+      'dificil-urgente': 'Situação difícil, urgente'
     };
     return map[value] || value;
   }
 
-  // Máscara de telefone simples
   const whatsappInput = document.getElementById('whatsapp');
   whatsappInput.addEventListener('input', function(e) {
     let v = e.target.value.replace(/\D/g, '').slice(0, 11);
-    if (v.length > 10) {
-      v = v.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
-    } else if (v.length > 6) {
-      v = v.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
-    } else if (v.length > 2) {
-      v = v.replace(/(\d{2})(\d{0,5})/, '($1) $2');
-    } else if (v.length > 0) {
-      v = v.replace(/(\d{0,2})/, '($1');
-    }
+    if (v.length > 10) v = v.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+    else if (v.length > 6) v = v.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+    else if (v.length > 2) v = v.replace(/(\d{2})(\d{0,5})/, '($1) $2');
+    else if (v.length > 0) v = v.replace(/(\d{0,2})/, '($1');
     e.target.value = v;
   });
 
-  // Submit
   document.getElementById('submitBtn').addEventListener('click', function() {
     const nome = document.getElementById('nome').value.trim();
     const whatsapp = document.getElementById('whatsapp').value.trim();
 
-    // Validação
     if (nome.length < 2) {
       document.getElementById('nome').focus();
       document.getElementById('nome').style.borderColor = '#ef4444';
@@ -1043,9 +1082,9 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     formData.nome = nome;
     formData.whatsapp = digits;
 
-    // Marcar último dot como completo
-    dots[currentStep - 1].classList.remove('active');
-    dots[currentStep - 1].classList.add('completed');
+    const lastDotIdx = STEP_DOT[currentStepId];
+    dots[lastDotIdx].classList.remove('active');
+    dots[lastDotIdx].classList.add('completed');
 
     if (typeof fbq !== 'undefined') {
       fbq('init', '1579876419743844', {fn: nome.split(' ')[0].toLowerCase(), ln: (nome.split(' ').slice(1).join(' ') || '').toLowerCase(), ph: '55' + digits});
