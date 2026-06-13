@@ -684,37 +684,116 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
           <div class="dot"></div>
         </div>
 
-        <!-- STEP 1: situação -->
-        <div class="step active" data-step="1">
+        <!-- STEP 1: bifurcação -->
+        <div class="step active" data-step="step1">
           <div class="step-label">Pergunta 1 de 4</div>
-          <h2 class="step-question">O que está acontecendo com seu benefício do INSS?</h2>
-          <p class="step-help">Escolha a opção mais parecida com seu caso — a gente te orienta depois.</p>
+          <h2 class="step-question">O que está acontecendo com seu benefício?</h2>
+          <p class="step-help">Escolha a opção mais parecida com seu caso.</p>
           <div class="options">
-            <button class="option" data-value="afastado-saude">
+            <button class="option" data-value="afastado-saude" data-branch="b">
               <span class="option-radio"></span>
               <span>Tô doente e preciso de afastamento ou benefício</span>
             </button>
-            <button class="option" data-value="beneficio-negado">
+            <button class="option" data-value="beneficio-negado" data-branch="b">
               <span class="option-radio"></span>
               <span>O INSS negou meu pedido</span>
             </button>
-            <button class="option" data-value="beneficio-cortado">
+            <button class="option" data-value="beneficio-cortado" data-branch="b">
               <span class="option-radio"></span>
               <span>Eu recebia e cortaram do nada</span>
             </button>
-            <button class="option" data-value="bpc-loas">
+            <button class="option" data-value="bpc-loas" data-branch="b">
               <span class="option-radio"></span>
               <span>Quero pedir BPC/LOAS (nunca pedi)</span>
             </button>
-            <button class="option" data-value="outro">
+            <button class="option" data-value="salario-maternidade" data-branch="a">
+              <span class="option-radio"></span>
+              <span>Quero receber o salário-maternidade</span>
+            </button>
+            <button class="option" data-value="outro" data-branch="b">
               <span class="option-radio"></span>
               <span>Meu caso é diferente — quero explicar</span>
             </button>
           </div>
         </div>
 
-        <!-- STEP 2: pedido INSS -->
-        <div class="step" data-step="2">
+        <!-- ═══════ BRANCH A: Salário Maternidade ═══════ -->
+
+        <div class="step" data-step="step2a">
+          <div class="step-label">Pergunta 2 de 4</div>
+          <h2 class="step-question">Qual sua situação de trabalho hoje?</h2>
+          <p class="step-help">Isso define o caminho para conseguir o salário-maternidade.</p>
+          <div class="options">
+            <button class="option" data-value="clt-ativa">
+              <span class="option-radio"></span>
+              <span>Trabalho com carteira assinada (CLT)</span>
+            </button>
+            <button class="option" data-value="autonoma-mei">
+              <span class="option-radio"></span>
+              <span>Sou autônoma ou MEI e contribuo</span>
+            </button>
+            <button class="option" data-value="desempregada">
+              <span class="option-radio"></span>
+              <span>Estou desempregada</span>
+            </button>
+            <button class="option" data-value="informal">
+              <span class="option-radio"></span>
+              <span>Trabalho informal, sem contribuição</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="step" data-step="step3a">
+          <div class="step-label">Pergunta 3 de 4</div>
+          <h2 class="step-question">Já tentou dar entrada no salário-maternidade?</h2>
+          <p class="step-help">Mesmo se não tentou, a Dra. Laura te orienta.</p>
+          <div class="options">
+            <button class="option" data-value="pediu-negado">
+              <span class="option-radio"></span>
+              <span>Sim, pedi e foi negado</span>
+            </button>
+            <button class="option" data-value="pediu-espera">
+              <span class="option-radio"></span>
+              <span>Sim, tô esperando resposta</span>
+            </button>
+            <button class="option" data-value="nao-pediu">
+              <span class="option-radio"></span>
+              <span>Ainda não pedi</span>
+            </button>
+            <button class="option" data-value="nao-sei-como">
+              <span class="option-radio"></span>
+              <span>Não sei como pedir</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="step" data-step="step4a">
+          <div class="step-label">Pergunta 4 de 4</div>
+          <h2 class="step-question">Quando precisa resolver isso?</h2>
+          <p class="step-help">O salário-maternidade tem prazos — quanto antes, melhor.</p>
+          <div class="options">
+            <button class="option" data-value="urgente-mat">
+              <span class="option-radio"></span>
+              <span>O mais rápido possível — preciso do benefício</span>
+            </button>
+            <button class="option" data-value="semanas-mat">
+              <span class="option-radio"></span>
+              <span>Nas próximas semanas</span>
+            </button>
+            <button class="option" data-value="mes-mat">
+              <span class="option-radio"></span>
+              <span>Esse mês ainda</span>
+            </button>
+            <button class="option" data-value="pesquisando-mat">
+              <span class="option-radio"></span>
+              <span>Só quero entender meus direitos</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ═══════ BRANCH B: Benefício por Incapacidade ═══════ -->
+
+        <div class="step" data-step="step2b">
           <div class="step-label">Pergunta 2 de 4</div>
           <h2 class="step-question">Você já tentou resolver direto com o INSS?</h2>
           <p class="step-help">Mesmo se já tentou e não deu certo, a gente pode reverter.</p>
@@ -738,8 +817,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
           </div>
         </div>
 
-        <!-- STEP 3: documentos -->
-        <div class="step" data-step="3">
+        <div class="step" data-step="step3b">
           <div class="step-label">Pergunta 3 de 4</div>
           <h2 class="step-question">Você tem laudos, exames ou documentos médicos?</h2>
           <p class="step-help">Se não tiver tudo, sem problema — a Dra. Laura te orienta sobre o que conseguir.</p>
@@ -763,10 +841,9 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
           </div>
         </div>
 
-        <!-- STEP 4: urgência -->
-        <div class="step" data-step="4">
+        <div class="step" data-step="step4b">
           <div class="step-label">Pergunta 4 de 4</div>
-          <h2 class="step-question">Quando você precisa resolver isso?</h2>
+          <h2 class="step-question">Quando precisa resolver isso?</h2>
           <p class="step-help">Sem compromisso — é só pra saber sua disponibilidade.</p>
           <div class="options">
             <button class="option" data-value="urgente">
@@ -788,11 +865,12 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
           </div>
         </div>
 
-        <!-- STEP 5: dados -->
-        <div class="step" data-step="5">
+        <!-- ═══════ STEP CONTACT (compartilhado) ═══════ -->
+
+        <div class="step" data-step="contact">
           <div class="step-label">Última etapa</div>
           <h2 class="step-question">Quase lá! Por onde a Dra. Laura te encontra?</h2>
-          <p class="step-help">Retorno pessoal no seu WhatsApp em até 1 hora (horário comercial). Zero spam.</p>
+          <p class="step-help">Retorno pessoal no seu WhatsApp em até 1 hora. Tudo em sigilo.</p>
 
           <div class="input-group">
             <label class="input-label" for="nome">Seu nome</label>
@@ -888,224 +966,152 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
   </footer>
 
 <script>
-  /* ===========================================
-     CONFIGURAÇÃO — EDITE AQUI
-     =========================================== */
-
-  // Número WhatsApp do escritório (formato internacional, sem +, espaços ou traços)
   const WHATSAPP_NUMBER = '5511950879130';
 
-  // Total de perguntas (não conta a tela de dados nem as finais)
-  const TOTAL_QUESTIONS = 4;
+  const NEXT_STEP = {
+    'step1':   { a: 'step2a', b: 'step2b' },
+    'step2a':  'step3a', 'step3a':  'step4a', 'step4a':  'contact',
+    'step2b':  'step3b', 'step3b':  'step4b', 'step4b':  'contact'
+  };
 
-  /* ===========================================
-     LÓGICA DO FORMULÁRIO
-     =========================================== */
+  const STEP_DOT = {
+    'step1': 0, 'step2a': 1, 'step2b': 1, 'step3a': 2, 'step3b': 2, 'step4a': 3, 'step4b': 3, 'contact': 4
+  };
 
-  let currentStep = 1;
-  const TOTAL_STEPS = 5;
+  let currentStepId = 'step1';
+  let currentBranch = null;
   const formData = {};
-
   const progress = document.getElementById('progress');
   const dots = progress.querySelectorAll('.dot');
-  const steps = document.querySelectorAll('.step');
 
-  // Click nas opções
+  function getStepEl(id) { return document.querySelector(`.step[data-step="${id}"]`); }
+
+  function goToStep(nextId) {
+    const curDot = STEP_DOT[currentStepId];
+    if (curDot !== undefined) { dots[curDot].classList.remove('active'); dots[curDot].classList.add('completed'); }
+    getStepEl(currentStepId).classList.remove('active');
+    currentStepId = nextId;
+    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormStep', { area: 'Previdenciario', step: nextId, branch: currentBranch || 'pre' });
+    getStepEl(nextId).classList.add('active');
+    const nd = STEP_DOT[nextId]; if (nd !== undefined) dots[nd].classList.add('active');
+    if (window.innerWidth < 640) document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   document.querySelectorAll('.option').forEach(option => {
     option.addEventListener('click', function() {
       const stepEl = this.closest('.step');
-      const stepNum = parseInt(stepEl.dataset.step);
-
-      // Marcar selecionada
+      const stepId = stepEl.dataset.step;
       stepEl.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
       this.classList.add('selected');
-
-      // Salvar resposta
-      formData['step' + stepNum] = this.dataset.value;
-
-      // 🎯 META PIXEL — FormAnswer: resposta selecionada
-      if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormAnswer', {
-        area: 'Previdenciario',
-        step: stepNum,
-        answer: this.dataset.value
-      });
-
-      // Verificar desqualificação
+      formData[stepId] = this.dataset.value;
+      if (this.dataset.branch) currentBranch = this.dataset.branch;
+      if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormAnswer', { area: 'Previdenciario', step: stepId, answer: this.dataset.value, branch: currentBranch || 'pre' });
       const disqualify = this.dataset.disqualify === 'true';
-
       setTimeout(() => {
-        if (disqualify) {
-          showDisqualify();
-        } else {
-          nextStep();
-        }
+        if (disqualify) { showDisqualify(); return; }
+        const route = NEXT_STEP[stepId];
+        let nextId = typeof route === 'string' ? route : (route && currentBranch ? route[currentBranch] : null);
+        if (nextId) goToStep(nextId);
       }, 300);
     });
   });
 
-  function nextStep() {
-    if (currentStep >= TOTAL_STEPS) return;
-
-    // Marcar dot atual como completo
-    dots[currentStep - 1].classList.remove('active');
-    dots[currentStep - 1].classList.add('completed');
-
-    // Esconder step atual
-    steps[currentStep - 1].classList.remove('active');
-
-    currentStep++;
-
-    // 🎯 META PIXEL — FormStep: avançou para próxima etapa
-    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormStep', {
-      area: 'Previdenciario',
-      step: currentStep
-    });
-
-    // Mostrar próximo step
-    steps[currentStep - 1].classList.add('active');
-    dots[currentStep - 1].classList.add('active');
-
-    // Scroll suave pro topo do card em mobile
-    if (window.innerWidth < 640) {
-      document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-
   function showDisqualify() {
     progress.classList.add('hidden');
-    steps.forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
     document.getElementById('disqualifyScreen').classList.add('active');
-
-    // Link WhatsApp para descarte (mensagem genérica)
-    const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de conversar com a equipe da Dra. Laura sobre meu caso previdenciário.');
+    const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de conversar com a Dra. Laura.');
     document.getElementById('disqualifyWhats').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
-
-    // 🎯 META PIXEL — Lead desqualificado
     if (typeof fbq !== 'undefined') fbq('track', 'Lead', { qualified: false, area: 'Previdenciario' });
-
-    // 🎯 META PIXEL — FormDisqualify com dados do ponto de saída
-    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormDisqualify', {
-      area: 'Previdenciario',
-      step1: formData.step1 || '',
-      step2: formData.step2 || '',
-      step3: formData.step3 || '',
-      step4: formData.step4 || '',
-      qualified: false
-    });
+    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormDisqualify', { area: 'Previdenciario', branch: currentBranch, qualified: false, ...formData });
   }
 
   function showSuccess() {
     progress.classList.add('hidden');
-    steps.forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
     document.getElementById('successScreen').classList.add('active');
-
-    // Personalizar com primeiro nome
     const firstName = (formData.nome || '').split(' ')[0] || 'você';
     document.getElementById('leadName').textContent = firstName;
 
-    // Montar link WhatsApp personalizado
+    let detalhes;
+    if (currentBranch === 'a') {
+      detalhes =
+        `• Situação: ${r(formData.step1)}\n` +
+        `• Trabalho: ${r(formData.step2a)}\n` +
+        `• Pedido: ${r(formData.step3a)}\n` +
+        `• Urgência: ${r(formData.step4a)}`;
+    } else {
+      detalhes =
+        `• Problema: ${r(formData.step1)}\n` +
+        `• Pedido INSS: ${r(formData.step2b)}\n` +
+        `• Documentos: ${r(formData.step3b)}\n` +
+        `• Urgência: ${r(formData.step4b)}`;
+    }
     const msg = encodeURIComponent(
-      `Olá Dra. Laura! Sou ${formData.nome} e acabei de preencher a avaliação no site.\n\n` +
-      `📋 Minha situação:\n` +
-      `• Problema: ${getReadableAnswer(formData.step1)}\n` +
-      `• Pedido INSS: ${getReadableAnswer(formData.step2)}\n` +
-      `• Documentos: ${getReadableAnswer(formData.step3)}\n` +
-      `• Urgência: ${getReadableAnswer(formData.step4)}\n\n` +
-      `Aguardo seu retorno! 🙏`
+      `Olá Dra. Laura! Sou ${formData.nome} e acabei de preencher a avaliação no site.\n\n📋 Minha situação:\n${detalhes}\n\nAguardo seu retorno! 🙏`
     );
     document.getElementById('successWhats').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
-
-    // 🎯 META PIXEL — Lead qualificado
     if (typeof fbq !== 'undefined') fbq('track', 'Lead', { qualified: true, area: 'Previdenciario' });
-
-    // 🎯 META PIXEL — FormSuccess com todas as respostas
-    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormSuccess', {
-      area: 'Previdenciario',
-      step1: formData.step1,
-      step2: formData.step2,
-      step3: formData.step3,
-      step4: formData.step4,
-      qualified: true
-    });
-
-    // 🎯 GOOGLE ADS — descomente para rastrear conversão
-    // if (typeof gtag !== 'undefined') gtag('event', 'conversion', { send_to: 'AW-XXXX/YYYY' });
+    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormSuccess', { area: 'Previdenciario', branch: currentBranch, qualified: true, ...formData });
   }
 
-  // Tradução amigável das respostas para a mensagem do WhatsApp
+  function r(v) { return getReadableAnswer(v); }
   function getReadableAnswer(value) {
     const map = {
-      'afastado-saude': 'Doente, precisa de afastamento/benefício',
-      'beneficio-negado': 'Benefício negado pelo INSS',
+      'afastado-saude': 'Doente, precisa de benefício',
+      'beneficio-negado': 'INSS negou',
       'beneficio-cortado': 'Benefício cortado',
       'bpc-loas': 'Quer pedir BPC/LOAS',
-      'outro': 'Outro caso previdenciário',
+      'salario-maternidade': 'Salário-maternidade',
+      'outro': 'Outro caso',
+      'clt-ativa': 'CLT ativa',
+      'autonoma-mei': 'Autônoma/MEI',
+      'desempregada': 'Desempregada',
+      'informal': 'Trabalho informal',
+      'pediu-negado': 'Pediu e foi negado',
+      'pediu-espera': 'Esperando resposta',
+      'nao-pediu': 'Ainda não pediu',
+      'nao-sei-como': 'Não sabe como pedir',
+      'urgente-mat': 'Urgente',
+      'semanas-mat': 'Próximas semanas',
+      'mes-mat': 'Esse mês',
+      'pesquisando-mat': 'Quer entender direitos',
       'negado': 'Pedido negado',
       'em-analise': 'Esperando resposta do INSS',
       'cortaram': 'Recebia e cortaram',
       'ainda-nao': 'Ainda não fez pedido',
       'completos': 'Documentos completos',
       'alguns': 'Tem alguns documentos',
-      'nao-tenho': 'Ainda não tem documentos',
+      'nao-tenho': 'Ainda não tem',
       'nao-sei': 'Não sabe por onde começar',
       'urgente': 'O mais rápido possível',
-      'semanas': 'Nas próximas semanas',
+      'semanas': 'Próximas semanas',
       'mes': 'Esse mês',
       'pesquisando': 'Sem pressa, quer entender opções'
     };
     return map[value] || value;
   }
 
-  // Máscara de telefone simples
   const whatsappInput = document.getElementById('whatsapp');
   whatsappInput.addEventListener('input', function(e) {
     let v = e.target.value.replace(/\D/g, '').slice(0, 11);
-    if (v.length > 10) {
-      v = v.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
-    } else if (v.length > 6) {
-      v = v.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
-    } else if (v.length > 2) {
-      v = v.replace(/(\d{2})(\d{0,5})/, '($1) $2');
-    } else if (v.length > 0) {
-      v = v.replace(/(\d{0,2})/, '($1');
-    }
+    if (v.length > 10) v = v.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+    else if (v.length > 6) v = v.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+    else if (v.length > 2) v = v.replace(/(\d{2})(\d{0,5})/, '($1) $2');
+    else if (v.length > 0) v = v.replace(/(\d{0,2})/, '($1');
     e.target.value = v;
   });
 
-  // Submit
   document.getElementById('submitBtn').addEventListener('click', function() {
     const nome = document.getElementById('nome').value.trim();
     const whatsapp = document.getElementById('whatsapp').value.trim();
-
-    // Validação
-    if (nome.length < 2) {
-      document.getElementById('nome').focus();
-      document.getElementById('nome').style.borderColor = '#ef4444';
-      setTimeout(() => document.getElementById('nome').style.borderColor = '', 2000);
-      return;
-    }
-
+    if (nome.length < 2) { document.getElementById('nome').focus(); document.getElementById('nome').style.borderColor = '#ef4444'; setTimeout(() => document.getElementById('nome').style.borderColor = '', 2000); return; }
     const digits = whatsapp.replace(/\D/g, '');
-    if (digits.length < 10 || digits.length > 11) {
-      document.getElementById('whatsapp').focus();
-      document.getElementById('whatsapp').style.borderColor = '#ef4444';
-      setTimeout(() => document.getElementById('whatsapp').style.borderColor = '', 2000);
-      return;
-    }
-
+    if (digits.length < 10 || digits.length > 11) { document.getElementById('whatsapp').focus(); document.getElementById('whatsapp').style.borderColor = '#ef4444'; setTimeout(() => document.getElementById('whatsapp').style.borderColor = '', 2000); return; }
     formData.nome = nome;
     formData.whatsapp = digits;
-
-    // 🎯 META PIXEL — FormContact: usuário preencheu nome + WhatsApp
-    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormContact', {
-      area: 'Previdenciario',
-      step: 'contact'
-    });
-
-    // Marcar último dot como completo
-    dots[currentStep - 1].classList.remove('active');
-    dots[currentStep - 1].classList.add('completed');
-
+    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormContact', { area: 'Previdenciario', branch: currentBranch, step: 'contact' });
+    dots[4].classList.remove('active'); dots[4].classList.add('completed');
     showSuccess();
   });
 </script>
