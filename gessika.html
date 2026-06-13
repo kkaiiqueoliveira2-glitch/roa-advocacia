@@ -48,6 +48,7 @@
   }
 
   html {
+    -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
   }
 
@@ -60,10 +61,14 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
+    overscroll-behavior-y: none;
+    -webkit-overflow-scrolling: touch;
   }
 
   /* Atmosfera de fundo — gradientes radiais sutis */
   body::before {
+    will-change: transform;
+    transform: translateZ(0);
     content: '';
     position: fixed;
     inset: 0;
@@ -77,14 +82,16 @@
 
   /* Grão sutil */
   body::after {
+    will-change: transform;
+    transform: translateZ(0);
     content: '';
     position: fixed;
     inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E");
-    opacity: 0.03;
+    opacity: 0.015;
     pointer-events: none;
     z-index: 1;
-    mix-blend-mode: overlay;
+    
   }
 
   .container {
@@ -168,7 +175,8 @@
     border-radius: var(--radius-sm);
     padding: 16px 10px;
     text-align: center;
-    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
   }
 
   .stat-value {
@@ -196,7 +204,8 @@
     border: 1px solid rgba(180, 182, 200, 0.18);
     border-radius: var(--radius-lg);
     padding: 40px 36px;
-    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
     box-shadow:
       var(--shadow-card),
       0 0 80px -20px rgba(180, 182, 200, 0.25);
@@ -650,7 +659,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
   <section class="hero" id="formulario">
     <div class="container">
 
-      <h1>Você tem <span class="highlight">direitos.</span><br>Responda abaixo e descubra quais.</h1>
+      <h1>Seu filho merece <span class="highlight">proteção.</span><br>Veja como garantir isso em 1 minuto.</h1>
 
       
 
@@ -663,7 +672,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
             <path d="M9 12l2 2 4-4"/>
           </svg>
-          <span>Respostas protegidas pelo sigilo da OAB</span>
+          <span>Sigilo garantido</span>
         </div>
 
         <!-- Progresso -->
@@ -678,28 +687,28 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
         <!-- STEP 1: situação -->
         <div class="step active" data-step="1">
           <div class="step-label">Pergunta 1 de 4</div>
-          <h2 class="step-question">Qual sua situação hoje?</h2>
-          <p class="step-help">Escolha a opção que mais combina com o que você está vivendo.</p>
+          <h2 class="step-question">O que está acontecendo com a guarda ou convivência do seu filho(a)?</h2>
+          <p class="step-help">Sem julgamento — a gente só quer entender pra te ajudar.</p>
           <div class="options">
             <button class="option" data-value="pedir-guarda">
               <span class="option-radio"></span>
-              <span>Quero pedir guarda do meu filho(a)</span>
+              <span>Quero garantir a guarda do meu filho(a)</span>
             </button>
             <button class="option" data-value="guarda-compartilhada">
               <span class="option-radio"></span>
-              <span>Quero regularizar guarda compartilhada</span>
+              <span>Preciso formalizar a guarda compartilhada</span>
             </button>
             <button class="option" data-value="descumprimento">
               <span class="option-radio"></span>
-              <span>O outro genitor não cumpre acordos</span>
+              <span>O pai/mãe não cumpre o que foi combinado</span>
             </button>
             <button class="option" data-value="conflito-visitas">
               <span class="option-radio"></span>
-              <span>Estou em conflito sobre visitas/convivência</span>
+              <span>Estamos brigando por visitas e convivência</span>
             </button>
             <button class="option" data-value="outro">
               <span class="option-radio"></span>
-              <span>Outro</span>
+              <span>Meu caso é diferente — quero explicar</span>
             </button>
           </div>
         </div>
@@ -707,24 +716,24 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
         <!-- STEP 2: processo -->
         <div class="step" data-step="2">
           <div class="step-label">Pergunta 2 de 4</div>
-          <h2 class="step-question">Já existe processo judicial ou acordo formalizado?</h2>
-          <p class="step-help">Isso nos ajuda a entender em que ponto o seu caso está.</p>
+          <h2 class="step-question">Vocês já tentaram resolver isso formalmente?</h2>
+          <p class="step-help">Ter ou não ter processo muda o caminho — mas tudo tem solução.</p>
           <div class="options">
             <button class="option" data-value="processo-andamento">
               <span class="option-radio"></span>
-              <span>Sim, processo em andamento</span>
+              <span>Sim, já tem processo na Justiça</span>
             </button>
             <button class="option" data-value="acordo-feito">
               <span class="option-radio"></span>
-              <span>Sim, acordo feito</span>
+              <span>Tem um acordo, mas não tá funcionando</span>
             </button>
             <button class="option" data-value="nada-formalizado">
               <span class="option-radio"></span>
-              <span>Não existe nada formalizado</span>
+              <span>Nunca formalizamos nada</span>
             </button>
             <button class="option" data-value="nao-sei">
               <span class="option-radio"></span>
-              <span>Não sei informar</span>
+              <span>Não sei dizer — preciso de orientação</span>
             </button>
           </div>
         </div>
@@ -732,28 +741,28 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
         <!-- STEP 3: dor -->
         <div class="step" data-step="3">
           <div class="step-label">Pergunta 3 de 4</div>
-          <h2 class="step-question">Qual a maior dificuldade que você enfrenta hoje?</h2>
-          <p class="step-help">Queremos entender o que mais te preocupa neste momento.</p>
+          <h2 class="step-question">O que mais te tira o sono nessa situação?</h2>
+          <p class="step-help">Queremos entender o que mais te preocupa agora.</p>
           <div class="options">
             <button class="option" data-value="falta-acordo">
               <span class="option-radio"></span>
-              <span>Falta de acordo entre os pais</span>
+              <span>A gente não consegue se entender sobre nada</span>
             </button>
             <button class="option" data-value="medo-convivencia">
               <span class="option-radio"></span>
-              <span>Medo de perder convivência com meu filho(a)</span>
+              <span>Tenho medo de perder contato com meu filho(a)</span>
             </button>
             <button class="option" data-value="descumprimento-visitas">
               <span class="option-radio"></span>
-              <span>Descumprimento de visitas</span>
+              <span>Combinaram visitas e não cumprem</span>
             </button>
             <button class="option" data-value="alienacao-parental">
               <span class="option-radio"></span>
-              <span>Alienação parental / impedimento de contato</span>
+              <span>Estão virando meu filho(a) contra mim</span>
             </button>
             <button class="option" data-value="seguranca-juridica">
               <span class="option-radio"></span>
-              <span>Quero segurança jurídica</span>
+              <span>Quero resolver logo e ter paz</span>
             </button>
           </div>
         </div>
@@ -761,20 +770,24 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
         <!-- STEP 4: urgência -->
         <div class="step" data-step="4">
           <div class="step-label">Pergunta 4 de 4</div>
-          <h2 class="step-question">Você busca ajuda jurídica para resolver isso agora?</h2>
-          <p class="step-help">Sem compromisso — é só pra entendermos sua urgência.</p>
+          <h2 class="step-question">Se a Dra. Gessika pudesse conversar agora, você estaria pronto(a)?</h2>
+          <p class="step-help">É só pra gente saber sua disponibilidade — sem pressão.</p>
           <div class="options">
             <button class="option" data-value="urgente">
               <span class="option-radio"></span>
-              <span>Sim, com urgência</span>
+              <span>Sim — quanto antes, melhor</span>
             </button>
             <button class="option" data-value="semanas">
               <span class="option-radio"></span>
-              <span>Sim, nas próximas semanas</span>
+              <span>Nas próximas semanas tá bom</span>
             </button>
-            <button class="option" data-value="pesquisando" data-disqualify="true">
+            <button class="option" data-value="mes">
               <span class="option-radio"></span>
-              <span>Apenas buscando informações no momento</span>
+              <span>Pode ser esse mês</span>
+            </button>
+            <button class="option" data-value="pesquisando">
+              <span class="option-radio"></span>
+              <span>Ainda tô entendendo as opções</span>
             </button>
           </div>
         </div>
@@ -782,8 +795,8 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
         <!-- STEP 5: dados -->
         <div class="step" data-step="5">
           <div class="step-label">Última etapa</div>
-          <h2 class="step-question">Por onde a Dra. Gessika pode te chamar?</h2>
-          <p class="step-help">Vamos te enviar um retorno pessoal pelo WhatsApp em até 1h em horário comercial.</p>
+          <h2 class="step-question">Quase lá! Por onde a Dra. Gessika te chama?</h2>
+          <p class="step-help">Retorno pessoal no WhatsApp em até 1 hora. Tudo em sigilo total.</p>
 
           <div class="input-group">
             <label class="input-label" for="nome">Seu nome</label>
@@ -796,7 +809,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
           </div>
 
           <button class="btn" id="submitBtn">
-            Falar com a Dra. Gessika agora
+            Receber minha orientação gratuita
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
@@ -810,16 +823,16 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
               <path d="M5 13l4 4L19 7"/>
             </svg>
           </div>
-          <h2 class="final-title">Perfeito, <span id="leadName">você</span>! 🎯</h2>
+          <h2 class="final-title"><span id="leadName">Você</span>, sua avaliação está completa! ✅</h2>
           <p class="final-text">
-            Seu caso tem <strong>boas chances</strong> de ser analisado pela Dra. Gessika.<br>
-            Clique no botão abaixo pra continuar a conversa direto no WhatsApp:
+            A Dra. Gessika já recebeu suas respostas e pode te orientar sobre os próximos passos para <strong>proteger seus direitos e os do seu filho(a)</strong>.<br><br>
+            ⚡ Clique abaixo pra conversar direto com ela:
           </p>
           <a href="#" class="btn btn-whatsapp" id="successWhats" target="_blank" rel="noopener">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
             </svg>
-            Continuar pelo WhatsApp
+            Falar com a Dra. Gessika agora (grátis)
           </a>
         </div>
 
@@ -831,16 +844,16 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
               <path d="M12 8v4M12 16h.01"/>
             </svg>
           </div>
-          <h2 class="final-title">Obrigado pela sinceridade.</h2>
+          <h2 class="final-title">Entendemos você.</h2>
           <p class="final-text">
-            Pelo que você nos contou, <strong>seu caso pode ser mais delicado</strong> ou exigir uma análise mais aprofundada antes de seguirmos.<br><br>
-            Mesmo assim, se quiser conversar com a equipe da Dra. Gessika para entender melhor as opções, é só clicar abaixo:
+            Esse momento é delicado e não tem pressa. Quando sentir que chegou a hora, a Dra. Gessika vai estar aqui pra te ouvir — <strong>sem compromisso</strong>.<br><br>
+            Se quiser, salva o contato pra quando precisar:
           </p>
           <a href="#" class="btn btn-whatsapp" id="disqualifyWhats" target="_blank" rel="noopener">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
             </svg>
-            Falar com a equipe mesmo assim
+            Salvar contato da Dra. Gessika
           </a>
         </div>
 
@@ -850,15 +863,15 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
       <div class="stats">
         <div class="stat">
           <div class="stat-value">+200</div>
-          <div class="stat-label">Famílias atendidas</div>
+          <div class="stat-label">Famílias protegidas</div>
         </div>
         <div class="stat">
-          <div class="stat-value">4.89 ⭐</div>
-          <div class="stat-label">Avaliação dos clientes</div>
+          <div class="stat-value">4.9 ⭐</div>
+          <div class="stat-label">Nota no Google</div>
         </div>
         <div class="stat">
           <div class="stat-value">100%</div>
-          <div class="stat-label">Foco no seu caso</div>
+          <div class="stat-label">Sigilo e acolhimento</div>
         </div>
       </div>
 
@@ -994,12 +1007,13 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
 
     // Montar link WhatsApp personalizado
     const msg = encodeURIComponent(
-      `Olá Dra. Gessika! Meu nome é ${formData.nome}. ` +
-      `Acabei de fazer a avaliação no site e gostaria de conversar sobre meu caso de guarda. ` +
-      `Situação: ${getReadableAnswer(formData.step1)} | ` +
-      `Processo: ${getReadableAnswer(formData.step2)} | ` +
-      `Dificuldade: ${getReadableAnswer(formData.step3)} | ` +
-      `Urgência: ${getReadableAnswer(formData.step4)}.`
+      `Olá Dra. Gessika! Sou ${formData.nome} e acabei de preencher a avaliação no site.\n\n` +
+      `📋 Minha situação:\n` +
+      `• Caso: ${getReadableAnswer(formData.step1)}\n` +
+      `• Processo: ${getReadableAnswer(formData.step2)}\n` +
+      `• Maior preocupação: ${getReadableAnswer(formData.step3)}\n` +
+      `• Urgência: ${getReadableAnswer(formData.step4)}\n\n` +
+      `Aguardo seu retorno! 🙏`
     );
     document.getElementById('successWhats').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
 
@@ -1023,22 +1037,24 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
   // Tradução amigável das respostas para a mensagem do WhatsApp
   function getReadableAnswer(value) {
     const map = {
-      'pedir-guarda': 'Quer pedir guarda',
-      'guarda-compartilhada': 'Regularizar guarda compartilhada',
-      'descumprimento': 'Genitor não cumpre acordos',
-      'conflito-visitas': 'Conflito sobre visitas/convivência',
-      'outro': 'Outro',
-      'processo-andamento': 'Processo em andamento',
-      'acordo-feito': 'Acordo já feito',
+      'pedir-guarda': 'Quer garantir a guarda',
+      'guarda-compartilhada': 'Formalizar guarda compartilhada',
+      'descumprimento': 'Pai/mãe não cumpre combinado',
+      'conflito-visitas': 'Briga por visitas e convivência',
+      'outro': 'Caso diferente',
+      'processo-andamento': 'Já tem processo na Justiça',
+      'acordo-feito': 'Tem acordo mas não funciona',
       'nada-formalizado': 'Nada formalizado',
-      'nao-sei': 'Não sabe informar',
-      'falta-acordo': 'Falta de acordo entre os pais',
-      'medo-convivencia': 'Medo de perder convivência',
-      'descumprimento-visitas': 'Descumprimento de visitas',
+      'nao-sei': 'Precisa de orientação',
+      'falta-acordo': 'Não conseguem se entender',
+      'medo-convivencia': 'Medo de perder contato com filho(a)',
+      'descumprimento-visitas': 'Visitas não cumpridas',
       'alienacao-parental': 'Alienação parental',
-      'seguranca-juridica': 'Quer segurança jurídica',
-      'urgente': 'Com urgência',
-      'semanas': 'Nas próximas semanas'
+      'seguranca-juridica': 'Quer resolver e ter paz',
+      'urgente': 'Quanto antes melhor',
+      'semanas': 'Nas próximas semanas',
+      'mes': 'Esse mês',
+      'pesquisando': 'Ainda entendendo as opções'
     };
     return map[value] || value;
   }
