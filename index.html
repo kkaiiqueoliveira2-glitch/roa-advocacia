@@ -48,7 +48,6 @@
   }
 
   html {
-    -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
   }
 
@@ -61,14 +60,10 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
-    overscroll-behavior-y: none;
-    -webkit-overflow-scrolling: touch;
   }
 
   /* Atmosfera de fundo — gradientes radiais sutis */
   body::before {
-    will-change: transform;
-    transform: translateZ(0);
     content: '';
     position: fixed;
     inset: 0;
@@ -82,16 +77,14 @@
 
   /* Grão sutil */
   body::after {
-    will-change: transform;
-    transform: translateZ(0);
     content: '';
     position: fixed;
     inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E");
-    opacity: 0.015;
+    opacity: 0.03;
     pointer-events: none;
     z-index: 1;
-    
+    mix-blend-mode: overlay;
   }
 
   .container {
@@ -175,8 +168,7 @@
     border-radius: var(--radius-sm);
     padding: 16px 10px;
     text-align: center;
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
+    backdrop-filter: blur(10px);
   }
 
   .stat-value {
@@ -204,8 +196,7 @@
     border: 1px solid rgba(180, 182, 200, 0.18);
     border-radius: var(--radius-lg);
     padding: 40px 36px;
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(20px);
     box-shadow:
       var(--shadow-card),
       0 0 80px -20px rgba(180, 182, 200, 0.25);
@@ -637,7 +628,6 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '1579876419743844');
 fbq('track', 'PageView');
-fbq('trackCustom', 'LPView', { area: 'Trabalhista' });
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
@@ -659,7 +649,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
   <section class="hero" id="formulario">
     <div class="container">
 
-      <h1>Seu patrão te deve <span class="highlight">dinheiro?</span><br>Descubra quanto em 1 minuto.</h1>
+      <h1>Você tem <span class="highlight">direitos.</span><br>Responda abaixo e descubra quais.</h1>
 
       
 
@@ -672,7 +662,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
             <path d="M9 12l2 2 4-4"/>
           </svg>
-          <span>Sigilo garantido</span>
+          <span>Respostas protegidas pelo sigilo da OAB</span>
         </div>
 
         <!-- Progresso -->
@@ -684,54 +674,48 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
           <div class="dot"></div>
         </div>
 
-        <!-- STEP 1: bifurcação -->
-        <div class="step active" data-step="step1">
+        <!-- STEP 1: situação -->
+        <div class="step active" data-step="1">
           <div class="step-label">Pergunta 1 de 4</div>
-          <h2 class="step-question">O que está acontecendo com você no trabalho?</h2>
-          <p class="step-help">Escolha o que mais parece com a sua história — sem julgamento.</p>
+          <h2 class="step-question">Qual situação você está vivendo agora?</h2>
+          <p class="step-help">Escolha a opção que mais combina com seu caso.</p>
           <div class="options">
-            <button class="option" data-value="demissao" data-branch="a">
+            <button class="option" data-value="demissao">
               <span class="option-radio"></span>
-              <span>Me mandaram embora e acho que não recebi tudo</span>
+              <span>Fui demitido(a) e tenho dúvida sobre meus direitos</span>
             </button>
-            <button class="option" data-value="assedio" data-branch="a">
+            <button class="option" data-value="assedio">
               <span class="option-radio"></span>
-              <span>Estou sofrendo (ou sofri) humilhação ou assédio no trabalho</span>
+              <span>Sofri assédio moral ou sexual no trabalho</span>
             </button>
-            <button class="option" data-value="horas-extras" data-branch="a">
+            <button class="option" data-value="horas-extras">
               <span class="option-radio"></span>
-              <span>Trabalho além do horário e não recebo por isso</span>
+              <span>Trabalho/trabalhei com horas extras não pagas</span>
             </button>
-            <button class="option" data-value="sem-registro" data-branch="a">
+            <button class="option" data-value="sem-registro">
               <span class="option-radio"></span>
-              <span>Trabalho (ou trabalhei) sem carteira assinada</span>
+              <span>Trabalho/trabalhei sem registro em carteira</span>
             </button>
-            <button class="option" data-value="gestante" data-branch="b">
+            <button class="option" data-value="outro">
               <span class="option-radio"></span>
-              <span>Estou grávida e fui demitida ou ameaçada no trabalho</span>
-            </button>
-            <button class="option" data-value="outro" data-branch="a">
-              <span class="option-radio"></span>
-              <span>Meu caso é diferente — quero explicar</span>
+              <span>Outro problema trabalhista</span>
             </button>
           </div>
         </div>
 
-        <!-- ═══════ BRANCH A: Trabalhista Geral ═══════ -->
-
-        <!-- STEP 2A: tempo -->
-        <div class="step" data-step="step2a">
+        <!-- STEP 2: tempo -->
+        <div class="step" data-step="2">
           <div class="step-label">Pergunta 2 de 4</div>
-          <h2 class="step-question">Isso começou quando?</h2>
-          <p class="step-help">Cada situação tem um prazo legal. A gente te ajuda a entender o seu.</p>
+          <h2 class="step-question">Há quanto tempo essa situação aconteceu ou vem acontecendo?</h2>
+          <p class="step-help">Isso é importante para sabermos se ainda está dentro do prazo legal.</p>
           <div class="options">
             <button class="option" data-value="atual">
               <span class="option-radio"></span>
-              <span>Está rolando agora — ainda estou lá</span>
+              <span>Está acontecendo agora / ainda estou trabalhando lá</span>
             </button>
             <button class="option" data-value="recente">
               <span class="option-radio"></span>
-              <span>Saí há menos de 1 ano</span>
+              <span>Saí da empresa há menos de 1 ano</span>
             </button>
             <button class="option" data-value="medio">
               <span class="option-radio"></span>
@@ -744,140 +728,61 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
           </div>
         </div>
 
-        <!-- STEP 3A: provas -->
-        <div class="step" data-step="step3a">
+        <!-- STEP 3: provas -->
+        <div class="step" data-step="3">
           <div class="step-label">Pergunta 3 de 4</div>
-          <h2 class="step-question">Você guardou alguma coisa sobre isso?</h2>
-          <p class="step-help">Print de conversa, e-mail, contracheque, foto… Se não tiver, tudo bem — a gente avalia igual.</p>
+          <h2 class="step-question">Você tem algum tipo de prova ou documento sobre o caso?</h2>
+          <p class="step-help">Não se preocupe se não tiver tudo — só queremos entender o cenário.</p>
           <div class="options">
             <button class="option" data-value="muitas-provas">
               <span class="option-radio"></span>
-              <span>Sim — tenho prints, e-mails ou alguém que viu</span>
+              <span>Sim, tenho mensagens, e-mails, contratos ou testemunhas</span>
             </button>
             <button class="option" data-value="algumas-provas">
               <span class="option-radio"></span>
-              <span>Tenho algumas coisas, mas não sei se servem</span>
+              <span>Tenho algumas coisas, mas não sei se é o suficiente</span>
             </button>
             <button class="option" data-value="poucas-provas">
               <span class="option-radio"></span>
-              <span>Quase nada, mas talvez consiga</span>
+              <span>Quase nada, mas posso conseguir</span>
             </button>
             <button class="option" data-value="sem-provas">
               <span class="option-radio"></span>
-              <span>Não guardei nada</span>
+              <span>Não tenho nenhuma prova</span>
             </button>
           </div>
         </div>
 
-        <!-- STEP 4A: urgência -->
-        <div class="step" data-step="step4a">
+        <!-- STEP 4: urgência -->
+        <div class="step" data-step="4">
           <div class="step-label">Pergunta 4 de 4</div>
-          <h2 class="step-question">Se a Dra. Aline pudesse te ligar agora, você atenderia?</h2>
-          <p class="step-help">É só pra gente saber sua disponibilidade — sem pressão.</p>
+          <h2 class="step-question">Quando você quer começar a resolver isso?</h2>
+          <p class="step-help">Sem compromisso — é só pra entendermos sua urgência.</p>
           <div class="options">
             <button class="option" data-value="agora">
               <span class="option-radio"></span>
-              <span>Atenderia agora mesmo</span>
+              <span>O quanto antes — quero falar hoje mesmo</span>
             </button>
             <button class="option" data-value="semana">
               <span class="option-radio"></span>
-              <span>Nos próximos dias tá bom pra mim</span>
+              <span>Nos próximos dias</span>
             </button>
             <button class="option" data-value="mes">
               <span class="option-radio"></span>
-              <span>Pode ser esse mês</span>
+              <span>Ainda este mês</span>
             </button>
-            <button class="option" data-value="pesquisando">
+            <button class="option" data-value="pesquisando" data-disqualify="true">
               <span class="option-radio"></span>
-              <span>Ainda tô pensando — sem pressa</span>
+              <span>Só estou pesquisando, sem pressa</span>
             </button>
           </div>
         </div>
 
-        <!-- ═══════ BRANCH B: Estabilidade Gestante ═══════ -->
-
-        <!-- STEP 2B: situação gestante -->
-        <div class="step" data-step="step2b">
-          <div class="step-label">Pergunta 2 de 4</div>
-          <h2 class="step-question">Qual sua situação agora?</h2>
-          <p class="step-help">A estabilidade gestante é garantida por lei — vamos entender seu caso.</p>
-          <div class="options">
-            <button class="option" data-value="demitida-gravida">
-              <span class="option-radio"></span>
-              <span>Fui demitida e já estava grávida</span>
-            </button>
-            <button class="option" data-value="ameacada">
-              <span class="option-radio"></span>
-              <span>Estou grávida e sofro pressão pra pedir demissão</span>
-            </button>
-            <button class="option" data-value="contrato-acabou">
-              <span class="option-radio"></span>
-              <span>Meu contrato temporário acabou durante a gravidez</span>
-            </button>
-            <button class="option" data-value="descobri-depois">
-              <span class="option-radio"></span>
-              <span>Descobri a gravidez depois de ser demitida</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- STEP 3B: empresa sabe -->
-        <div class="step" data-step="step3b">
-          <div class="step-label">Pergunta 3 de 4</div>
-          <h2 class="step-question">A empresa sabe da sua gravidez?</h2>
-          <p class="step-help">Isso pode mudar o caminho jurídico — mas a gente te orienta em qualquer cenário.</p>
-          <div class="options">
-            <button class="option" data-value="empresa-sabe">
-              <span class="option-radio"></span>
-              <span>Sim, comuniquei formalmente</span>
-            </button>
-            <button class="option" data-value="sabe-informal">
-              <span class="option-radio"></span>
-              <span>Sabem, mas nunca formalizei</span>
-            </button>
-            <button class="option" data-value="nao-sabe">
-              <span class="option-radio"></span>
-              <span>Ainda não sabem</span>
-            </button>
-            <button class="option" data-value="nao-sei-gestante">
-              <span class="option-radio"></span>
-              <span>Não tenho certeza se sabem</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- STEP 4B: urgência gestante -->
-        <div class="step" data-step="step4b">
-          <div class="step-label">Pergunta 4 de 4</div>
-          <h2 class="step-question">Quando precisa de ajuda?</h2>
-          <p class="step-help">A estabilidade gestante tem prazos — quanto antes agir, melhor.</p>
-          <div class="options">
-            <button class="option" data-value="agora-gestante">
-              <span class="option-radio"></span>
-              <span>Preciso de ajuda urgente — fui demitida</span>
-            </button>
-            <button class="option" data-value="semana-gestante">
-              <span class="option-radio"></span>
-              <span>Nos próximos dias</span>
-            </button>
-            <button class="option" data-value="mes-gestante">
-              <span class="option-radio"></span>
-              <span>Esse mês ainda</span>
-            </button>
-            <button class="option" data-value="pesquisando-gestante">
-              <span class="option-radio"></span>
-              <span>Só quero entender meus direitos</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- ═══════ STEP CONTACT (compartilhado) ═══════ -->
-
-        <!-- STEP CONTACT: dados -->
-        <div class="step" data-step="contact">
+        <!-- STEP 5: dados -->
+        <div class="step" data-step="5">
           <div class="step-label">Última etapa</div>
-          <h2 class="step-question">Quase lá! Pra onde a Dra. Aline envia sua análise?</h2>
-          <p class="step-help">Retorno pessoal no seu WhatsApp em até 1 hora (horário comercial). Zero spam.</p>
+          <h2 class="step-question">Por onde a Dra. Aline pode te chamar?</h2>
+          <p class="step-help">Vamos te enviar um retorno pessoal pelo WhatsApp em até 1h em horário comercial.</p>
 
           <div class="input-group">
             <label class="input-label" for="nome">Seu nome</label>
@@ -890,7 +795,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
           </div>
 
           <button class="btn" id="submitBtn">
-            Receber minha análise gratuita
+            Falar com a Dra. Aline agora
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
@@ -904,16 +809,16 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
               <path d="M5 13l4 4L19 7"/>
             </svg>
           </div>
-          <h2 class="final-title"><span id="leadName">Você</span>, sua análise está pronta! ✅</h2>
+          <h2 class="final-title">Perfeito, <span id="leadName">você</span>! 🎯</h2>
           <p class="final-text">
-            A Dra. Aline já recebeu suas respostas e quer conversar com você sobre o seu <strong>caso trabalhista</strong>.<br><br>
-            ⚡ Ela está disponível agora — clique abaixo pra abrir o WhatsApp:
+            Seu caso tem <strong>boas chances</strong> de ser analisado pela Dra. Aline Ribeiro.<br>
+            Clique no botão abaixo pra continuar a conversa direto no WhatsApp:
           </p>
           <a href="#" class="btn btn-whatsapp" id="successWhats" target="_blank" rel="noopener">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
             </svg>
-            Falar com a Dra. Aline agora (grátis)
+            Continuar pelo WhatsApp
           </a>
         </div>
 
@@ -925,16 +830,16 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
               <path d="M12 8v4M12 16h.01"/>
             </svg>
           </div>
-          <h2 class="final-title">Entendemos você.</h2>
+          <h2 class="final-title">Obrigado pela sinceridade.</h2>
           <p class="final-text">
-            Passaram mais de 2 anos, e o prazo padrão na Justiça do Trabalho é de até 2 anos após a saída. Mas calma — <strong>cada caso é diferente e existem exceções</strong>.<br><br>
-            Se quiser, a Dra. Aline pode dar uma olhada no seu caso mesmo assim:
+            Pelo que você nos contou, <strong>seu caso pode ser mais delicado</strong> ou exigir uma análise mais aprofundada antes de seguirmos.<br><br>
+            Mesmo assim, se quiser conversar com a equipe da Dra. Aline para entender melhor as opções, é só clicar abaixo:
           </p>
           <a href="#" class="btn btn-whatsapp" id="disqualifyWhats" target="_blank" rel="noopener">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
             </svg>
-            Verificar mesmo assim (é grátis)
+            Falar com a equipe mesmo assim
           </a>
         </div>
 
@@ -944,15 +849,15 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
       <div class="stats">
         <div class="stat">
           <div class="stat-value">+200</div>
-          <div class="stat-label">Trabalhadores defendidos</div>
+          <div class="stat-label">Trabalhadores atendidos</div>
         </div>
         <div class="stat">
-          <div class="stat-value">4.9 ⭐</div>
-          <div class="stat-label">Nota no Google</div>
+          <div class="stat-value">4.89 ⭐</div>
+          <div class="stat-label">Avaliação dos clientes</div>
         </div>
         <div class="stat">
-          <div class="stat-value">97%</div>
-          <div class="stat-label">Casos resolvidos</div>
+          <div class="stat-value">100%</div>
+          <div class="stat-label">Foco no seu caso</div>
         </div>
       </div>
 
@@ -974,111 +879,108 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
 
 <script>
   /* ===========================================
-     CONFIGURAÇÃO
+     CONFIGURAÇÃO — EDITE AQUI
      =========================================== */
+
+  // Número WhatsApp do escritório (formato internacional, sem +, espaços ou traços)
   const WHATSAPP_NUMBER = '5511951201195';
 
-  /* ===========================================
-     FUNIL BIFURCADO — MAPA DE NAVEGAÇÃO
-     =========================================== */
-
-  // Roteamento: cada step → próximo step por branch
-  const NEXT_STEP = {
-    'step1':   { a: 'step2a', b: 'step2b' },
-    'step2a':  'step3a',
-    'step3a':  'step4a',
-    'step4a':  'contact',
-    'step2b':  'step3b',
-    'step3b':  'step4b',
-    'step4b':  'contact'
-  };
-
-  // Qual dot do progresso cada step ativa (0-indexed)
-  const STEP_DOT = {
-    'step1': 0,
-    'step2a': 1, 'step2b': 1,
-    'step3a': 2, 'step3b': 2,
-    'step4a': 3, 'step4b': 3,
-    'contact': 4
-  };
+  // Total de perguntas (não conta a tela de dados nem as finais)
+  const TOTAL_QUESTIONS = 4;
 
   /* ===========================================
      LÓGICA DO FORMULÁRIO
      =========================================== */
 
-  let currentStepId = 'step1';
-  let currentBranch = null;
+  let currentStep = 1;
+  const TOTAL_STEPS = 5;
   const formData = {};
 
   const progress = document.getElementById('progress');
   const dots = progress.querySelectorAll('.dot');
+  const steps = document.querySelectorAll('.step');
 
-  function getStepEl(stepId) {
-    return document.querySelector(`.step[data-step="${stepId}"]`);
+
+  /* ===========================================
+     🎯 TRACKING — Funções de Advanced Matching & Eventos
+     =========================================== */
+
+  const LP_AREA = 'Trabalhista';
+  const LP_AREA_CAT = 'Direito_Trabalhista';
+  const LP_LEAD_VALUE = 200;
+
+  function getStepName(step) {
+    const names = { 1: 'Situacao', 2: 'Tempo', 3: 'Provas', 4: 'Urgencia', 5: 'Contato' };
+    return names[step] || 'Step_' + step;
   }
 
-  function goToStep(nextId) {
-    const currentEl = getStepEl(currentStepId);
-    const currentDot = STEP_DOT[currentStepId];
-    const nextDot = STEP_DOT[nextId];
+  // SHA-256 hash client-side (LGPD compliant — dados nunca saem em texto puro)
+  async function sha256(str) {
+    if (!str) return '';
+    const buf = await crypto.subtle.digest('SHA-256',
+      new TextEncoder().encode(str.trim().toLowerCase()));
+    return Array.from(new Uint8Array(buf))
+      .map(b => b.toString(16).padStart(2, '0')).join('');
+  }
 
-    // Marcar dot atual como completo
-    if (currentDot !== undefined) {
-      dots[currentDot].classList.remove('active');
-      dots[currentDot].classList.add('completed');
+  function getCookie(name) {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? match[2] : null;
+  }
+
+  function generateExternalId() {
+    try {
+      let id = localStorage.getItem('roa_external_id');
+      if (!id) {
+        id = 'roa_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('roa_external_id', id);
+      }
+      return id;
+    } catch(e) {
+      return 'roa_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
     }
+  }
 
-    // Esconder step atual
-    currentEl.classList.remove('active');
-
-    // Atualizar ID
-    currentStepId = nextId;
-
-    // 🎯 META PIXEL — FormStep
-    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormStep', {
-      area: 'Trabalhista',
-      step: nextId,
-      branch: currentBranch || 'pre'
+  function generateEventId() {
+    if (crypto.randomUUID) return crypto.randomUUID();
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0;
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
-
-    // Mostrar próximo step
-    const nextEl = getStepEl(nextId);
-    nextEl.classList.add('active');
-    if (nextDot !== undefined) {
-      dots[nextDot].classList.add('active');
-    }
-
-    // Scroll suave em mobile
-    if (window.innerWidth < 640) {
-      document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
   }
+
+  // Disparar LPView quando o DOM carregar
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof fbq !== 'undefined') {
+      fbq('trackCustom', 'LPView', {
+        area: LP_AREA,
+        content_category: LP_AREA_CAT
+      });
+    }
+  });
 
   // Click nas opções
   document.querySelectorAll('.option').forEach(option => {
     option.addEventListener('click', function() {
       const stepEl = this.closest('.step');
-      const stepId = stepEl.dataset.step;
+      const stepNum = parseInt(stepEl.dataset.step);
 
       // Marcar selecionada
       stepEl.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
       this.classList.add('selected');
 
       // Salvar resposta
-      formData[stepId] = this.dataset.value;
+      formData['step' + stepNum] = this.dataset.value;
 
-      // Capturar branch se definido (step1)
-      if (this.dataset.branch) {
-        currentBranch = this.dataset.branch;
+      // 🎯 TRACKING — FormAnswer
+      if (typeof fbq !== 'undefined') {
+        fbq('trackCustom', 'FormAnswer', {
+          area: LP_AREA,
+          step: stepNum,
+          answer: this.dataset.value,
+          content_category: LP_AREA_CAT
+        });
       }
-
-      // 🎯 META PIXEL — FormAnswer
-      if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormAnswer', {
-        area: 'Trabalhista',
-        step: stepId,
-        answer: this.dataset.value,
-        branch: currentBranch || 'pre'
-      });
 
       // Verificar desqualificação
       const disqualify = this.dataset.disqualify === 'true';
@@ -1087,114 +989,178 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
         if (disqualify) {
           showDisqualify();
         } else {
-          // Determinar próximo step
-          const route = NEXT_STEP[stepId];
-          let nextId;
-          if (typeof route === 'string') {
-            nextId = route;
-          } else if (route && currentBranch) {
-            nextId = route[currentBranch];
-          }
-          if (nextId) goToStep(nextId);
+          nextStep();
         }
       }, 300);
     });
   });
 
+  function nextStep() {
+    if (currentStep >= TOTAL_STEPS) return;
+
+    // 🎯 TRACKING — FormStep (próximo step)
+    if (typeof fbq !== 'undefined') {
+      fbq('trackCustom', 'FormStep', {
+        area: LP_AREA,
+        step: currentStep + 1,
+        step_name: getStepName(currentStep + 1),
+        content_category: LP_AREA_CAT
+      });
+    }
+
+    // Marcar dot atual como completo
+    dots[currentStep - 1].classList.remove('active');
+    dots[currentStep - 1].classList.add('completed');
+
+    // Esconder step atual
+    steps[currentStep - 1].classList.remove('active');
+
+    currentStep++;
+
+    // Mostrar próximo step
+    steps[currentStep - 1].classList.add('active');
+    dots[currentStep - 1].classList.add('active');
+
+    // Scroll suave pro topo do card em mobile
+    if (window.innerWidth < 640) {
+      document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
   function showDisqualify() {
     progress.classList.add('hidden');
-    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    steps.forEach(s => s.classList.remove('active'));
     document.getElementById('disqualifyScreen').classList.add('active');
 
+    // Link WhatsApp para descarte (mensagem genérica)
     const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de conversar com a equipe da Dra. Aline sobre meu caso trabalhista.');
     document.getElementById('disqualifyWhats').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
 
-    if (typeof fbq !== 'undefined') fbq('track', 'Lead', { qualified: false, area: 'Trabalhista' });
-    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormDisqualify', {
-      area: 'Trabalhista',
-      branch: currentBranch,
-      step1: formData.step1 || '',
-      step2a: formData.step2a || '',
-      qualified: false
-    });
+    // 🎯 TRACKING — Lead desqualificado + FormDisqualify
+    if (typeof fbq !== 'undefined') {
+      fbq('track', 'Lead', {
+        qualified: false,
+        content_name: LP_AREA,
+        content_category: LP_AREA_CAT
+      });
+      fbq('trackCustom', 'FormDisqualify', {
+        area: LP_AREA,
+        disqualify_step: currentStep,
+        last_answer: formData['step' + currentStep] || '',
+        content_category: LP_AREA_CAT
+      });
+    }
   }
 
   function showSuccess() {
     progress.classList.add('hidden');
-    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    steps.forEach(s => s.classList.remove('active'));
     document.getElementById('successScreen').classList.add('active');
 
+    // Personalizar com primeiro nome
     const firstName = (formData.nome || '').split(' ')[0] || 'você';
     document.getElementById('leadName').textContent = firstName;
 
-    // Montar mensagem WhatsApp por branch
-    let detalhes;
-    if (currentBranch === 'b') {
-      detalhes =
-        `• Situação: ${getReadableAnswer(formData.step1)}\n` +
-        `• Detalhe: ${getReadableAnswer(formData.step2b)}\n` +
-        `• Empresa sabe: ${getReadableAnswer(formData.step3b)}\n` +
-        `• Urgência: ${getReadableAnswer(formData.step4b)}`;
-    } else {
-      detalhes =
-        `• Problema: ${getReadableAnswer(formData.step1)}\n` +
-        `• Quando: ${getReadableAnswer(formData.step2a)}\n` +
-        `• Provas: ${getReadableAnswer(formData.step3a)}\n` +
-        `• Urgência: ${getReadableAnswer(formData.step4a)}`;
-    }
-
+    // Montar link WhatsApp personalizado
     const msg = encodeURIComponent(
-      `Olá Dra. Aline! Sou ${formData.nome} e acabei de preencher a avaliação no site.\n\n` +
-      `📋 Minha situação:\n${detalhes}\n\n` +
-      `Aguardo seu retorno! 🙏`
+      `Olá Dra. Aline! Meu nome é ${formData.nome}. ` +
+      `Acabei de fazer a avaliação no site e gostaria de conversar sobre meu caso trabalhista. ` +
+      `Situação: ${getReadableAnswer(formData.step1)} | ` +
+      `Tempo: ${getReadableAnswer(formData.step2)} | ` +
+      `Provas: ${getReadableAnswer(formData.step3)} | ` +
+      `Urgência: ${getReadableAnswer(formData.step4)}.`
     );
     document.getElementById('successWhats').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
 
-    if (typeof fbq !== 'undefined') fbq('track', 'Lead', { qualified: true, area: 'Trabalhista' });
-    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormSuccess', {
-      area: 'Trabalhista',
-      branch: currentBranch,
-      qualified: true,
-      ...formData
-    });
+    // 🎯 TRACKING — Advanced Matching + Lead qualificado + FormSuccess
+    (async function() {
+      try {
+        // Normalizar telefone para formato E.164 (55 + DDD + número)
+        let phone = formData.whatsapp || '';
+        if (phone.length === 11) phone = '55' + phone;
+        else if (phone.length === 10) phone = '55' + phone;
+
+        const nameParts = (formData.nome || '').trim().split(/\s+/);
+        const firstName = nameParts[0] || '';
+        const lastName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : '';
+
+        // Hash client-side (LGPD compliant)
+        const [phHash, fnHash, lnHash, countryHash] = await Promise.all([
+          sha256(phone),
+          sha256(firstName),
+          sha256(lastName),
+          sha256('br')
+        ]);
+
+        const externalId = generateExternalId();
+        const fbc = getCookie('_fbc') || '';
+        const fbp = getCookie('_fbp') || '';
+
+        // Montar userData para Advanced Matching
+        const userData = { ph: phHash, fn: fnHash, country: countryHash, external_id: externalId };
+        if (lnHash) userData.ln = lnHash;
+        if (fbc) userData.fbc = fbc;
+        if (fbp) userData.fbp = fbp;
+
+        if (typeof fbq !== 'undefined') {
+          // Reinicializar pixel com dados de identidade
+          fbq('init', '1579876419743844', userData);
+
+          // Lead qualificado com parâmetros enriquecidos
+          fbq('track', 'Lead', {
+            qualified: true,
+            content_name: LP_AREA,
+            content_category: LP_AREA_CAT,
+            value: LP_LEAD_VALUE,
+            currency: 'BRL'
+          });
+
+          // FormSuccess com todas as respostas
+          fbq('trackCustom', 'FormSuccess', {
+            area: LP_AREA,
+            step1: formData.step1 || '',
+            step2: formData.step2 || '',
+            step3: formData.step3 || '',
+            step4: formData.step4 || '',
+            content_category: LP_AREA_CAT
+          });
+        }
+
+        // 🎯 GOOGLE ADS — descomente para rastrear conversão
+        // if (typeof gtag !== 'undefined') gtag('event', 'conversion', { send_to: 'AW-XXXX/YYYY' });
+      } catch(e) {
+        // Fallback: disparar sem Advanced Matching se algo falhar
+        if (typeof fbq !== 'undefined') {
+          fbq('track', 'Lead', { qualified: true, content_name: LP_AREA });
+          fbq('trackCustom', 'FormSuccess', { area: LP_AREA });
+        }
+      }
+    })();
   }
 
+  // Tradução amigável das respostas para a mensagem do WhatsApp
   function getReadableAnswer(value) {
     const map = {
-      'demissao': 'Demissão — acha que não recebeu tudo',
-      'assedio': 'Assédio ou humilhação no trabalho',
+      'demissao': 'Demissão com dúvidas',
+      'assedio': 'Assédio no trabalho',
       'horas-extras': 'Horas extras não pagas',
-      'sem-registro': 'Trabalho sem carteira',
-      'gestante': 'Gestante demitida ou ameaçada',
+      'sem-registro': 'Trabalho sem registro',
       'outro': 'Outro problema trabalhista',
-      'atual': 'Está acontecendo agora',
-      'recente': 'Saiu há menos de 1 ano',
-      'medio': 'Saiu entre 1 e 2 anos',
-      'muitas-provas': 'Tem prints, e-mails ou testemunhas',
-      'algumas-provas': 'Tem algumas coisas',
-      'poucas-provas': 'Quase nada, mas pode conseguir',
-      'sem-provas': 'Não guardou nada',
-      'agora': 'Atenderia agora mesmo',
+      'atual': 'Acontecendo agora',
+      'recente': 'Há menos de 1 ano',
+      'medio': 'Entre 1 e 2 anos',
+      'muitas-provas': 'Tem provas sólidas',
+      'algumas-provas': 'Tem algumas provas',
+      'poucas-provas': 'Pode conseguir provas',
+      'sem-provas': 'Sem provas no momento',
+      'agora': 'Quer resolver hoje',
       'semana': 'Nos próximos dias',
-      'mes': 'Esse mês',
-      'pesquisando': 'Ainda pensando',
-      'demitida-gravida': 'Demitida estando grávida',
-      'ameacada': 'Grávida e sofre pressão pra pedir demissão',
-      'contrato-acabou': 'Contrato temporário acabou na gravidez',
-      'descobri-depois': 'Descobriu gravidez após demissão',
-      'empresa-sabe': 'Empresa sabe (comunicação formal)',
-      'sabe-informal': 'Empresa sabe informalmente',
-      'nao-sabe': 'Empresa não sabe',
-      'nao-sei-gestante': 'Não tem certeza se sabem',
-      'agora-gestante': 'Urgente — foi demitida',
-      'semana-gestante': 'Nos próximos dias',
-      'mes-gestante': 'Esse mês',
-      'pesquisando-gestante': 'Quer entender os direitos'
+      'mes': 'Ainda este mês'
     };
     return map[value] || value;
   }
 
-  // Máscara de telefone
+  // Máscara de telefone simples
   const whatsappInput = document.getElementById('whatsapp');
   whatsappInput.addEventListener('input', function(e) {
     let v = e.target.value.replace(/\D/g, '').slice(0, 11);
@@ -1215,6 +1181,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     const nome = document.getElementById('nome').value.trim();
     const whatsapp = document.getElementById('whatsapp').value.trim();
 
+    // Validação
     if (nome.length < 2) {
       document.getElementById('nome').focus();
       document.getElementById('nome').style.borderColor = '#ef4444';
@@ -1233,15 +1200,17 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     formData.nome = nome;
     formData.whatsapp = digits;
 
-    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormContact', {
-      area: 'Trabalhista',
-      branch: currentBranch,
-      step: 'contact'
-    });
+    // 🎯 TRACKING — FormContact (dados de contato preenchidos)
+    if (typeof fbq !== 'undefined') {
+      fbq('trackCustom', 'FormContact', {
+        area: LP_AREA,
+        content_category: LP_AREA_CAT
+      });
+    }
 
     // Marcar último dot como completo
-    dots[4].classList.remove('active');
-    dots[4].classList.add('completed');
+    dots[currentStep - 1].classList.remove('active');
+    dots[currentStep - 1].classList.add('completed');
 
     showSuccess();
   });
