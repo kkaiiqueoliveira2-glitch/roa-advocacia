@@ -270,6 +270,21 @@
     display: none;
   }
 
+  /* Legenda de progresso — reforço sóbrio de avanço */
+  .progress-caption {
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: -18px 0 26px;
+    letter-spacing: 0.01em;
+    min-height: 18px;
+    transition: opacity 0.4s ease;
+  }
+
+  .progress-caption.hidden {
+    display: none;
+  }
+
   .dot {
     width: 10px;
     height: 10px;
@@ -637,7 +652,7 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '1579876419743844');
 fbq('track', 'PageView');
-fbq('trackCustom', 'LPView', { area: 'Guarda' });
+fbq('trackCustom', 'LPView', { area: 'Guarda', value: 0, currency: 'BRL' });
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
@@ -683,6 +698,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
           <div class="dot"></div>
           <div class="dot"></div>
         </div>
+        <p class="progress-caption" id="progressCaption">Leva menos de 1 minuto · 100% sigiloso</p>
 
         <!-- STEP 1: bifurcação -->
         <div class="step active" data-step="step1">
@@ -1001,6 +1017,14 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
   const formData = {};
   const progress = document.getElementById('progress');
   const dots = progress.querySelectorAll('.dot');
+  const progressCaption = document.getElementById('progressCaption');
+  const PROGRESS_CAPTION = [
+    'Leva menos de 1 minuto · 100% sigiloso',
+    'Cada resposta ajuda a entender seu caso.',
+    'Você está quase lá.',
+    'Última pergunta antes da sua análise.',
+    'Falta só o seu contato — retorno em até 1h.'
+  ];
 
   function getStepEl(id) { return document.querySelector(`.step[data-step="${id}"]`); }
 
@@ -1012,6 +1036,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormStep', { area: 'Guarda', step: nextId, branch: currentBranch || 'pre' });
     getStepEl(nextId).classList.add('active');
     const nd = STEP_DOT[nextId]; if (nd !== undefined) dots[nd].classList.add('active');
+    if (progressCaption && PROGRESS_CAPTION[nd] !== undefined) progressCaption.textContent = PROGRESS_CAPTION[nd];
     if (window.innerWidth < 640) document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
@@ -1036,6 +1061,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
 
   function showDisqualify() {
     progress.classList.add('hidden');
+    if (progressCaption) progressCaption.classList.add('hidden');
     document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
     document.getElementById('disqualifyScreen').classList.add('active');
     const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de conversar com a Dra. Gessika.');
@@ -1046,6 +1072,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
 
   function showSuccess() {
     progress.classList.add('hidden');
+    if (progressCaption) progressCaption.classList.add('hidden');
     document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
     document.getElementById('successScreen').classList.add('active');
     const firstName = (formData.nome || '').split(' ')[0] || 'você';
