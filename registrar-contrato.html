@@ -353,8 +353,8 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
 </div>
 
 <script>
-  const PIXEL_ID = '1579876419743844';
-  const ACCESS_TOKEN = 'EAAnGAXXfur8BRjwBFl1tS8gVbVRyEYjpNZBhNj3tSpk7zldFu3Yj15lYZCnWdsuFmAvNv9Rr3Yj2HtsOBzWzSDNxXZBn0WeqsJCfUzL3ig5Gt45iSb4pVram97QlZBTmPsqnUgUnQMG6es3ShxYO9Pt4JKWQgboBTZA7BNkJqVyeDFIZBXkBv4oBpNJoJZC8eZABmAZDZD';
+  // Credenciais do Meta ficam server-side em /api/contrato (variáveis de ambiente da Vercel).
+  // Nada de token no front-end.
 
   // Máscara telefone
   document.getElementById('clientPhone').addEventListener('input', function(e) {
@@ -445,30 +445,21 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     document.getElementById('feedbackBox').style.display = 'none';
 
     try {
-      const phoneHash = await hashSHA256(phone);
-      const payload = {
-        data: [{
-          event_name: 'Purchase',
-          event_time: Math.floor(Date.now() / 1000),
-          action_source: 'other',
-          user_data: { ph: [phoneHash] },
-          custom_data: {
-            currency: 'BRL',
-            value: valor ? parseFloat(valor) : 1,
-            content_name: area,
-            content_category: advogada,
-            ordem: nome
-          }
-        }]
-      };
-
-      const res = await fetch(
-        `https://graph.facebook.com/v19.0/${PIXEL_ID}/events?access_token=${ACCESS_TOKEN}`,
-        { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }
-      );
+      const res = await fetch('/api/contrato', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: nome,
+          phone: phone,
+          advogada: advogada,
+          area: area,
+          value: valor || '',
+          eventSourceUrl: window.location.href
+        })
+      });
       const result = await res.json();
 
-      if (result.events_received >= 1) {
+      if (res.ok && result.events_received >= 1) {
         showFeedback('success',
           `Contrato de <strong>${nome}</strong> registrado com sucesso!<br>
            <small style="font-size:12px;opacity:0.8;margin-top:4px;display:block">
