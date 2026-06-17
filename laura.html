@@ -652,7 +652,8 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '1579876419743844');
 fbq('track', 'PageView');
-fbq('trackCustom', 'LPView', { area: 'Previdenciario', value: 0, currency: 'BRL' });
+window.SUB_AREA = (new URLSearchParams(location.search).get('tema')||'').toLowerCase();
+fbq('trackCustom', 'LPView', { area: 'Previdenciario', sub_area: window.SUB_AREA || 'geral', value: 0, currency: 'BRL' });
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
@@ -675,6 +676,16 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     <div class="container">
 
       <h1>O INSS negou seu <span class="highlight">benefício?</span><br>Descubra como reverter em 1 minuto.</h1>
+      <script>
+      (function(){
+        var TEMA = {
+          'maternidade': 'Você pode ter direito ao <span class="highlight">salário-maternidade</span> com uma só contribuição.',
+          'incapacidade': 'Doente e o INSS <span class="highlight">negou ou cortou</span> seu benefício?<br>Descubra como reverter.'
+        };
+        var t = (window.SUB_AREA || '').toLowerCase();
+        if (TEMA[t]) { var h = document.querySelector('.hero h1'); if (h) h.innerHTML = TEMA[t]; }
+      })();
+      </script>
 
       
 
@@ -1048,7 +1059,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     document.getElementById('disqualifyScreen').classList.add('active');
     const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de conversar com a Dra. Laura.');
     document.getElementById('disqualifyWhats').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
-    if (typeof fbq !== 'undefined') fbq('track', 'Lead', { qualified: false, area: 'Previdenciario' });
+    if (typeof fbq !== 'undefined') fbq('track', 'Lead', { qualified: false, area: 'Previdenciario', sub_area: window.SUB_AREA || 'geral' });
     if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormDisqualify', { area: 'Previdenciario', branch: currentBranch, qualified: false, ...formData });
   }
 
@@ -1078,7 +1089,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
       `Olá Dra. Laura! Sou ${formData.nome} e acabei de preencher a avaliação no site.\n\n📋 Minha situação:\n${detalhes}\n\nAguardo seu retorno! 🙏`
     );
     document.getElementById('successWhats').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
-    if (typeof fbq !== 'undefined') fbq('track', 'Lead', { qualified: true, area: 'Previdenciario' });
+    if (typeof fbq !== 'undefined') fbq('track', 'Lead', { qualified: true, area: 'Previdenciario', sub_area: window.SUB_AREA || 'geral' });
     if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormSuccess', { area: 'Previdenciario', branch: currentBranch, qualified: true, ...formData });
   }
 
@@ -1141,6 +1152,16 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     dots[4].classList.remove('active'); dots[4].classList.add('completed');
     showSuccess();
   });
+
+  // Abre direto na ramificação do tema do anúncio (?tema=)
+  (function(){
+    var MAP = { 'maternidade': 'salario-maternidade', 'incapacidade': 'beneficio-negado' };
+    var val = MAP[(window.SUB_AREA || '').toLowerCase()];
+    if (val) {
+      var opt = document.querySelector('.step[data-step="step1"] .option[data-value="' + val + '"]');
+      if (opt) opt.click();
+    }
+  })();
 </script>
 
 </body>

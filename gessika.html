@@ -652,7 +652,8 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '1579876419743844');
 fbq('track', 'PageView');
-fbq('trackCustom', 'LPView', { area: 'Guarda', value: 0, currency: 'BRL' });
+window.SUB_AREA = (new URLSearchParams(location.search).get('tema')||'').toLowerCase();
+fbq('trackCustom', 'LPView', { area: 'Familia', sub_area: window.SUB_AREA || 'geral', value: 0, currency: 'BRL' });
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
@@ -675,6 +676,16 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     <div class="container">
 
       <h1>Pensão desatualizada ou um divórcio pra resolver?<br><span class="highlight">Descubra seus direitos</span> em 1 minuto.</h1>
+      <script>
+      (function(){
+        var TEMA = {
+          'alimentos': 'A pensão que você paga ou recebe<br><span class="highlight">ainda faz sentido</span> com a sua vida hoje?',
+          'divorcio': 'Quer se divorciar <span class="highlight">sem medo</span> do processo?<br>Descubra seus direitos em 1 minuto.'
+        };
+        var t = (window.SUB_AREA || '').toLowerCase();
+        if (TEMA[t]) { var h = document.querySelector('.hero h1'); if (h) h.innerHTML = TEMA[t]; }
+      })();
+      </script>
 
       
 
@@ -1021,7 +1032,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     if (curDot !== undefined) { dots[curDot].classList.remove('active'); dots[curDot].classList.add('completed'); }
     getStepEl(currentStepId).classList.remove('active');
     currentStepId = nextId;
-    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormStep', { area: 'Guarda', step: nextId, branch: currentBranch || 'pre' });
+    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormStep', { area: 'Familia', step: nextId, branch: currentBranch || 'pre' });
     getStepEl(nextId).classList.add('active');
     const nd = STEP_DOT[nextId]; if (nd !== undefined) dots[nd].classList.add('active');
     if (progressCaption && PROGRESS_CAPTION[nd] !== undefined) progressCaption.textContent = PROGRESS_CAPTION[nd];
@@ -1036,7 +1047,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
       this.classList.add('selected');
       formData[stepId] = this.dataset.value;
       if (this.dataset.branch) currentBranch = this.dataset.branch;
-      if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormAnswer', { area: 'Guarda', step: stepId, answer: this.dataset.value, branch: currentBranch || 'pre' });
+      if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormAnswer', { area: 'Familia', step: stepId, answer: this.dataset.value, branch: currentBranch || 'pre' });
       const disqualify = this.dataset.disqualify === 'true';
       setTimeout(() => {
         if (disqualify) { showDisqualify(); return; }
@@ -1054,8 +1065,8 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     document.getElementById('disqualifyScreen').classList.add('active');
     const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de conversar com a Dra. Gessika.');
     document.getElementById('disqualifyWhats').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
-    if (typeof fbq !== 'undefined') fbq('track', 'Lead', { qualified: false, area: 'Guarda' });
-    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormDisqualify', { area: 'Guarda', branch: currentBranch, qualified: false, ...formData });
+    if (typeof fbq !== 'undefined') fbq('track', 'Lead', { qualified: false, area: 'Familia', sub_area: window.SUB_AREA || 'geral' });
+    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormDisqualify', { area: 'Familia', branch: currentBranch, qualified: false, ...formData });
   }
 
   function showSuccess() {
@@ -1084,8 +1095,8 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
       `Olá Dra. Gessika! Sou ${formData.nome} e acabei de preencher a avaliação no site.\n\n📋 Minha situação:\n${detalhes}\n\nAguardo seu retorno! 🙏`
     );
     document.getElementById('successWhats').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
-    if (typeof fbq !== 'undefined') fbq('track', 'Lead', { qualified: true, area: 'Guarda' });
-    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormSuccess', { area: 'Guarda', branch: currentBranch, qualified: true, ...formData });
+    if (typeof fbq !== 'undefined') fbq('track', 'Lead', { qualified: true, area: 'Familia', sub_area: window.SUB_AREA || 'geral' });
+    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormSuccess', { area: 'Familia', branch: currentBranch, qualified: true, ...formData });
   }
 
   function r(v) { return getReadableAnswer(v); }
@@ -1141,10 +1152,20 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     if (digits.length < 10 || digits.length > 11) { document.getElementById('whatsapp').focus(); document.getElementById('whatsapp').style.borderColor = '#ef4444'; setTimeout(() => document.getElementById('whatsapp').style.borderColor = '', 2000); return; }
     formData.nome = nome;
     formData.whatsapp = digits;
-    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormContact', { area: 'Guarda', branch: currentBranch, step: 'contact' });
+    if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormContact', { area: 'Familia', branch: currentBranch, step: 'contact' });
     dots[4].classList.remove('active'); dots[4].classList.add('completed');
     showSuccess();
   });
+
+  // Abre direto na ramificação do tema do anúncio (?tema=)
+  (function(){
+    var MAP = { 'alimentos': 'revisar-pensao', 'divorcio': 'divorcio' };
+    var val = MAP[(window.SUB_AREA || '').toLowerCase()];
+    if (val) {
+      var opt = document.querySelector('.step[data-step="step1"] .option[data-value="' + val + '"]');
+      if (opt) opt.click();
+    }
+  })();
 </script>
 
 </body>
