@@ -134,12 +134,7 @@ export default async function handler(req) {
   }
 
   return new Response(
-    JSON.stringify({
-      success: true,
-      events_received: metaData.events_received,
-      // Diagnóstico: só expõe a resposta completa do Meta quando há código de teste.
-      ...(testEventCode ? { meta: metaData } : {}),
-    }),
+    JSON.stringify({ success: true, events_received: metaData.events_received }),
     { status: 200, headers: { "Content-Type": "application/json" } }
   );
 }
