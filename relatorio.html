@@ -74,7 +74,8 @@
   .kpi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; }
   .kpi { background:var(--card-bg); border:1px solid var(--card-border); border-radius:var(--r-md); padding:18px; }
   .kpi .k-label { font-size:12px; color:var(--text-muted); margin-bottom:8px; }
-  .kpi .k-value { font-size:30px; font-weight:800; line-height:1.05; background:var(--gradient);
+  .kpi .k-value { font-size:clamp(22px,4.6vw,30px); font-weight:800; line-height:1.05; letter-spacing:-0.5px;
+    white-space:nowrap; background:var(--gradient);
     -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
   .kpi .k-value.plain { background:none; -webkit-text-fill-color:#fff; }
   .kpi .k-foot { font-size:12px; color:var(--text-dim); margin-top:6px; }
@@ -86,7 +87,9 @@
   .card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:var(--r-lg); padding:22px; }
   .card h3 { font-size:15px; font-weight:700; margin-bottom:3px; }
   .card .hint { font-size:12px; color:var(--text-muted); margin-bottom:16px; }
-  .chart-box { position:relative; height:270px; }
+  .chart-box { position:relative; height:270px; width:100%; overflow:hidden; }
+  .chart-box canvas { max-width:100%; }
+  .table-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
 
   /* table */
   table { width:100%; border-collapse:collapse; font-size:14px; }
@@ -255,6 +258,7 @@
       <section class="view" id="view-campanhas">
         <div class="label">Detalhe por campanha ativa</div>
         <div class="card">
+          <div class="table-scroll">
           <table id="tableLeads">
             <thead><tr>
               <th>Advogada / Área</th><th class="num">Investido</th><th class="num">Leads</th>
@@ -263,6 +267,7 @@
             <tbody></tbody>
             <tfoot></tfoot>
           </table>
+          </div>
         </div>
         <div class="note">
           <strong>Como ler:</strong> "Custo/lead" é quanto custou cada contato. "Visitas LP" é quanta gente abriu a
@@ -480,10 +485,10 @@
   /* ===================== NAV + CHARTS ===================== */
   Chart.defaults.color='#94a3b8'; Chart.defaults.font.family='Inter'; Chart.defaults.font.size=12;
   const gridc='rgba(255,255,255,0.06)';
-  let chartsReady=false;
+  let chartsReady=false, cDaily, cAdv;
   function initCharts(){
     if(chartsReady) return; chartsReady=true;
-    new Chart(document.getElementById('chartDaily'),{
+    cDaily=new Chart(document.getElementById('chartDaily'),{
       type:'bar',
       data:{ labels:DADOS.labelsDias, datasets:DADOS.leadCampaigns.map(c=>({
         label:c.adv.replace('Dra. ',''), data:c.leadsDia, backgroundColor:c.cor, borderRadius:4, stack:'l' })) },
@@ -491,7 +496,7 @@
         plugins:{ legend:{ position:'bottom', labels:{ usePointStyle:true, boxWidth:8 } } },
         scales:{ x:{ stacked:true, grid:{display:false} }, y:{ stacked:true, grid:{color:gridc}, beginAtZero:true, ticks:{precision:0} } } }
     });
-    new Chart(document.getElementById('chartAdv'),{
+    cAdv=new Chart(document.getElementById('chartAdv'),{
       data:{ labels:DADOS.leadCampaigns.map(c=>c.adv.replace('Dra. ','')), datasets:[
         { type:'bar', label:'Leads', data:DADOS.leadCampaigns.map(c=>c.leads),
           backgroundColor:DADOS.leadCampaigns.map(c=>c.cor), borderRadius:6, yAxisID:'y', order:2 },
@@ -505,6 +510,8 @@
     });
   }
   initCharts(); // overview é a aba default e está visível
+  const resizeCharts = () => { if(cDaily) cDaily.resize(); if(cAdv) cAdv.resize(); };
+  window.addEventListener('resize', resizeCharts);
 
   const titles = { overview:"Visão Geral", funil:"Funil de Leads", campanhas:"Campanhas", seguidores:"Seguidores", melhorias:"Melhorias e Próximos Passos" };
   document.querySelectorAll('.nav-item').forEach(item=>{
@@ -516,6 +523,7 @@
       document.getElementById('view-'+v).classList.add('active');
       document.getElementById('topTitle').textContent = titles[v];
       document.querySelector('.content').scrollTop = 0;
+      if(v==='overview') requestAnimationFrame(resizeCharts);
     });
   });
 </script>
