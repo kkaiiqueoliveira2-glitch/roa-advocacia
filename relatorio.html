@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ribeiro, Oliveira e Anjos Advocacia · Relatório de Campanhas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #06083d;
+    --bg-2: #0a0d4d;
+    --sidebar: #04062e;
+    --text: #ffffff;
+    --text-muted: #94a3b8;
+    --text-dim: #64748b;
+    --accent-1: #bfc1cb;
+    --accent-2: #d4d6de;
+    --good: #6ee7a8;
+    --warn: #f0b866;
+    --card-bg: rgba(255,255,255,0.04);
+    --card-border: rgba(255,255,255,0.08);
+    --gradient: linear-gradient(135deg, #d4d6de 0%, #8a8ca6 100%);
+    --r-sm: 10px; --r-md: 16px; --r-lg: 22px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Inter',sans-serif; background:var(--bg); color:var(--text);
+    -webkit-font-smoothing:antialiased; height:100vh; overflow:hidden; display:flex;
+  }
+
+  /* ---------- SIDEBAR ---------- */
+  .sidebar {
+    width:230px; flex-shrink:0; background:var(--sidebar); border-right:1px solid var(--card-border);
+    display:flex; flex-direction:column; padding:22px 14px; gap:6px;
+  }
+  .brand { display:flex; align-items:center; justify-content:center; gap:12px; padding:6px 8px 20px; }
+  .brand img { height:42px; width:auto; }
+  .brand .x { font-size:16px; font-weight:300; color:var(--text-dim); }
+  .nav-item {
+    display:flex; align-items:center; gap:12px; padding:11px 13px; border-radius:var(--r-sm);
+    color:var(--text-muted); font-size:14px; font-weight:500; cursor:pointer; transition:.18s; border:1px solid transparent;
+  }
+  .nav-item svg { width:18px; height:18px; flex-shrink:0; }
+  .nav-item:hover { background:rgba(255,255,255,0.04); color:#fff; }
+  .nav-item.active { background:rgba(191,193,203,0.1); color:#fff; border-color:rgba(191,193,203,0.2); }
+  .nav-foot { margin-top:auto; font-size:11px; color:var(--text-dim); padding:8px; line-height:1.5; }
+
+  /* ---------- MAIN ---------- */
+  .main { flex:1; display:flex; flex-direction:column; min-width:0; }
+  .topbar {
+    display:flex; align-items:center; justify-content:space-between; padding:18px 28px;
+    border-bottom:1px solid var(--card-border); flex-shrink:0;
+  }
+  .topbar h1 { font-size:18px; font-weight:700; }
+  .topbar .period { font-size:13px; color:var(--accent-2); border:1px solid rgba(191,193,203,0.2);
+    background:rgba(191,193,203,0.06); padding:6px 14px; border-radius:999px; }
+  .content { flex:1; overflow-y:auto; padding:26px 28px 40px; position:relative; }
+  .content::before {
+    content:''; position:fixed; inset:0 0 0 230px; pointer-events:none; z-index:0;
+    background: radial-gradient(ellipse 60% 50% at 80% 0%, rgba(180,182,200,0.1) 0%, transparent 55%);
+  }
+  .view { display:none; position:relative; z-index:1; animation:fade .25s ease; }
+  .view.active { display:block; }
+  @keyframes fade { from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+  .label { font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--text-muted);
+    font-weight:600; margin:0 0 14px; }
+  .label.mt { margin-top:30px; }
+
+  /* KPI */
+  .kpi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; }
+  .kpi { background:var(--card-bg); border:1px solid var(--card-border); border-radius:var(--r-md); padding:18px; }
+  .kpi .k-label { font-size:12px; color:var(--text-muted); margin-bottom:8px; }
+  .kpi .k-value { font-size:30px; font-weight:800; line-height:1.05; background:var(--gradient);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .kpi .k-value.plain { background:none; -webkit-text-fill-color:#fff; }
+  .kpi .k-foot { font-size:12px; color:var(--text-dim); margin-top:6px; }
+  .kpi .k-foot.good { color:var(--good); } .kpi .k-foot.warn { color:var(--warn); }
+
+  /* cards / charts */
+  .cards { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px; }
+  @media (max-width:900px){ .cards{ grid-template-columns:1fr; } }
+  .card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:var(--r-lg); padding:22px; }
+  .card h3 { font-size:15px; font-weight:700; margin-bottom:3px; }
+  .card .hint { font-size:12px; color:var(--text-muted); margin-bottom:16px; }
+  .chart-box { position:relative; height:270px; }
+
+  /* table */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  th,td { text-align:left; padding:13px 10px; border-bottom:1px solid var(--card-border); }
+  th { font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--text-muted); font-weight:600; }
+  td.num,th.num { text-align:right; font-variant-numeric:tabular-nums; }
+  tfoot td { font-weight:700; border-top:2px solid var(--card-border); border-bottom:none; }
+  .pill { display:inline-block; font-size:11px; font-weight:600; padding:3px 9px; border-radius:999px; }
+  .pill.good{ background:rgba(110,231,168,.12); color:var(--good); }
+  .pill.warn{ background:rgba(240,184,102,.12); color:var(--warn); }
+  .pill.neutral{ background:rgba(191,193,203,.12); color:var(--accent-2); }
+
+  /* FUNIL — topo centralizado + funil centralizado */
+  .funil-intro { color:var(--text-muted); font-size:14px; margin:0 auto 24px; max-width:640px; text-align:center; }
+
+  .funil-top { max-width:860px; margin:0 auto 36px; display:flex; flex-direction:column; gap:14px; }
+  .ftop-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .ftop-reads { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media (max-width:760px){ .ftop-stats,.ftop-reads{ grid-template-columns:1fr; } }
+  .hl  { color:var(--good); font-weight:700; }
+  .hl2 { color:var(--accent-2); font-weight:700; }
+
+  .funnel { max-width:720px; margin:0 auto; }
+  .f-row { display:grid; grid-template-columns:64px minmax(180px,1fr) 96px; align-items:stretch; gap:14px; }
+  .f-conv2 { display:flex; flex-direction:column; align-items:flex-end; justify-content:center; }
+  .f-conv2 .pct { font-size:17px; font-weight:800; color:#fff; line-height:1; }
+  .f-conv2 .pl { font-size:9px; color:var(--text-dim); text-transform:uppercase; letter-spacing:.04em; margin-top:3px; text-align:right; }
+  .f-piece { height:80px; position:relative; }
+  .f-seg { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; }
+  .f-seg .nm { color:#fff; font-weight:700; font-size:15px; text-shadow:0 1px 3px rgba(0,0,0,.3); }
+  .f-seg .vin { color:rgba(255,255,255,.85); font-weight:600; font-size:12px; text-shadow:0 1px 3px rgba(0,0,0,.3); }
+  .f-meta { display:flex; flex-direction:column; justify-content:center; }
+  .f-meta .sub { font-size:11px; color:var(--text-dim); line-height:1.3; }
+
+  /* painel lateral */
+  .funil-side { display:flex; flex-direction:column; gap:14px; }
+  .side-card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:var(--r-md); padding:18px; }
+  .side-card .sc-tag { font-size:11px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--accent-2); margin-bottom:8px; }
+  .side-card p { font-size:13px; color:var(--text-muted); line-height:1.6; } .side-card p strong{ color:#fff; }
+  .side-stats { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .side-stat { background:var(--card-bg); border:1px solid var(--card-border); border-radius:var(--r-md); padding:14px 16px; }
+  .side-stat.full { grid-column:1 / -1; }
+  .side-stat .l { font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:.05em; }
+  .side-stat .v { font-size:21px; font-weight:800; margin-top:6px; }
+
+  /* insights / melhorias */
+  .insights { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:900px){ .insights{ grid-template-columns:1fr; } }
+  .insight { background:var(--card-bg); border:1px solid var(--card-border); border-radius:var(--r-md); padding:18px; font-size:14px; }
+  .insight .tag { font-size:11px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; margin-bottom:8px; }
+  .insight.win .tag{ color:var(--good); } .insight.fix .tag{ color:var(--warn); }
+  .insight p { color:var(--text-muted); } .insight strong{ color:#fff; }
+  .note { background:rgba(191,193,203,.06); border:1px solid rgba(191,193,203,.15); border-radius:var(--r-sm);
+    padding:14px 16px; font-size:13px; color:var(--text-muted); margin-top:16px; line-height:1.6; }
+  .note strong{ color:var(--accent-2); }
+
+  .road { display:flex; flex-direction:column; gap:12px; max-width:820px; }
+  .road-item { display:flex; gap:14px; align-items:flex-start; background:var(--card-bg);
+    border:1px solid var(--card-border); border-radius:var(--r-md); padding:16px 18px; }
+  .road-dot { width:12px; height:12px; border-radius:50%; margin-top:5px; flex-shrink:0; }
+  .road-dot.done{ background:var(--good); } .road-dot.doing{ background:var(--warn); } .road-dot.next{ background:var(--accent-1); }
+  .road-item h4 { font-size:14px; font-weight:700; margin-bottom:3px; display:flex; gap:10px; align-items:center; }
+  .road-item p { font-size:13px; color:var(--text-muted); }
+  .road-status { font-size:10px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; padding:2px 8px; border-radius:999px; }
+  .road-status.done{ background:rgba(110,231,168,.12); color:var(--good); }
+  .road-status.doing{ background:rgba(240,184,102,.12); color:var(--warn); }
+  .road-status.next{ background:rgba(191,193,203,.12); color:var(--accent-2); }
+
+  /* cards por advogada (seguidores) */
+  .adv-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  @media (max-width:780px){ .adv-cards{ grid-template-columns:1fr; } }
+  .adv-card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:var(--r-md); padding:18px; }
+  .adv-card.best { border-color:rgba(110,231,168,.4); box-shadow:0 0 0 1px rgba(110,231,168,.15) inset; }
+  .ac-top { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; margin-bottom:14px; }
+  .ac-name { font-weight:700; font-size:14px; } .ac-name small{ display:block; color:var(--text-muted); font-weight:400; font-size:12px; }
+  .ac-badge { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:3px 8px; border-radius:999px; background:rgba(110,231,168,.12); color:var(--good); white-space:nowrap; }
+  .ac-foll { font-size:36px; font-weight:800; line-height:1; background:var(--gradient);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .ac-foll.win { background:none; -webkit-text-fill-color:var(--good); color:var(--good); }
+  .ac-foll-l { font-size:12px; color:var(--text-muted); margin-top:5px; }
+  .ac-rows { margin-top:15px; border-top:1px solid var(--card-border); padding-top:13px; display:grid; gap:8px; }
+  .ac-r { display:flex; justify-content:space-between; font-size:13px; }
+  .ac-r span { color:var(--text-muted); } .ac-r b { font-variant-numeric:tabular-nums; }
+  .ac-r b.warn { color:var(--warn); } .ac-r b.good { color:var(--good); }
+
+  @media (max-width:720px){
+    body{ overflow:auto; }
+    .sidebar{ position:fixed; bottom:0; left:0; right:0; width:100%; flex-direction:row; overflow-x:auto;
+      padding:8px; gap:4px; z-index:50; border-right:none; border-top:1px solid var(--card-border); }
+    .brand,.nav-foot{ display:none; }
+    .nav-item{ flex-direction:column; gap:4px; font-size:10px; padding:8px 10px; white-space:nowrap; }
+    .main{ padding-bottom:70px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="logo.png" alt="Ribeiro, Oliveira e Anjos Advocacia">
+      <span class="x">×</span>
+      <img src="conect-logo.png" alt="Conect+">
+    </div>
+    <div class="nav-item active" data-view="overview">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+      Visão Geral
+    </div>
+    <div class="nav-item" data-view="funil">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+      Funil de Leads
+    </div>
+    <div class="nav-item" data-view="campanhas">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      Campanhas
+    </div>
+    <div class="nav-item" data-view="seguidores">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Seguidores
+    </div>
+    <div class="nav-item" data-view="melhorias">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Melhorias
+    </div>
+    <div class="nav-foot">Conect+ · performance<br>atualizado 19/06/2026</div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <h1 id="topTitle">Visão Geral</h1>
+      <div class="period" id="period">10 a 19 de junho de 2026</div>
+    </div>
+    <div class="content">
+
+      <!-- VISÃO GERAL -->
+      <section class="view active" id="view-overview">
+        <div class="label">Captação de clientes · campanhas de lead</div>
+        <div class="kpi-grid" id="kpiLeads"></div>
+        <div class="cards">
+          <div class="card">
+            <h3>Leads por dia</h3>
+            <div class="hint">Contatos que chegaram a cada dia, por advogada.</div>
+            <div class="chart-box"><canvas id="chartDaily"></canvas></div>
+          </div>
+          <div class="card">
+            <h3>Desempenho por advogada</h3>
+            <div class="hint">Volume de leads e quanto custou cada um.</div>
+            <div class="chart-box"><canvas id="chartAdv"></canvas></div>
+          </div>
+        </div>
+        <div class="label mt">Leitura do período</div>
+        <div class="insights" id="insights"></div>
+        <div class="note" id="contractNote"></div>
+      </section>
+
+      <!-- FUNIL -->
+      <section class="view" id="view-funil">
+        <div class="label">Funil de leads · do anúncio ao contrato</div>
+        <div class="funil-top" id="funnelTop"></div>
+        <p class="funil-intro">A porcentagem à esquerda de cada etapa é o quanto passou para a seguinte.</p>
+        <div class="funnel" id="funnel"></div>
+      </section>
+
+      <!-- CAMPANHAS -->
+      <section class="view" id="view-campanhas">
+        <div class="label">Detalhe por campanha ativa</div>
+        <div class="card">
+          <table id="tableLeads">
+            <thead><tr>
+              <th>Advogada / Área</th><th class="num">Investido</th><th class="num">Leads</th>
+              <th class="num">Custo/lead</th><th class="num">Visitas LP</th><th class="num">Alcance</th><th>Status</th>
+            </tr></thead>
+            <tbody></tbody>
+            <tfoot></tfoot>
+          </table>
+        </div>
+        <div class="note">
+          <strong>Como ler:</strong> "Custo/lead" é quanto custou cada contato. "Visitas LP" é quanta gente abriu a
+          página da campanha. Quanto menor o custo/lead com bom volume, mais eficiente está a frente.
+        </div>
+      </section>
+
+      <!-- SEGUIDORES -->
+      <section class="view" id="view-seguidores">
+        <div class="label">Reconhecimento de marca · campanha de seguidores</div>
+        <div class="kpi-grid" id="kpiTraffic"></div>
+        <div class="label mt">Seguidores conquistados por advogada</div>
+        <div class="adv-cards" id="segAdv"></div>
+        <div class="note">
+          <strong>Objetivo diferente:</strong> essa campanha não busca lead direto — ela amplia o alcance e o perfil
+          do escritório no Instagram, aquecendo o público para as campanhas de captação. Por isso é medida em
+          <strong>seguidores</strong>, visitas ao perfil e alcance, não em custo por lead.
+        </div>
+      </section>
+
+      <!-- MELHORIAS -->
+      <section class="view" id="view-melhorias">
+        <div class="label">Melhorias e próximos passos da estrutura</div>
+        <p style="color:var(--text-muted); font-size:14px; margin-bottom:22px; max-width:700px">
+          O que já está pronto, o que estamos ajustando agora e o que vem a seguir para escalar os resultados com
+          previsibilidade.
+        </p>
+        <div class="road" id="road"></div>
+      </section>
+
+    </div>
+  </div>
+
+<script>
+  /* ===========================================================================
+     DADOS REAIS — Meta Ads · conta CA - Ribeiro, Oliveira e Anjos adv
+     Período captação: 10–19/06/2026 · seguidores: 09/05–19/06/2026
+     Para atualizar: edite os números abaixo.
+     =========================================================================== */
+  const DADOS = {
+    periodo: "10 a 19 de junho de 2026",
+    labelsDias: ["10/06","11/06","12/06","13/06","14/06","15/06","16/06","17/06","18/06","19/06"],
+    leadCampaigns: [
+      { adv:"Dra. Gessika", area:"Família / Guarda", cor:"#6ee7a8",
+        investido:148.60, leads:22, cpl:6.75, alcance:5894, cliques:188, lpviews:145,
+        leadsDia:[2,1,1,9,1,5,0,3,0,0], status:["good","Destaque"] },
+      { adv:"Dra. Aline", area:"Trabalhista", cor:"#bfc1cb",
+        investido:141.54, leads:6, cpl:23.59, alcance:5896, cliques:126, lpviews:105,
+        leadsDia:[1,0,0,0,2,1,1,0,1,0], status:["neutral","Estável"] },
+      { adv:"Dra. Laura", area:"Previdenciário / INSS", cor:"#f0b866",
+        investido:136.29, leads:4, cpl:34.07, alcance:4341, cliques:164, lpviews:134,
+        leadsDia:[0,0,0,0,2,0,1,0,1,0], status:["warn","Atenção"] },
+    ],
+    seguidores:{ investido:758.85, alcance:35995, visitasPerfil:1438, seguidores:575,
+      custoSeguidor:1.32, custoVisita:0.53, cliques:2120, engajamentos:21782, ctr:7.51,
+      porAdv:[
+        { adv:"Dra. Aline", area:"Trabalhista", seguidores:244, visitas:436, investido:283.61, alcance:13318, custoSeg:1.16, melhor:true },
+        { adv:"Dra. Laura", area:"Previdenciário", seguidores:218, visitas:509, investido:254.81, alcance:10471, custoSeg:1.17 },
+        { adv:"Dra. Gessika", area:"Família / Guarda", seguidores:113, visitas:493, investido:220.43, alcance:12206, custoSeg:1.95 },
+      ] },
+    // contratos fechados (a registrar via página de Registrar Contrato)
+    contratos: 0
+  };
+
+  const BRL = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+  const NUM = v => v.toLocaleString('pt-BR');
+  const PCT = v => v.toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+'%';
+
+  const tInvest = DADOS.leadCampaigns.reduce((s,c)=>s+c.investido,0);
+  const tLeads  = DADOS.leadCampaigns.reduce((s,c)=>s+c.leads,0);
+  const tCliques= DADOS.leadCampaigns.reduce((s,c)=>s+c.cliques,0);
+  const tLpviews= DADOS.leadCampaigns.reduce((s,c)=>s+c.lpviews,0);
+  const tAlcance= DADOS.leadCampaigns.reduce((s,c)=>s+c.alcance,0);
+  const cplMedio= tInvest/tLeads;
+
+  document.getElementById('period').textContent = DADOS.periodo;
+
+  /* ---- KPIs captação ---- */
+  document.getElementById('kpiLeads').innerHTML = [
+    { l:"Investimento em captação", v:BRL(tInvest), f:"3 campanhas ativas" },
+    { l:"Leads recebidos", v:NUM(tLeads), f:"contatos no período", p:1 },
+    { l:"Custo por lead (médio)", v:BRL(cplMedio), f:"bom para advocacia", c:"good" },
+    { l:"Visitas à página", v:NUM(tLpviews), f:"abriram a landing page", p:1 },
+    { l:"Cliques no anúncio", v:NUM(tCliques), f:"interesse gerado", p:1 },
+  ].map(k=>`<div class="kpi"><div class="k-label">${k.l}</div>
+    <div class="k-value ${k.p?'plain':''}">${k.v}</div>
+    <div class="k-foot ${k.c||''}">${k.f}</div></div>`).join('');
+
+  /* ---- KPIs seguidores ---- */
+  const s = DADOS.seguidores;
+  document.getElementById('kpiTraffic').innerHTML = [
+    { l:"Seguidores ganhos", v:NUM(s.seguidores), f:"novos seguidores no período", c:"good" },
+    { l:"Investido", v:BRL(s.investido), f:"desde 09/05", p:1 },
+    { l:"Custo por seguidor", v:BRL(s.custoSeguidor), f:"média da campanha", p:1 },
+    { l:"Pessoas alcançadas", v:NUM(s.alcance), f:"contas únicas", p:1 },
+    { l:"Visitas ao perfil", v:NUM(s.visitasPerfil), f:`${BRL(s.custoVisita)} por visita`, p:1 },
+  ].map(k=>`<div class="kpi"><div class="k-label">${k.l}</div>
+    <div class="k-value ${k.p?'plain':''}">${k.v}</div>
+    <div class="k-foot ${k.c||''}">${k.f}</div></div>`).join('');
+
+  /* ---- Cards de seguidores por advogada ---- */
+  document.getElementById('segAdv').innerHTML = s.porAdv.map(a=>`
+    <div class="adv-card ${a.melhor?'best':''}">
+      <div class="ac-top">
+        <div class="ac-name">${a.adv}<small>${a.area}</small></div>
+        ${a.melhor?'<span class="ac-badge">★ Mais seguidores</span>':''}
+      </div>
+      <div class="ac-foll ${a.melhor?'win':''}">${NUM(a.seguidores)}</div>
+      <div class="ac-foll-l">seguidores conquistados</div>
+      <div class="ac-rows">
+        <div class="ac-r"><span>Visitas ao perfil</span><b>${NUM(a.visitas)}</b></div>
+        <div class="ac-r"><span>Investido</span><b>${BRL(a.investido)}</b></div>
+        <div class="ac-r"><span>Custo / seguidor</span><b class="${a.custoSeg<=1.3?'good':(a.custoSeg>=1.8?'warn':'')}">${BRL(a.custoSeg)}</b></div>
+        <div class="ac-r"><span>Alcance</span><b>${NUM(a.alcance)}</b></div>
+      </div>
+    </div>`).join('');
+
+  /* ---- Tabela ---- */
+  document.querySelector('#tableLeads tbody').innerHTML = DADOS.leadCampaigns.map(c=>`
+    <tr>
+      <td><strong>${c.adv}</strong><br><span style="color:var(--text-muted);font-size:12px">${c.area}</span></td>
+      <td class="num">${BRL(c.investido)}</td><td class="num">${c.leads}</td>
+      <td class="num">${BRL(c.cpl)}</td><td class="num">${c.lpviews}</td><td class="num">${NUM(c.alcance)}</td>
+      <td><span class="pill ${c.status[0]}">${c.status[1]}</span></td>
+    </tr>`).join('');
+  document.querySelector('#tableLeads tfoot').innerHTML =
+    `<tr><td>Total</td><td class="num">${BRL(tInvest)}</td><td class="num">${tLeads}</td>
+     <td class="num">${BRL(cplMedio)}</td><td class="num">${tLpviews}</td><td class="num">${NUM(tAlcance)}</td><td></td></tr>`;
+
+  /* ---- Insights ---- */
+  const best=[...DADOS.leadCampaigns].sort((a,b)=>a.cpl-b.cpl)[0];
+  const worst=[...DADOS.leadCampaigns].sort((a,b)=>b.cpl-a.cpl)[0];
+  document.getElementById('insights').innerHTML = `
+    <div class="insight win"><div class="tag">▲ Destaque</div>
+      <p><strong>${best.adv} (${best.area})</strong> puxou a maior parte: <strong>${best.leads} leads</strong> a
+      <strong>${BRL(best.cpl)}</strong> cada — o menor custo da conta. Vale reforçar verba aqui.</p></div>
+    <div class="insight fix"><div class="tag">● Ponto de ajuste</div>
+      <p><strong>${worst.adv} (${worst.area})</strong> está mais cara: <strong>${BRL(worst.cpl)}</strong> por lead
+      e só <strong>${worst.leads} leads</strong>. Próximo passo: testar criativo e oferta novos.</p></div>`;
+  document.getElementById('contractNote').innerHTML = `
+    <strong>Contratos fechados:</strong> a partir de agora cada contrato é registrado na página de Registrar Contrato,
+    alimentando o Meta com quem realmente virou cliente. Nos próximos relatórios passamos a mostrar
+    <strong>leads → contratos</strong> e o <strong>custo por contrato</strong> real.`;
+
+  /* ---- FUNIL trapezoidal (estilo referência) ---- */
+  const fSteps = [
+    { name:"Alcance",   sub:"viram o anúncio",        vol:tAlcance, grad:"linear-gradient(180deg,#5457c4,#6d70de)" },
+    { name:"Cliques",   sub:"clicaram no anúncio",    vol:tCliques, grad:"linear-gradient(180deg,#5b73d0,#5f93d8)" },
+    { name:"Visitas",   sub:"abriram a página",       vol:tLpviews, grad:"linear-gradient(180deg,#5ba0d2,#63bcc9)" },
+    { name:"Leads",     sub:"deixaram o contato",     vol:tLeads,   grad:"linear-gradient(180deg,#69cabf,#7de0a0)" },
+    { name:"Contratos", sub:"viraram cliente",        vol:DADOS.contratos, pendente: DADOS.contratos===0 },
+  ];
+  // larguras decrescentes (visual de funil) — 6 pontos para 5 segmentos
+  const W = [100, 80, 62, 46, 32, 20];
+  const clip = (top,bot) => {
+    const lt=(100-top)/2, rt=100-lt, lb=(100-bot)/2, rb=100-lb;
+    return `polygon(${lt}% 0, ${rt}% 0, ${rb}% 100%, ${lb}% 100%)`;
+  };
+  document.getElementById('funnel').innerHTML = fSteps.map((st,i)=>{
+    const conv = i>0 && fSteps[i-1].vol>0 && !st.pendente ? PCT(st.vol/fSteps[i-1].vol*100) : (st.pendente?'—':'100%');
+    const fill = st.pendente
+      ? 'background:rgba(110,231,168,0.14); border:1px dashed rgba(110,231,168,0.5);'
+      : `background:${st.grad};`;
+    const vin = st.pendente
+      ? '<span class="vin" style="color:var(--good)">a registrar</span>'
+      : `<span class="vin">${NUM(st.vol)}</span>`;
+    return `<div class="f-row">
+      <div class="f-conv2"><div class="pct">${conv}</div><div class="pl">${i===0?'base':'da etapa ant.'}</div></div>
+      <div class="f-piece"><div class="f-seg" style="${fill}clip-path:${clip(W[i],W[i+1])};-webkit-clip-path:${clip(W[i],W[i+1])};">
+        <span class="nm" style="${st.pendente?'color:var(--good)':''}">${st.name}</span>${vin}</div></div>
+      <div class="f-meta"><div class="sub">${st.sub}</div></div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('funnelTop').innerHTML = `
+    <div class="ftop-stats">
+      <div class="side-stat"><div class="l">Investido</div><div class="v" style="background:var(--gradient);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">${BRL(tInvest)}</div></div>
+      <div class="side-stat"><div class="l">Custo / lead</div><div class="v">${BRL(cplMedio)}</div></div>
+      <div class="side-stat"><div class="l">Contratos fechados</div><div class="v" style="color:var(--good);font-size:17px">a registrar</div></div>
+    </div>
+    <div class="ftop-reads">
+      <div class="side-card">
+        <div class="sc-tag">Maior oportunidade</div>
+        <p>De cada 100 pessoas que abrem a página, cerca de <span class="hl">8 viram contato</span>. Melhorar a
+        página e a oferta é a alavanca mais direta para gerar mais leads <span class="hl">sem aumentar o investimento</span>.</p>
+      </div>
+      <div class="side-card">
+        <div class="sc-tag">Contratos</div>
+        <p>O passo final começa a contar quando a equipe registrar os fechamentos na página de
+        <span class="hl2">Registrar Contrato</span> — aí o funil mostra o caminho completo até o <span class="hl2">cliente</span>.</p>
+      </div>
+    </div>`;
+
+  /* ---- ROADMAP melhorias ---- */
+  const road = [
+    { s:"done", t:"Pixel + Conversions API configurados", d:"Página de Registrar Contrato enviando o evento de compra com dados do cliente — campanhas aprendem com quem realmente fecha." },
+    { s:"done", t:"Dashboard de relatório", d:"Este painel, com dados reais por advogada, para acompanhamento transparente." },
+    { s:"doing", t:"Registrar todos os contratos fechados", d:"A equipe passa a registrar cada contrato para medir leads → contratos e o custo por contrato real." },
+    { s:"doing", t:"Otimizar campanha da Dra. Laura", d:"Custo por lead alto (R$ 34,07). Testar novos criativos e oferta para baixar o custo e aumentar volume." },
+    { s:"doing", t:"Reforçar verba na Dra. Gessika", d:"Frente mais eficiente (R$ 6,75/lead). Escalar com cuidado para manter o custo baixo." },
+    { s:"next", t:"Eventos de funil completos nas landing pages", d:"Medir cada etapa dentro da página (abriu, respondeu, enviou) para enxergar onde o lead desiste." },
+    { s:"next", t:"Google Ads + GA4", d:"Abrir um segundo canal de captação (busca) e instalar a medição do Google para visão completa." },
+    { s:"next", t:"Atendimento automático com IA (DuGus)", d:"Responder e qualificar o lead na hora, 24h, para nenhum contato esfriar antes do retorno da equipe." },
+  ];
+  const stLabel = { done:"Pronto", doing:"Em andamento", next:"Próximo" };
+  document.getElementById('road').innerHTML = road.map(r=>`
+    <div class="road-item">
+      <div class="road-dot ${r.s}"></div>
+      <div>
+        <h4>${r.t} <span class="road-status ${r.s}">${stLabel[r.s]}</span></h4>
+        <p>${r.d}</p>
+      </div>
+    </div>`).join('');
+
+  /* ===================== NAV + CHARTS ===================== */
+  Chart.defaults.color='#94a3b8'; Chart.defaults.font.family='Inter'; Chart.defaults.font.size=12;
+  const gridc='rgba(255,255,255,0.06)';
+  let chartsReady=false;
+  function initCharts(){
+    if(chartsReady) return; chartsReady=true;
+    new Chart(document.getElementById('chartDaily'),{
+      type:'bar',
+      data:{ labels:DADOS.labelsDias, datasets:DADOS.leadCampaigns.map(c=>({
+        label:c.adv.replace('Dra. ',''), data:c.leadsDia, backgroundColor:c.cor, borderRadius:4, stack:'l' })) },
+      options:{ maintainAspectRatio:false,
+        plugins:{ legend:{ position:'bottom', labels:{ usePointStyle:true, boxWidth:8 } } },
+        scales:{ x:{ stacked:true, grid:{display:false} }, y:{ stacked:true, grid:{color:gridc}, beginAtZero:true, ticks:{precision:0} } } }
+    });
+    new Chart(document.getElementById('chartAdv'),{
+      data:{ labels:DADOS.leadCampaigns.map(c=>c.adv.replace('Dra. ','')), datasets:[
+        { type:'bar', label:'Leads', data:DADOS.leadCampaigns.map(c=>c.leads),
+          backgroundColor:DADOS.leadCampaigns.map(c=>c.cor), borderRadius:6, yAxisID:'y', order:2 },
+        { type:'line', label:'Custo por lead (R$)', data:DADOS.leadCampaigns.map(c=>c.cpl),
+          borderColor:'#fff', backgroundColor:'#fff', tension:.3, yAxisID:'y1', order:1, pointRadius:4, pointBackgroundColor:'#fff' } ] },
+      options:{ maintainAspectRatio:false,
+        plugins:{ legend:{ position:'bottom', labels:{ usePointStyle:true, boxWidth:8 } } },
+        scales:{ x:{ grid:{display:false} },
+          y:{ position:'left', grid:{color:gridc}, beginAtZero:true, title:{display:true,text:'Leads'} },
+          y1:{ position:'right', grid:{display:false}, beginAtZero:true, title:{display:true,text:'R$ / lead'}, ticks:{callback:v=>'R$'+v} } } }
+    });
+  }
+  initCharts(); // overview é a aba default e está visível
+
+  const titles = { overview:"Visão Geral", funil:"Funil de Leads", campanhas:"Campanhas", seguidores:"Seguidores", melhorias:"Melhorias e Próximos Passos" };
+  document.querySelectorAll('.nav-item').forEach(item=>{
+    item.addEventListener('click',()=>{
+      const v=item.dataset.view;
+      document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+      item.classList.add('active');
+      document.querySelectorAll('.view').forEach(s=>s.classList.remove('active'));
+      document.getElementById('view-'+v).classList.add('active');
+      document.getElementById('topTitle').textContent = titles[v];
+      document.querySelector('.content').scrollTop = 0;
+    });
+  });
+</script>
+</body>
+</html>
