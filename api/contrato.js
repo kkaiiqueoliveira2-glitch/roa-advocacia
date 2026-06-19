@@ -22,6 +22,15 @@ function normalizePhone(phone) {
   return "55" + digits;
 }
 
+// Meta espera fn = primeiro nome e ln = sobrenome, cada um hasheado separado.
+function splitName(fullName) {
+  if (!fullName) return { first: undefined, last: undefined };
+  const parts = fullName.trim().split(/\s+/);
+  const first = parts.shift();
+  const last = parts.length ? parts.join(" ") : undefined;
+  return { first, last };
+}
+
 export default async function handler(req) {
   if (req.method !== "POST") {
     return new Response(JSON.stringify({ error: "Method not allowed" }), {
@@ -50,7 +59,7 @@ export default async function handler(req) {
     });
   }
 
-  const { name, phone, advogada, area, value, eventSourceUrl, testEventCode } = body;
+  const { name, email, phone, advogada, area, value, eventSourceUrl, testEventCode } = body;
 
   if (!phone) {
     return new Response(JSON.stringify({ error: "phone required" }), {
@@ -59,10 +68,21 @@ export default async function handler(req) {
     });
   }
 
+  const { first, last } = splitName(name);
+
+  // IP e User-Agent melhoram a correspondência do evento server-side.
+  const clientIp =
+    (req.headers.get("x-forwarded-for") || "").split(",")[0].trim() || undefined;
+  const clientUserAgent = req.headers.get("user-agent") || undefined;
+
   const userData = {
     ph: await hash(normalizePhone(phone)),
-    fn: await hash(name),
+    em: await hash(email),
+    fn: await hash(first),
+    ln: await hash(last),
     country: await hash("br"),
+    ...(clientIp ? { client_ip_address: clientIp } : {}),
+    ...(clientUserAgent ? { client_user_agent: clientUserAgent } : {}),
   };
   Object.keys(userData).forEach((k) => {
     if (userData[k] === null || userData[k] === undefined) delete userData[k];

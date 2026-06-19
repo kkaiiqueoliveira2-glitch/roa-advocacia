@@ -290,6 +290,11 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
       <input type="tel" id="clientPhone" placeholder="(11) 99999-9999" maxlength="15">
     </div>
 
+    <div class="field">
+      <label>E-mail do cliente — opcional</label>
+      <input type="email" id="clientEmail" placeholder="cliente@email.com" autocomplete="off">
+    </div>
+
     <hr class="divider">
 
     <div class="section-label" style="margin-top:0">
@@ -429,6 +434,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
   async function registrar() {
     const nome     = document.getElementById('clientName').value.trim();
     const telefone = document.getElementById('clientPhone').value.trim();
+    const email    = document.getElementById('clientEmail').value.trim();
     const advogada = document.getElementById('advogada').value;
     const area     = document.getElementById('area').value;
     const valor    = document.getElementById('valor').value.trim();
@@ -450,11 +456,15 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: nome,
+          email: email || '',
           phone: phone,
           advogada: advogada,
           area: area,
           value: valor || '',
-          eventSourceUrl: window.location.href
+          eventSourceUrl: window.location.href,
+          // ?test=TEST00000 na URL → evento vai pra aba "Testar eventos" do Meta.
+          // Sem o parâmetro, o Purchase vai normal pros dados ao vivo.
+          testEventCode: new URLSearchParams(window.location.search).get('test') || undefined
         })
       });
       const result = await res.json();
@@ -473,6 +483,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
         });
         document.getElementById('clientName').value = '';
         document.getElementById('clientPhone').value = '';
+        document.getElementById('clientEmail').value = '';
         document.getElementById('advogada').value = '';
         document.getElementById('area').value = '';
         document.getElementById('valor').value = '';
