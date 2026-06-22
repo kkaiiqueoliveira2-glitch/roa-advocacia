@@ -653,7 +653,7 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 fbq('init', '1579876419743844');
 fbq('track', 'PageView');
 window.SUB_AREA = (new URLSearchParams(location.search).get('tema')||'').toLowerCase();
-fbq('trackCustom', 'LPView', { area: 'Familia', sub_area: window.SUB_AREA || 'geral', value: 0, currency: 'BRL' });
+fbq('trackCustom', 'LPView', { area: 'Familia', sub_area: window.SUB_AREA || 'geral' });
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
@@ -1004,6 +1004,12 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     if (digits.length < 10 || digits.length > 11) { document.getElementById('whatsapp').focus(); document.getElementById('whatsapp').style.borderColor = '#ef4444'; setTimeout(() => document.getElementById('whatsapp').style.borderColor = '', 2000); return; }
     formData.nome = nome;
     formData.whatsapp = digits;
+
+    // Correspondência avançada: alimenta o Pixel com telefone + nome (hash no navegador)
+    if (typeof fbq !== 'undefined') {
+      var _nm = formData.nome.trim().split(/\s+/);
+      fbq('init', '1579876419743844', { ph: '55' + formData.whatsapp, fn: _nm[0] || '', ln: _nm.slice(1).join(' ') || '' });
+    }
     if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormContact', { area: 'Familia', branch: currentBranch, step: 'contact' });
     dots[2].classList.remove('active'); dots[2].classList.add('completed');
     showSuccess();
