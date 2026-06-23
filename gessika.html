@@ -947,7 +947,7 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormSuccess', { area: 'Familia', branch: currentBranch, qualified: true, ...formData });
     // Auto-redireciona pro WhatsApp ~1,5s apos concluir — garante que o lead chega na advogada
     var _waHref = document.getElementById('successWhats').href;
-    setTimeout(function(){ window.location.href = _waHref; }, 1500);
+    setTimeout(function(){ window.location.href = _waHref; }, 400);
   }
 
   function r(v) { return getReadableAnswer(v); }
