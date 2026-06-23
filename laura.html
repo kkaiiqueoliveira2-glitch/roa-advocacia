@@ -947,6 +947,9 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
     document.getElementById('successWhats').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
     if (typeof fbq !== 'undefined') fbq('track', 'Lead', { qualified: true, area: 'Previdenciario', sub_area: window.SUB_AREA || 'geral' });
     if (typeof fbq !== 'undefined') fbq('trackCustom', 'FormSuccess', { area: 'Previdenciario', branch: currentBranch, qualified: true, ...formData });
+    // Auto-redireciona pro WhatsApp ~1,5s apos concluir — garante que o lead chega na advogada
+    var _waHref = document.getElementById('successWhats').href;
+    setTimeout(function(){ window.location.href = _waHref; }, 1500);
   }
 
   function r(v) { return getReadableAnswer(v); }

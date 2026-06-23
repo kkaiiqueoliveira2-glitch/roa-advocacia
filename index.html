@@ -1039,6 +1039,9 @@ src="https://www.facebook.com/tr?id=1579876419743844&ev=PageView&noscript=1"
       qualified: true,
       ...formData
     });
+    // Auto-redireciona pro WhatsApp ~1,5s apos concluir — garante que o lead chega na advogada
+    var _waHref = document.getElementById('successWhats').href;
+    setTimeout(function(){ window.location.href = _waHref; }, 1500);
   }
 
   function getReadableAnswer(value) {
